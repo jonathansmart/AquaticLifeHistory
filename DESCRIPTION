@@ -24,7 +24,7 @@ Imports: plyr,
     tidyr,
     ggplot2
 RoxygenNote: 6.0.1
-License: GPL-3 + file LICENSE
+License: GPL-3
 Suggests: knitr,
     rmarkdown
 VignetteBuilder: knitr
