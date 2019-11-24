@@ -10,7 +10,7 @@
 #' @return Returns a list of parameter estimates with errors and AIC results. If plots is TRUE then a plot is printed to the screen. If plots is FALSE then the length-at-age estimates are returned as a list element
 #' @import broom MuMIn rlist minpack.lm dplyr tidyr ggplot2
 #' @importFrom magrittr %>%
-#' @importFrom stats glm lm nls nls.control predict quantile
+#' @importFrom stats glm lm nls nls.control predict quantile na.omit
 #' @export
 #' @references Smart et al. (2016) Multimodel approaches in shark and ray growth studies: strengths, weaknesses and the future. Fish and Fisheries. 17: 955-971\url{https://onlinelibrary.wiley.com/doi/abs/10.1111/faf.12154}
 
@@ -36,7 +36,7 @@ Estimate_Growth<-function(data, models = c("VB", "Log", "Gom"),  Birth.Len = NUL
   Data <- data.frame(Age = data[,age_col],
                      Length = data[,len_col])
 
-  Data <- na.omit(Data)# remove NA's
+  Data <- stats::na.omit(Data)# remove NA's
 
   mean.age<-tapply(Data$Length, round(Data$Age), mean,na.rm = T)
   Lt1<-mean.age[2:length(mean.age)]

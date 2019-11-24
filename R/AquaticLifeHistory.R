@@ -6,6 +6,9 @@
 #' @docType package
 NULL
 
+utils::globalVariables(c("Age", "Pred", "Model", "AVG", "w.AVG", ".", "Estimate", 'high', "low",
+                         'Maturity', 'N', 'Maturity.prop','Maturity.group', 'prop', 'na.omit',
+                         'term', 'Length', 'upp', 'Len.bin', 'Len.start', 'Len.fin', 'Maturity.group'))
 
 #' Length-at-age data for blacktip sharks
 #'
