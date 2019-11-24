@@ -25,3 +25,5 @@ License: GPL-3 + file LICENSE
 Suggests: knitr,
     rmarkdown
 VignetteBuilder: knitr
+URL: https://github.com/jonathansmart/AquaticLifeHistory
+BugReports: https://github.com/jonathansmart/AquaticLifeHistory/issues
