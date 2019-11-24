@@ -1,0 +1,27 @@
+Package: AquaticLifeHistory
+Type: Package
+Title: Life history analysis tools
+Version: 0.0.9000
+Date: 2019
+Authors@R: person("Jonathan", "Smart", email = "jonathan.smart@sa.gov.au", role = c("aut", "cre", "ctb"))
+Maintainer: Jonathan Smart <jonathan.smart@sa.gov.au>
+Description: A package to estimate shark life history using robust techniques.
+Encoding: UTF-8
+LazyData: true
+Depends: R (>= 3.3)
+Imports: plyr,
+    MASS,
+    readr,
+    broom,
+    MuMIn,
+    magrittr,
+    rlist,
+    minpack.lm,
+    dplyr,
+    tidyr,
+    ggplot2
+RoxygenNote: 6.0.1
+License: GPL-3 + file LICENSE
+Suggests: knitr,
+    rmarkdown
+VignetteBuilder: knitr
