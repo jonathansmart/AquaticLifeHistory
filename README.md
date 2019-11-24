@@ -1,6 +1,7 @@
 # AquaticLifeHistory
 
 <!-- badges: start -->
+[![Travis build status](https://travis-ci.org/jonathansmart/AquaticLifeHistory.svg?branch=master)](https://travis-ci.org/jonathansmart/AquaticLifeHistory)
 <!-- badges: end -->
 
 AquaticLifeHistory allows users to undertake fisheries life history analyses using contemporary approaches as simple R functions.
