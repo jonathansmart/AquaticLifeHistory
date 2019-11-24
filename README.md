@@ -3,7 +3,7 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-AquaticLifeHistory 
+AquaticLifeHistory allows users to undertake fisheries life history analyses using contemporary approaches as simple R functions.
 
 ## Installation
 
