@@ -38,7 +38,7 @@ data("growth_data")
 Estimate_Growth(growth_data)
 ```
 
-![](README-unnamed-chunk-2-1.png)
+![](man/figures/unnamed-chunk-2-1.png)
 
     #> $VonB
     #>         Parameter           SE
@@ -83,7 +83,7 @@ Estimate_Age_Maturity(maturity_data)
 Estimate_Age_Maturity(maturity_data, return = "plot")
 ```
 
-![](README-unnamed-chunk-3-1.png)
+![](man/figures/unnamed-chunk-3-1.png)
 
 For further examples of these and other functions use the provided vignettes
 
