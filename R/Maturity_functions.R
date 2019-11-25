@@ -69,12 +69,13 @@ Estimate_Age_Maturity <- function(data, error.structure = "binomial", n.bootstra
     preddat<-cbind( Age = new, predict(Maturity.Model, data.frame(Age=new$Age),se.fit=T,type = "response"))
 
     message("Bootstrapping logistic model with a binomial error structure")
-    boot_maturity <-  processed_data %>% boot_data(n.bootstraps) %>%
-      dplyr::do(glm(Maturity~Age,data = ., family = "binomial")%>%
-           predict(data.frame(Age=new$Age),type="response") %>% cbind(Age = new$Age, Pred =.) %>% as.data.frame())
+    boot_maturity <-  processed_data %>% AquaticLifeHistory:::boot_data(n.bootstraps) %>%
+      dplyr::do( tryCatch( glm(Maturity~Age,data = ., family = "binomial")%>%
+                             predict(data.frame(Age=new$Age),type="response") %>% cbind(Age = new$Age, Pred =.) %>% as.data.frame(),
+             warning=function(w){data.frame(Age = new$Age, Pred = NA)}))
 
-    boot_ests <- boot_maturity %>% dplyr::group_by(Age) %>% dplyr::summarize(high=quantile(Pred, 0.025),
-                                                               low=quantile(Pred, 0.975))
+    boot_ests <- boot_maturity %>% dplyr::group_by(Age) %>% dplyr::summarize(high=quantile(Pred, 0.025, na.rm = T),
+                                                               low=quantile(Pred, 0.975, na.rm = T))
 
     results <- cbind(boot_ests, Estimate = preddat$fit) %>%  dplyr::select(Age, Estimate, high,low)
 
@@ -111,16 +112,16 @@ Estimate_Age_Maturity <- function(data, error.structure = "binomial", n.bootstra
     preddat<-cbind(Age = new, predict(Maturity.Model, data.frame(Age=new$Age),se.fit=T,type = "response"))
 
     message("Bootstrapping logistic model with a quasibinomial error structure")
+    boot_maturity <-  processed_data %>% AquaticLifeHistory:::boot_data(n.bootstraps) %>%
+      dplyr::do( tryCatch( dplyr::mutate(.,Age = round(Age)) %>%
+                             dplyr::group_by(Age) %>%
+                             dplyr::summarise(Maturity.prop = mean(Maturity), N = n()) %>%
+                             glm(Maturity.prop~Age, data=.,family= "quasibinomial", weights = N) %>%
+                             predict(data.frame(Age=new$Age),type="response") %>% cbind(Age = new$Age, Pred =.) %>% as.data.frame(),
+                           warning=function(w){data.frame(Age = new$Age, Pred = NA)}))
 
-    boot_maturity <-  processed_data %>% boot_data(n.bootstraps) %>%
-      dplyr::do(dplyr::mutate(.,Age = round(Age)) %>%
-                  dplyr::group_by(Age) %>%
-                  dplyr::summarise(Maturity.prop = mean(Maturity), N = n()) %>%
-           glm(Maturity.prop~Age, data=.,family= "quasibinomial", weights = N) %>%
-           predict(data.frame(Age=new$Age),type="response") %>% cbind(Age = new$Age, Pred =.) %>% as.data.frame())
-
-    boot_ests <- boot_maturity %>% dplyr::group_by(Age) %>% dplyr::summarize(high=quantile(Pred, 0.025),
-                                                               low=quantile(Pred, 0.975))
+    boot_ests <- boot_maturity %>% dplyr::group_by(Age) %>% dplyr::summarize(high=quantile(Pred, 0.025, na.rm = T),
+                                                                             low=quantile(Pred, 0.975, na.rm = T))
 
     results <- cbind(boot_ests, Estimate = preddat$fit) %>% dplyr::select(Age, Estimate, high,low)
 
@@ -229,14 +230,19 @@ Estimate_Len_Maturity <- function(data, error.structure = "binomial", n.bootstra
     preddat<-cbind(Length = new, predict(Maturity.Model, data.frame(Length=new$Length),se.fit=T,type = "response"))
 
     message("Bootstrapping logistic model with a binomial error structure")
-    boot_maturity <-  processed_data %>% boot_data(n.bootstraps) %>%
-      dplyr::do(glm(Maturity~Length,data = ., family = "binomial")%>%
+    boot_maturity <-  processed_data %>% AquaticLifeHistory:::boot_data(n.bootstraps) %>%
+      dplyr::do(
+        tryCatch(glm(Maturity~Length,data = ., family = "binomial")%>%
            predict(data.frame(Length=new$Length),type="response") %>%
            cbind(Length = new$Length, Pred =.) %>%
-           as.data.frame())
+           as.data.frame(),
+           warning=function(w){data.frame(Length = new$Length, Pred = NA)}
+        )
+        )
 
-    boot_ests <- boot_maturity %>% dplyr::group_by(Length) %>% dplyr::summarize(high=quantile(Pred, 0.025),
-                                                                  low=quantile(Pred, 0.975))
+
+    boot_ests <- boot_maturity %>% dplyr::group_by(Length) %>% dplyr::summarize(high=quantile(Pred, 0.025, na.rm = T),
+                                                                  low=quantile(Pred, 0.975, na.rm = T))
 
     results <- cbind(boot_ests, Estimate = preddat$fit) %>% dplyr::select(Length, Estimate, high,low)
 
@@ -295,35 +301,42 @@ Estimate_Len_Maturity <- function(data, error.structure = "binomial", n.bootstra
     preddat<-cbind(Length = new, predict(Maturity.Model, data.frame(Length=new$Length),se.fit=T,type = "response"))
 
     message("Bootstrapping logistic model with a quasibinomial error structure")
+
     if(max(processed_data$Length) < 500){
-    boot_maturity <-  processed_data  %>% boot_data(n.bootstraps) %>%
-      dplyr::do(dplyr::mutate(.,Len.bin = cut(Length, breaks = seq(0, max(Length)+bin.width, bin.width))) %>%
-           tidyr::separate(Len.bin, into = c("Len.start","Len.fin"), sep = ",", remove = F) %>%
-             dplyr::mutate(Length = as.numeric(readr::parse_number(Len.start)),
-                  Len.bin = paste(readr::parse_number(Len.start), readr::parse_number(Len.fin), sep = "-")) %>%
-             dplyr::group_by(Length, Len.bin) %>%
-           dplyr::summarise(Maturity.prop = mean(Maturity), N = n()) %>%
-           glm(Maturity.prop~Length, data=.,family= "quasibinomial", weights = N) %>%
-           predict(data.frame(Length=new$Length),type="response") %>%
-           cbind(Length = new$Length, Pred =.) %>% as.data.frame())
+
+      boot_maturity <-  processed_data %>% AquaticLifeHistory:::boot_data(n.bootstraps) %>%
+        dplyr::do( tryCatch(dplyr::mutate(.,Len.bin = cut(Length, breaks = seq(0, max(Length)+bin.width, bin.width))) %>%
+                              tidyr::separate(Len.bin, into = c("Len.start","Len.fin"), sep = ",", remove = F) %>%
+                              dplyr::mutate(Length = as.numeric(readr::parse_number(Len.start)),
+                                            Len.bin = paste(readr::parse_number(Len.start), readr::parse_number(Len.fin), sep = "-")) %>%
+                              dplyr::group_by(Length, Len.bin) %>%
+                              dplyr::summarise(Maturity.prop = mean(Maturity), N = n()) %>%
+                              glm(Maturity.prop~Length, data=.,family= "quasibinomial", weights = N) %>%
+                              predict(data.frame(Length=new$Length),type="response") %>%
+                              cbind(Length = new$Length, Pred =.) %>% as.data.frame(),
+                            warning=function(w){data.frame(Length = new$Length, Pred = NA)}))
+
     }else{
-      boot_maturity <-  processed_data  %>% boot_data(n.bootstraps) %>%
-        dplyr::do(dplyr::mutate(.,
-                  Length = Length/10,
-                  Len.bin = cut(Length, breaks = seq(0, max(Length)+bin.width, bin.width/10))) %>%
-             tidyr::separate(Len.bin, into = c("Len.start","Len.fin"), sep = ",", remove = F) %>%
-               dplyr::mutate(Length = as.numeric(readr::parse_number(Len.start))*10,
-                    Len.bin = paste(readr::parse_number(Len.start)*10, readr::parse_number(Len.fin)*10, sep = "-")) %>%
-               dplyr::group_by(Length, Len.bin) %>%
-             dplyr::summarise(Maturity.prop = mean(Maturity), N = n()) %>%
-             glm(Maturity.prop~Length, data=.,family= "quasibinomial", weights = N) %>%
-             predict(data.frame(Length=new$Length),type="response") %>%
-             cbind(Length = new$Length, Pred =.) %>% as.data.frame())
+      boot_maturity <-  processed_data  %>% AquaticLifeHistory:::boot_data(n.bootstraps) %>%
+        dplyr::do(tryCatch(dplyr::mutate(.,
+                                         Length = Length/10,
+                                         Len.bin = cut(Length, breaks = seq(0, max(Length)+bin.width, bin.width/10))) %>%
+                             tidyr::separate(Len.bin, into = c("Len.start","Len.fin"), sep = ",", remove = F) %>%
+                             dplyr::mutate(Length = as.numeric(readr::parse_number(Len.start))*10,
+                                           Len.bin = paste(readr::parse_number(Len.start)*10, readr::parse_number(Len.fin)*10, sep = "-")) %>%
+                             dplyr::group_by(Length, Len.bin) %>%
+                             dplyr::summarise(Maturity.prop = mean(Maturity), N = n()) %>%
+                             glm(Maturity.prop~Length, data=.,family= "quasibinomial", weights = N) %>%
+                             predict(data.frame(Length=new$Length),type="response") %>%
+                             cbind(Length = new$Length, Pred =.) %>% as.data.frame(),
+                           warning=function(w){data.frame(Length = new$Length, Pred = NA)}
+        )
+        )
+
     }
 
-    boot_ests <- boot_maturity %>% dplyr::group_by(Length) %>% dplyr::summarize(high=quantile(Pred, 0.025),
-                                                                  low=quantile(Pred, 0.975))
-
+    boot_ests <- boot_maturity %>% dplyr::group_by(Length) %>% dplyr::summarize(high=quantile(Pred, 0.025, na.rm = T),
+                                                                                low=quantile(Pred, 0.975, na.rm = T))
     results <- cbind(boot_ests, Estimate = preddat$fit) %>% dplyr::select(Length, Estimate, high,low)
 
     p <- ggplot(results, aes(x = Length, y = Estimate)) +
