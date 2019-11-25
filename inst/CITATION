@@ -1,21 +1,11 @@
-citHeader("To cite AquaticLifeHistory use:")
+year <- sub("-.*", "", meta$Date)
+note <- sprintf("R package version %s", meta$Version)
 
-citEntry(
-  entry = "Article",
-  author = personList(as.person("Jonathan Smart"),
-                      as.person("Andrew Chin"),
-                      as.person("Andrew Tobin"),
-                      as.person("Colin Simpfendorfer")),
-  title = "Multimodel approaches in shark and ray growth studies: strengths, weaknesses and the future",
-  journal = "Fish and Fisheries",
-  year = "2016",
-  volume = "17",
-  pages = "955--971",
-  url = "https://onlinelibrary.wiley.com/doi/abs/10.1111/faf.12154",
-  textVersion = paste("Smart, J. J., Chin, A. , Tobin, A. J. and Simpfendorfer, C. A. (2016)",
-                      "Multimodel approaches in shark and ray growth studies: strengths, weaknesses and the future.",
-                      "Fish and Fisheries, 17: 955-971. doi:10.1111/faf.12154")
-
+bibentry(
+  bibtype = "Manual",
+  title = paste("{AquaticLifeHistory}: Fisheries life history analysis using contemporary methods"),
+  author = c(person("Jonathan", "Smart")),
+  year = year,
+  note = note,
+  url = "https://github.com/jonathansmart/AquaticLifeHistory"
 )
-
-
