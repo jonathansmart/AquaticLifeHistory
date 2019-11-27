@@ -85,7 +85,7 @@
       <h1>Growth estimation example using the AquaticLifeHistory package</h1>
                         <h4 class="author">Jonathan Smart</h4>
             
-            <h4 class="date">2019-11-25</h4>
+            <h4 class="date">2019-11-27</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jonathansmart/AquaticLifeHistory/blob/master/vignettes/Growth_estimation.Rmd"><code>vignettes/Growth_estimation.Rmd</code></a></small>
       <div class="hidden name"><code>Growth_estimation.Rmd</code></div>
@@ -118,12 +118,31 @@
 <div id="introduction" class="section level1">
 <h1 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h1>
-<p>Growth information attained through length-at-age analysis is a key component in many fisheries analyses. This package gives the user the ability to quickly and efficiently estimate growth for an aquatic species (fishes, sharks, molluscs, crustaceans, etc.) using robust and contemporary techniques. This can be achieved using either a single model approach (i.e. application of a von Bertalanffy growth function) or through a multi-model approach where multiple models are applied simultaneously and compared to one another.This package will provide parameter estimates with errors, length-at-age estimates with bootsrapped percentiles, plots and model statistics - providing users with everything required for scientific publication.</p>
+<p>Growth information attained through length-at-age analysis is a key component in many fisheries analyses. This package gives the user the ability to quickly and efficiently estimate growth for an aquatic species (fishes, sharks, molluscs, crustaceans, etc.) using robust and contemporary techniques. This can be achieved using either a single model approach (i.e. application of a von Bertalanffy growth function) or through a multi-model approach where multiple models are applied simultaneously and compared.This package will provide parameter estimates with errors, length-at-age estimates with bootsrapped confidence intervals, plots and model statistics - providing users with everything required for scientific publication.</p>
 </div>
 <div id="multi-model-growth-analysis-with-estimate_growth" class="section level1">
 <h1 class="hasAnchor">
 <a href="#multi-model-growth-analysis-with-estimate_growth" class="anchor"></a>Multi-model growth analysis with <code>Estimate_Growth()</code>
 </h1>
+<p><code><a href="../reference/Estimate_Growth.html">Estimate_Growth()</a></code> is the main function for length-at-age modelling and offers the user a lot of flexibility which we will run through. This function applies the multi-model approach outlined in <a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/faf.12154">Smart et al (2016)</a> and will give the user the option of applying three growth models. These include the von Bertalanffy growth model: <span class="math display">\[L_{a}=L_{0}+(L_{\infty}-L_{0})(1-e^{-ka})\]</span> the Gompertz model: <span class="math display">\[L_{a}=L_{0}e^{log(L_{\infty}/L_{0})(1-e^{-ga})})\]</span> and the Logistic model: <span class="math display">\[L_{a}=(L_{\infty}*L_{0}*e^{ga})/(L_{\infty}+L_{0}*e^{ga-1})\]</span> where <span class="math inline">\(L_{a}\)</span> is length-at-age <span class="math inline">\(a\)</span>, <span class="math inline">\(L_{\infty}\)</span> is the asympotic length and <span class="math inline">\(L_{0}\)</span> is the length-at-birth. Each model has its own growth coefficient (<span class="math inline">\(k\)</span> = von Bertalanfy, <span class="math inline">\(g\)</span> = Gompertz and <span class="math inline">\(g\)</span> = Logistic). These growth coefficients are incomparable between models (though the Gompertz and Logistic models share the same notation) whereas the <span class="math inline">\(L_{\infty}\)</span> and <span class="math inline">\(L_{0}\)</span> have the same interpretation between models.</p>
+<p>Most applications of growth models for fish have used a <span class="math inline">\(t_{0}\)</span> rather than <span class="math inline">\(L_{0}\)</span> which represents the time-at-length-zero rather than a length-at-birth (i.e time-zero). However, <span class="math inline">\(t_{0}\)</span> does not have the same definition accross multiple growth models whereas <span class="math inline">\(L_{0}\)</span> always refers to length-at-birth. This parameter is therefore used a multi-model approach. <span class="math inline">\(t_{0}\)</span> can be calculated from the VBGF parameters as: <span class="math display">\[t_{0}=(1/k)log(L_{\infty}-L_{0})/L_{\infty})\]</span></p>
+<p>Each of these models provide different growth forms and applying them silmultaneously and comparing their fits will increase the chance that an appropriate model is applied to the data. Alternatively, the user can apply a single model or select a combination (see further down).</p>
+<p>Using <code><a href="../reference/Estimate_Growth.html">Estimate_Growth()</a></code> will perform the following:</p>
+<ul>
+<li>Fit the specified growth models using an <code><a href="https://rdrr.io/r/stats/nls.html">nls()</a></code> function, returning the parameters and summary statistics.</li>
+<li>Calculate Akaike’s information criterion (<span class="math inline">\(AIC\)</span>) values and calculate model weights (<span class="math inline">\(w\)</span>).</li>
+<li>Bootstrap the data and return 95% confidence intervals for a growth curve over the age range of the data.</li>
+<li>Return a plot with the growth curves with confidence intervals (can be disabled to return raw results).</li>
+<li>Return parameter correlation matrices when requested.</li>
+</ul>
+<div id="input-data" class="section level2">
+<h2 class="hasAnchor">
+<a href="#input-data" class="anchor"></a>Input data</h2>
+<p>The <code>data</code> argument of <code><a href="../reference/Estimate_Growth.html">Estimate_Growth()</a></code> requires a data.frame of length and age data. However, this function is flexible and does not require the data to be preprocessed. The function will automatically determine the “Age” column and the “Length” column by looking for sensibly named columns. For example, the length column will accept a column named “Length”, “Len”, “STL”, “TL”, “LT” or “size”. If a column can’t be distinguished the user will be prompted to rename the necessary column. This setup means that a dataset that contains additional columns (such as “Sex” or “Date”) can be passed to the function. The only issue the user should be aware of is that multiple length columns can’t be provided (i.e “TL” and “FL”).</p>
+</div>
+<div id="example-applications" class="section level2">
+<h2 class="hasAnchor">
+<a href="#example-applications" class="anchor"></a>Example applications</h2>
 <p>Growth functions can be tested using an included dataset which contains length-at-age data for common blacktip sharks (<em>Carcharhinus limbatus</em>) from Indonesia.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(AquaticLifeHistory)
 
@@ -137,8 +156,7 @@
 <span class="co">#&gt; 4   3 1287.5114   F</span>
 <span class="co">#&gt; 5   4 1471.1238   F</span>
 <span class="co">#&gt; 6   5 1584.6282   F</span></code></pre></div>
-<p>Note that this data has three columns: Age, Length and Sex. The <code>Estimate_growth()</code> function can be used to fit growth curves to these data and will automatically determine the columns “Age” and “Length” from similar character strings. The “Sex” column can be included in the data provided to the function but will be ignored. The user does not need to subset the data for the correct columns. However, multiple length columns cannot be provided (for example Fork Length and Total length) as the function can’t distinguish which is to be used.</p>
-<p>Length-at-age 95th percentiles will be produced for the growth curve through bootstrapping with 1000 iterations being default. The <code>Estimate_growth()</code> will return a list of parameter estimates for three candidate models: the von Bertalanffy growth function (“VB”), Gompertz growth function (“Gom”) and Logistic growth function (“Log”). The Akaike’s information criterion (AIC) results for each model will also be returned as a list element, demonstrating which growth model best fit the data. A plot will be printed with the growth curves for all included models.</p>
+<p>Length-at-age 95% confidence intervals will be produced for the growth curve through bootstrapping with 1000 iterations being default. The <code>Estimate_growth()</code> will return a list of parameter estimates for three candidate models: the von Bertalanffy growth function (“VB”), Gompertz growth function (“Gom”) and Logistic growth function (“Log”). The <span class="math inline">\(AIC\)</span> results for each model will also be returned as a list element, demonstrating which growth model best fit the data. A plot will be printed with the growth curves for all included models.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/Estimate_Growth.html">Estimate_Growth</a></span>(<span class="dt">data =</span> growth_data)</code></pre></div>
 <p><img src="Growth_estimation_files/figure-html/unnamed-chunk-3-1.png" width="768"></p>
 <pre><code>#&gt; $VonB
@@ -167,7 +185,21 @@
 #&gt; 1    VB 3535.10     0.00      1
 #&gt; 2   Log 3605.40    70.30      0
 #&gt; 3   Gom 3569.54    34.45      0</code></pre>
-<p>The <code><a href="../reference/Estimate_Growth.html">Estimate_Growth()</a></code> function produces these outputs in three steps: 1. Starting parameters for the models are determine using the Ford-Walford method. 2. The models are fit to the data using the <code><a href="https://rdrr.io/r/stats/nls.html">nls()</a></code> function. + The <code><a href="https://rdrr.io/r/stats/nls.html">nls()</a></code> function can be very fragile and prone to non-convergence if the data is not well suited to a particularly model. Using the <code>models</code> argument to specify different models is a good way to intially exclude problematic growth models if a non-convergence error message occurs. 3. Bootstrapping is performed to determine 95th percentiles along the growth curve. These are included in the plot or returned to the used if <code>plots = FALSE</code> is used. + The bootstrap iterations are specified using the <code>n.bootstraps</code> arugment. The default is 1000.</p>
+<p>The <code><a href="../reference/Estimate_Growth.html">Estimate_Growth()</a></code> function produces these outputs in three steps:</p>
+<ol style="list-style-type: decimal">
+<li>Starting parameters for the models are determined using the Ford-Walford method.</li>
+<li>The models are fit to the data using the <code><a href="https://rdrr.io/r/stats/nls.html">nls()</a></code> function.
+<ul>
+<li>The <code><a href="https://rdrr.io/r/stats/nls.html">nls()</a></code> function can be very fragile and prone to non-convergence if the data is not well suited to a particular model. Using the <code>models</code> argument to specify different models is a good way to intially exclude problematic growth models if a non-convergence error message occurs.</li>
+</ul>
+</li>
+<li>Bootstrapping is performed to determine 95% confidence intervals along the growth curve. These are included in the plot or returned to the user if <code>plots = FALSE</code> is used.
+<ul>
+<li>The bootstrap iterations are specified using the <code>n.bootstraps</code> arugment. The default is 1000.</li>
+</ul>
+</li>
+</ol>
+</div>
 <div id="fitting-specific-models" class="section level2">
 <h2 class="hasAnchor">
 <a href="#fitting-specific-models" class="anchor"></a>Fitting specific models</h2>
@@ -219,19 +251,24 @@
 new.dat<span class="op">$</span>Length &lt;-<span class="st"> </span>new.dat<span class="op">$</span>Length<span class="op">/</span><span class="dv">10</span>
 
 Results &lt;-<span class="st"> </span><span class="kw"><a href="../reference/Estimate_Growth.html">Estimate_Growth</a></span>(new.dat)</code></pre></div>
-<p><img src="Growth_estimation_files/figure-html/unnamed-chunk-8-1.png" width="768"> ##Returning length-at-age estimates It is recommended that users create their own plots for publications. Therefore setting <code>plots = FALSE</code> will provide these estimates as an additional list object rather than printing a plot.</p>
+<p><img src="Growth_estimation_files/figure-html/unnamed-chunk-8-1.png" width="768"></p>
+</div>
+<div id="returning-length-at-age-estimates" class="section level2">
+<h2 class="hasAnchor">
+<a href="#returning-length-at-age-estimates" class="anchor"></a>Returning length-at-age estimates</h2>
+<p>It is recommended that users create their own plots for publications. Therefore setting <code>plots = FALSE</code> will provide these estimates as an additional list object rather than printing a plot.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">results &lt;-<span class="st"> </span><span class="kw"><a href="../reference/Estimate_Growth.html">Estimate_Growth</a></span>(<span class="dt">data =</span> growth_data, <span class="dt">plots =</span> <span class="ot">FALSE</span>)
 
 Length_at_age_estimates &lt;-<span class="st"> </span>results<span class="op">$</span>Estimates
 
 <span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(Length_at_age_estimates)
 <span class="co">#&gt;             Model Age      AVG      low      upp</span>
-<span class="co">#&gt; 1 Von Bertalanffy 0.0 659.2972 629.7384 686.8264</span>
-<span class="co">#&gt; 2 Von Bertalanffy 0.1 681.4736 653.0167 707.2700</span>
-<span class="co">#&gt; 3 Von Bertalanffy 0.2 703.3737 676.2158 727.6496</span>
-<span class="co">#&gt; 4 Von Bertalanffy 0.3 725.0010 699.4769 747.9608</span>
-<span class="co">#&gt; 5 Von Bertalanffy 0.4 746.3589 722.1209 768.5352</span>
-<span class="co">#&gt; 6 Von Bertalanffy 0.5 767.4507 744.4616 788.7089</span></code></pre></div>
+<span class="co">#&gt; 1 Von Bertalanffy 0.0 659.2972 632.1830 688.4676</span>
+<span class="co">#&gt; 2 Von Bertalanffy 0.1 681.4736 655.9496 709.3612</span>
+<span class="co">#&gt; 3 Von Bertalanffy 0.2 703.3737 679.0926 730.1880</span>
+<span class="co">#&gt; 4 Von Bertalanffy 0.3 725.0010 701.8174 750.3125</span>
+<span class="co">#&gt; 5 Von Bertalanffy 0.4 746.3589 724.0777 770.7559</span>
+<span class="co">#&gt; 6 Von Bertalanffy 0.5 767.4507 745.5062 790.8983</span></code></pre></div>
 </div>
 </div>
 <div id="model-averaged-results-with-calculate_mmi" class="section level1">
@@ -291,7 +328,6 @@ Male_LAA<span class="op">$</span>Sex &lt;-<span class="st"> "M"</span>
 combined_data &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(Male_LAA, Female_LAA)
 
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggplot2)
-<span class="co">#&gt; Warning: package 'ggplot2' was built under R version 3.5.3</span>
 
 <span class="kw">ggplot</span>(combined_data, <span class="kw">aes</span>(<span class="dt">x =</span> Age, <span class="dt">y =</span> AVG, <span class="dt">fill =</span> Model, <span class="dt">col =</span> Model)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Sex, <span class="dt">ncol =</span> <span class="dv">1</span>, <span class="dt">scales =</span> <span class="st">"free"</span>)<span class="op">+</span>
@@ -302,8 +338,12 @@ combined_data &lt;-<span class="st"> </span><span class="kw"><a href="https://rd
 <span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">name =</span> <span class="st">"Length (mm)"</span>, <span class="dt">limits =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,<span class="dv">2500</span>), <span class="dt">expand =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,<span class="dv">0</span>))<span class="op">+</span>
 <span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">name =</span> <span class="st">"Age (years)"</span>, <span class="dt">limits =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,<span class="dv">18</span>), <span class="dt">expand =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,<span class="dv">0</span>))<span class="op">+</span>
 <span class="st">  </span><span class="kw">theme_bw</span>()</code></pre></div>
-<p><img src="Growth_estimation_files/figure-html/unnamed-chunk-11-1.png" width="576"> # Combining two and three parameter models</p>
-<p>It is common practice for fish species to fix <span class="math inline">\(L_{0}\)</span> as this parameter has a direct relation to length-at-birth (often zero for fish). This is done via a single argument <code>Birth.Len</code>. If this is unspecified than three parameter models are used. However, if <code>Birth.Len</code> is specified then two parameters are used with that value used to fix the <span class="math inline">\(L_{0}\)</span> parameter.</p>
+<p><img src="Growth_estimation_files/figure-html/unnamed-chunk-11-1.png" width="576"></p>
+</div>
+<div id="combining-two-and-three-parameter-models" class="section level1">
+<h1 class="hasAnchor">
+<a href="#combining-two-and-three-parameter-models" class="anchor"></a>Combining two and three parameter models</h1>
+<p>It is common practice for fish species to fix <span class="math inline">\(L_{0}\)</span> as this parameter has a direct relation to length-at-birth (often zero for fish). This is done via a single argument <code>Birth.Len</code>. If this is unspecified then three parameter models are used. However, if <code>Birth.Len</code> is specified then two parameters are used with that value used to fix the <span class="math inline">\(L_{0}\)</span> parameter.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/Estimate_Growth.html">Estimate_Growth</a></span>(growth_data, <span class="dt">Birth.Len =</span> <span class="dv">600</span>)</code></pre></div>
 <p><img src="Growth_estimation_files/figure-html/unnamed-chunk-12-1.png" width="768"></p>
 <pre><code>#&gt; $VonB
@@ -351,7 +391,8 @@ combined_data &lt;-<span class="st"> </span><span class="kw"><a href="https://rd
 <span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">name =</span> <span class="st">"Age (years)"</span>, <span class="dt">limits =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,<span class="dv">18</span>), <span class="dt">expand =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,<span class="dv">0</span>))<span class="op">+</span>
 <span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.8</span>, <span class="fl">0.2</span>))</code></pre></div>
-<p><img src="Growth_estimation_files/figure-html/unnamed-chunk-13-1.png" width="768"> A two parameter model is demonstrated here for sharks as this is the data used in these examples. However, fixing growth parameters for sharks is less appropriate than techniques such as back-calculation. However, for fish species, length-at-bith is close to zero due to their larval life stage. Therefore, length-at-birth is commonly fixed at zero to represent this. Most applications of growth models for fish, have used a <span class="math inline">\(t_{0}\)</span> rather than <span class="math inline">\(L_{0}\)</span> which represents the time-at-length-zero rather than a length-at-birth (i.e time-zero). However, <span class="math inline">\(t_{0}\)</span> does not have the same definition accross multiple growth models whereas <span class="math inline">\(L_{0}\)</span> always refers to length-at-birth. This parameter is therefore used a multi-model approach. <span class="math inline">\(t_{0}\)</span> can be calculated from the VBGF parameters as: <span class="math display">\[t_{0}=(1/k)log(L_{\infty}-L_{0})/L_{\infty})\]</span></p>
+<p><img src="Growth_estimation_files/figure-html/unnamed-chunk-13-1.png" width="768"></p>
+<p>A two parameter model is demonstrated here for sharks as this is the data used in these examples. However, fixing growth parameters for sharks is less appropriate than techniques such as back-calculation. However, for fish species, length-at-bith is close to zero due to their larval life stage. Therefore, length-at-birth is commonly fixed at zero to represent this.</p>
 </div>
 <div id="correlation-matrices" class="section level1">
 <h1 class="hasAnchor">
@@ -375,8 +416,7 @@ combined_data &lt;-<span class="st"> </span><span class="kw"><a href="https://rd
 <span class="co">#&gt; Linf  1.0000000 -0.8981026  0.4488018</span>
 <span class="co">#&gt; g    -0.8981026  1.0000000 -0.6991582</span>
 <span class="co">#&gt; L0    0.4488018 -0.6991582  1.0000000</span></code></pre></div>
-<p>Full details on these approaches can be found in: Smart, J. J., Chin, A. , Tobin, A. J. and Simpfendorfer, C. A. (2016) Multimodel approaches in shark and ray growth studies: strengths, weaknesses and the future. Fish and Fisheries, 17: 955-971. <a href="doi:10.1111/faf.12154" class="uri">doi:10.1111/faf.12154</a></p>
-<p>which should be cited if this package is used in a publication.</p>
+<p>Full details on these approaches can be found in: Smart, J. J., Chin, A. , Tobin, A. J. and Simpfendorfer, C. A. (2016) Multimodel approaches in shark and ray growth studies: strengths, weaknesses and the future. Fish and Fisheries, 17: 955-971.<a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/faf.12154" class="uri">https://onlinelibrary.wiley.com/doi/abs/10.1111/faf.12154</a> which should be cited if this package is used in a publication.</p>
 </div>
   </div>
 
@@ -389,12 +429,16 @@ combined_data &lt;-<span class="st"> </span><span class="kw"><a href="https://rd
       <li><a href="#introduction">Introduction</a></li>
       <li>
 <a href="#multi-model-growth-analysis-with-estimate_growth">Multi-model growth analysis with <code>Estimate_Growth()</code></a><ul class="nav nav-pills nav-stacked">
-<li><a href="#fitting-specific-models">Fitting specific models</a></li>
+<li><a href="#input-data">Input data</a></li>
+      <li><a href="#example-applications">Example applications</a></li>
+      <li><a href="#fitting-specific-models">Fitting specific models</a></li>
       <li><a href="#plot-alterations">Plot alterations</a></li>
+      <li><a href="#returning-length-at-age-estimates">Returning length-at-age estimates</a></li>
       </ul>
 </li>
       <li><a href="#model-averaged-results-with-calculate_mmi">Model averaged results with <code>Calculate_MMI</code></a></li>
       <li><a href="#sex-specific-growth-curves">Sex specific growth curves</a></li>
+      <li><a href="#combining-two-and-three-parameter-models">Combining two and three parameter models</a></li>
       <li><a href="#correlation-matrices">Correlation matrices</a></li>
       </ul>
 </div>

@@ -85,7 +85,7 @@
       <h1>Maturity estimation for aquatic species through the AquaticLifeHistory package</h1>
                         <h4 class="author">Jonathan Smart</h4>
             
-            <h4 class="date">2019-11-25</h4>
+            <h4 class="date">2019-11-27</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jonathansmart/AquaticLifeHistory/blob/master/vignettes/Maturity_analyses.Rmd"><code>vignettes/Maturity_analyses.Rmd</code></a></small>
       <div class="hidden name"><code>Maturity_analyses.Rmd</code></div>
@@ -94,6 +94,27 @@
 
     
     
+<div id="citation" class="section level1">
+<h1 class="hasAnchor">
+<a href="#citation" class="anchor"></a>Citation</h1>
+<p>Please cite this package if it is used in any publication. The citation details can be accessed in the command line:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"AquaticLifeHistory"</span>)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; To cite AquaticLifeHistory use:</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;   Smart J 2019 AquaticLifeHistory: Fisheries life history analysis</span>
+<span class="co">#&gt;   using contemporary methods.</span>
+<span class="co">#&gt;   https://github.com/jonathansmart/AquaticLifeHistory</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;   Smart, J. J., Chin, A. , Tobin, A. J. and Simpfendorfer, C. A.</span>
+<span class="co">#&gt;   (2016) Multimodel approaches in shark and ray growth studies:</span>
+<span class="co">#&gt;   strengths, weaknesses and the future. Fish and Fisheries, 17:</span>
+<span class="co">#&gt;   955-971. doi:10.1111/faf.12154</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; To see these entries in BibTeX format, use 'print(&lt;citation&gt;,</span>
+<span class="co">#&gt; bibtex=TRUE)', 'toBibtex(.)', or set</span>
+<span class="co">#&gt; 'options(citation.bibtex.max=999)'.</span></code></pre></div>
+</div>
 <div id="introduction" class="section level1">
 <h1 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h1>
@@ -103,7 +124,7 @@
 <p>All maturity analyses using a logistic ogive are fitted in this manner and this is the basic operation occurring in all the maturity functions in the <code>AquaticLifeHistory</code> package. However, getting all of the information needed to produce analyses for publication can involve several steps with a few different decisions needed. Therefore the <code>Estimate_Age_Maturity</code> and <code>Estimate_Len_Maturity</code> functions handle much of these additional steps. However, it is important for the user to understand that these are basically wrapper functions around a glm call. As such the analyses inside thes functions are simple to implement outside of this package.</p>
 <p>The <code>Estimate_Age_Maturity</code> and <code>Estimate_Len_Maturity</code> functions perform the following:</p>
 <ul>
-<li>Estimate the length or age at 50% and 95% maturity with standard errors. Standard errors are important outputs and should always be reported for parameters.</li>
+<li>Estimate the length or age at 50% (<span class="math inline">\(L_{50}\)</span> or <span class="math inline">\(A_{50}\)</span> ) and 95% (<span class="math inline">\(L_{95}\)</span> or <span class="math inline">\(A_{95}\)</span>) maturity with standard errors. Standard errors are important outputs and should always be reported for parameters.</li>
 <li>Bootstrap the data with a specified number of iterations to produce 95% confidence intervals about the curve</li>
 <li>Produce a plot of either:
 <ul>
@@ -117,7 +138,7 @@
 <div id="input-data" class="section level1">
 <h1 class="hasAnchor">
 <a href="#input-data" class="anchor"></a>Input data</h1>
-<p>The input data for both <code>Estimate_Age_Maturity</code> and <code>Estimate_Len_Maturity</code> functions require an age or length variable as well as a binary maturity variable. These functions accept various column headings for flexibility. For example <code>Estimate_Len_Maturity</code> will accept a column named “Length”, “Len”, “STL”, “TL”, “LT” or “size”" (plus others) as the input column for the length variable. However, the maturity and age columns must have names that begin with “mat” and “age”, respectively. The variable names needed by the functions are <strong>not</strong> case sensitive.</p>
+<p>The input data for both <code>Estimate_Age_Maturity</code> and <code>Estimate_Len_Maturity</code> functions require an age or length variable as well as a binary maturity variable. These functions accept various column headings for flexibility. For example <code>Estimate_Len_Maturity</code> will accept a column named “Length”, “Len”, “STL”, “TL”, “LT” or “size” (plus others) as the input column for the length variable. However, the maturity and age columns must have names that begin with “mat” and “age”, respectively. The variable names needed by the functions are <strong>not</strong> case sensitive.</p>
 <p>A data set for female silky sharks (<em>Carcharhinus falciformis</em>) from Papua New Guinea is included as example data. This shows the typical format accepted by both functions.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(AquaticLifeHistory)
 <span class="kw"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"maturity_data"</span>)
@@ -134,9 +155,9 @@
 <span class="kw"><a href="https://rdrr.io/r/base/range.html">range</a></span>(maturity_data<span class="op">$</span>Maturity)
 <span class="co">#&gt; [1] 0 1</span></code></pre></div>
 </div>
-<div id="estimate_age_maturity" class="section level1">
+<div id="using-estimate_age_maturity" class="section level1">
 <h1 class="hasAnchor">
-<a href="#estimate_age_maturity" class="anchor"></a><code>Estimate_Age_Maturity</code>
+<a href="#using-estimate_age_maturity" class="anchor"></a>Using <code>Estimate_Age_Maturity</code>
 </h1>
 <p>Both maturity functions produce very similar outputs based on either age or length data. They are built to handle the same data set so there is no need to subset your data for just length or age. Each function will identify the variables it needs and will ignore the others.</p>
 <p>The <code>Estimate_Age_Maturity</code> function unsurprisingly estimates age-at-maturity. In doing so it gives you a choice of model:</p>
@@ -188,9 +209,9 @@
 <p>With regards to age - both logistic model options return almost identical ogives. Therefore, the decision of which to use is up to the user.</p>
 </div>
 </div>
-<div id="estimate_len_maturity" class="section level1">
+<div id="using-estimate_len_maturity" class="section level1">
 <h1 class="hasAnchor">
-<a href="#estimate_len_maturity" class="anchor"></a><code>Estimate_Len_Maturity</code>
+<a href="#using-estimate_len_maturity" class="anchor"></a>Using <code>Estimate_Len_Maturity</code>
 </h1>
 <p>Estimating length-at-maturity is handled the same as age was previously but with its own function. All of the arguments are the same with one exception (which we’ll get to shortly).</p>
 <p>You can get the parameters:</p>
@@ -211,7 +232,10 @@ new_data<span class="op">$</span>Length &lt;-<span class="st"> </span>new_data<s
 <span class="kw"><a href="../reference/Estimate_Len_Maturity.html">Estimate_Len_Maturity</a></span>(new_data, <span class="dt">return =</span> <span class="st">"plot"</span>, <span class="dt">n.bootstraps =</span> <span class="dv">1000</span>, <span class="dt">display.points =</span> <span class="ot">TRUE</span>)
 <span class="co">#&gt; Bootstrapping logistic model with a binomial error structure</span></code></pre></div>
 <p><img src="Maturity_analyses_files/figure-html/length%20unit%20changed-1.png" width="672"></p>
-<p>However, an additional argument is needed to use a quasibinomial model. Previously, we binned age by year class as there is no other sensible way to go about this. However, for length the bin width needs to be specified and this is very important. This is done using the <code>bin.width</code> argument.</p>
+<div id="quasibinomial-binned-model-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#quasibinomial-binned-model-1" class="anchor"></a>Quasibinomial (binned) model</h2>
+<p>An additional argument is needed to use a quasibinomial model. Previously, we binned age by year class as there is no other sensible way to go about this. However, for length the bin width needs to be specified and this is very important. This is done using the <code>bin.width</code> argument.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># selecting return = "plot" returns a ggplot object rather than the parameters.</span>
 <span class="kw"><a href="../reference/Estimate_Len_Maturity.html">Estimate_Len_Maturity</a></span>(maturity_data,
                       <span class="dt">return =</span> <span class="st">"plot"</span>,
@@ -250,8 +274,9 @@ new_data<span class="op">$</span>Length &lt;-<span class="st"> </span>new_data<s
 <span class="co">#&gt;     Estimate       SE</span>
 <span class="co">#&gt; L50 185.3833 1.185920</span>
 <span class="co">#&gt; L95 208.7201 2.103398</span></code></pre></div>
-<p>In each instance the L50 changed which means that judicious choice of length bin is needed. Therefore, I usually advocate that for length-at-maturity you should used a binomial model with binary data as this avoids introducing potential bias. It should be noted that this is only an issue for length as binning data for age does not require decisions on bin width and therefore avoids biasing the results.</p>
+<p>In each instance the <span class="math inline">\(L_{50}\)</span> changed which means that judicious choice of length bin is needed. Therefore, I usually advocate that for length-at-maturity you should used a binomial model with binary data as this avoids introducing potential bias. It should be noted that this is only an issue for length as binning data for age does not require decisions on bin width and therefore avoids biasing the results.</p>
 <p>Therefore, if you plan on binning length data make sure you think things through carefully.</p>
+</div>
 </div>
 <div id="retrieving-logistic-model-estimates" class="section level1">
 <h1 class="hasAnchor">
@@ -273,12 +298,12 @@ Mat_at_len_estimates &lt;-<span class="st"> </span><span class="kw"><a href="../
 
 <span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(Mat_at_age_estimates)
 <span class="co">#&gt;    Age     Estimate         high          low</span>
-<span class="co">#&gt; 1 0.00 1.240623e-07 2.901601e-13 6.292859e-06</span>
-<span class="co">#&gt; 2 0.01 1.254845e-07 2.962071e-13 6.347371e-06</span>
-<span class="co">#&gt; 3 0.02 1.269231e-07 3.023801e-13 6.402343e-06</span>
-<span class="co">#&gt; 4 0.03 1.283781e-07 3.086818e-13 6.457792e-06</span>
-<span class="co">#&gt; 5 0.04 1.298498e-07 3.151148e-13 6.513721e-06</span>
-<span class="co">#&gt; 6 0.05 1.313384e-07 3.216819e-13 6.570135e-06</span>
+<span class="co">#&gt; 1 0.00 1.240623e-07 6.291472e-13 7.492168e-06</span>
+<span class="co">#&gt; 2 0.01 1.254845e-07 6.417824e-13 7.555650e-06</span>
+<span class="co">#&gt; 3 0.02 1.269231e-07 6.546712e-13 7.619670e-06</span>
+<span class="co">#&gt; 4 0.03 1.283781e-07 6.678190e-13 7.684232e-06</span>
+<span class="co">#&gt; 5 0.04 1.298498e-07 6.812308e-13 7.749341e-06</span>
+<span class="co">#&gt; 6 0.05 1.313384e-07 6.949119e-13 7.815002e-06</span>
 
 <span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(Mat_at_len_estimates)
 <span class="co">#&gt;   Length     Estimate         high          low</span>
@@ -296,15 +321,20 @@ Mat_at_len_estimates &lt;-<span class="st"> </span><span class="kw"><a href="../
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#introduction">Introduction</a></li>
+<li><a href="#citation">Citation</a></li>
+      <li><a href="#introduction">Introduction</a></li>
       <li><a href="#input-data">Input data</a></li>
       <li>
-<a href="#estimate_age_maturity"><code>Estimate_Age_Maturity</code></a><ul class="nav nav-pills nav-stacked">
+<a href="#using-estimate_age_maturity">Using <code>Estimate_Age_Maturity</code></a><ul class="nav nav-pills nav-stacked">
 <li><a href="#binomial-model">Binomial model</a></li>
       <li><a href="#quasibinomial-binned-model">Quasibinomial (binned) model</a></li>
       </ul>
 </li>
-      <li><a href="#estimate_len_maturity"><code>Estimate_Len_Maturity</code></a></li>
+      <li>
+<a href="#using-estimate_len_maturity">Using <code>Estimate_Len_Maturity</code></a><ul class="nav nav-pills nav-stacked">
+<li><a href="#quasibinomial-binned-model-1">Quasibinomial (binned) model</a></li>
+      </ul>
+</li>
       <li><a href="#retrieving-logistic-model-estimates">Retrieving logistic model estimates</a></li>
       </ul>
 </div>
