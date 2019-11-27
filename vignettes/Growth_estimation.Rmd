@@ -23,10 +23,39 @@ Please cite this package if it is used in any publication. The citation details 
 citation("AquaticLifeHistory")
 ```
 # Introduction
-Growth information attained through length-at-age analysis is a key component in many fisheries analyses. This package gives the user the ability to quickly and efficiently estimate growth for an aquatic species (fishes, sharks, molluscs, crustaceans, etc.) using robust and contemporary techniques. This can be achieved using either a single model approach (i.e. application of a von Bertalanffy growth function) or through a multi-model approach where multiple models are applied simultaneously and compared to one another.This package will provide parameter estimates with errors, length-at-age estimates with bootsrapped percentiles, plots and model statistics - providing users with everything required for scientific publication.
+Growth information attained through length-at-age analysis is a key component in many fisheries analyses. This package gives the user the ability to quickly and efficiently estimate growth for an aquatic species (fishes, sharks, molluscs, crustaceans, etc.) using robust and contemporary techniques. This can be achieved using either a single model approach (i.e. application of a von Bertalanffy growth function) or through a multi-model approach where multiple models are applied simultaneously and compared.This package will provide parameter estimates with errors, length-at-age estimates with bootsrapped confidence intervals, plots and model statistics - providing users with everything required for scientific publication.
 
 
 # Multi-model growth analysis with `Estimate_Growth()`
+
+`Estimate_Growth()` is the main function for length-at-age modelling and offers the user a lot of flexibility which we will run through. This function applies the multi-model approach outlined in [Smart et al (2016)](https://onlinelibrary.wiley.com/doi/abs/10.1111/faf.12154) and will give the user the option of applying three growth models. 
+These include the von Bertalanffy growth model:
+$$L_{a}=L_{0}+(L_{\infty}-L_{0})(1-e^{-ka})$$
+the Gompertz model:
+$$L_{a}=L_{0}e^{log(L_{\infty}/L_{0})(1-e^{-ga})})$$
+and the Logistic model:
+$$L_{a}=(L_{\infty}*L_{0}*e^{ga})/(L_{\infty}+L_{0}*e^{ga-1})$$
+where $L_{a}$ is length-at-age $a$, $L_{\infty}$ is the asympotic length and $L_{0}$ is the length-at-birth. Each model has its own growth coefficient ($k$ = von Bertalanfy, $g$ = Gompertz and $g$ = Logistic). These growth coefficients are incomparable between models (though the Gompertz and Logistic models share the same notation) whereas the $L_{\infty}$ and $L_{0}$ have the same interpretation between models. 
+
+Most applications of growth models for fish have used a $t_{0}$ rather than $L_{0}$ which represents the time-at-length-zero rather than a length-at-birth (i.e time-zero). However, $t_{0}$ does not have the same definition accross multiple growth models whereas $L_{0}$ always refers to length-at-birth. This parameter is therefore used a multi-model approach. $t_{0}$ can be calculated from the VBGF parameters as:
+$$t_{0}=(1/k)log(L_{\infty}-L_{0})/L_{\infty})$$ 
+
+Each of these models provide different growth forms and applying them silmultaneously and comparing their fits will increase the chance that an appropriate model is applied to the data. Alternatively, the user can apply a single model or select a combination (see further down).
+
+Using `Estimate_Growth()` will perform the following:
+
+* Fit the specified growth models using an `nls()` function, returning the parameters and summary statistics.
+* Calculate Akaike's information criterion ($AIC$) values and calculate model weights ($w$).
+* Bootstrap the data and return 95% confidence intervals for a growth curve over the age range of the data.
+* Return a plot with the growth curves with confidence intervals (can be disabled to return raw results).
+* Return parameter correlation matrices when requested.
+
+## Input data
+
+The `data` argument of `Estimate_Growth()` requires a data.frame of length and age data. However, this function is flexible and does not require the data to be preprocessed. The function will automatically determine the "Age" column and the "Length" column by looking for sensibly named columns. For example, the length column will accept a column named "Length", "Len", "STL", "TL", "LT" or "size". If a column can't be distinguished the user will be prompted to rename the necessary column. This setup means that a dataset that contains additional columns (such as "Sex" or "Date") can be passed to the function. The only issue the user should be aware of is that multiple length columns can't be provided (i.e "TL" and "FL").
+
+## Example applications
+
 Growth functions can be tested using an included dataset which contains length-at-age data for common blacktip sharks (*Carcharhinus limbatus*) from Indonesia.
 
 ```{r, message=FALSE, warning=FALSE}
@@ -36,18 +65,18 @@ data("growth_data")
 
 head(growth_data) 
 ```
-Note that this data has three columns: Age, Length and Sex. The `Estimate_growth()` function can be used to fit growth curves to these data and will automatically determine the columns "Age" and "Length" from similar character strings. The "Sex" column can be included in the data provided to the function but will be ignored. The user does not need to subset the data for the correct columns. However, multiple length columns cannot be provided (for example Fork Length and Total length) as the function can't distinguish which is to be used.
 
-Length-at-age 95th percentiles will be produced for the growth curve through bootstrapping with 1000 iterations being default. The `Estimate_growth()` will return a list of parameter estimates for three candidate models: the von Bertalanffy growth function ("VB"), Gompertz growth function ("Gom") and Logistic growth function ("Log"). The Akaike's information criterion (AIC) results for each model will also be returned as a list element, demonstrating which growth model best fit the data. A plot will be printed with the growth curves for all included models.
+Length-at-age 95% confidence intervals will be produced for the growth curve through bootstrapping with 1000 iterations being default. The `Estimate_growth()` will return a list of parameter estimates for three candidate models: the von Bertalanffy growth function ("VB"), Gompertz growth function ("Gom") and Logistic growth function ("Log"). The $AIC$ results for each model will also be returned as a list element, demonstrating which growth model best fit the data. A plot will be printed with the growth curves for all included models.
 
 ```{r,  message=FALSE, fig.height = 6, fig.width = 8}
 Estimate_Growth(data = growth_data)
 ```
 The `Estimate_Growth()` function produces these outputs in three steps:
-1. Starting parameters for the models are determine using the Ford-Walford method.
+
+1. Starting parameters for the models are determined using the Ford-Walford method.
 2. The models are fit to the data using the `nls()` function.
-    + The `nls()` function can be very fragile and prone to non-convergence if the data is not well suited to a particularly model. Using the `models` argument to specify different models is a good way to intially exclude problematic growth models if a non-convergence error message occurs.
-3. Bootstrapping is performed to determine 95th percentiles along the growth curve. These are included in the plot or returned to the used if `plots = FALSE` is used.
+    + The `nls()` function can be very fragile and prone to non-convergence if the data is not well suited to a particular model. Using the `models` argument to specify different models is a good way to intially exclude problematic growth models if a non-convergence error message occurs.
+3. Bootstrapping is performed to determine 95% confidence intervals along the growth curve. These are included in the plot or returned to the user if `plots = FALSE` is used.
     + The bootstrap iterations are specified using the `n.bootstraps` arugment. The default is 1000.
 
 ##Fitting specific models
@@ -68,6 +97,7 @@ Note: The three models must be specified as "VB", "Log" and "Gom". Otherwise the
 ```{r, error = TRUE,  message=FALSE, fig.height = 6, fig.width = 8}
 Estimate_Growth(data = growth_data, models = "VBGF")
 ```
+
 ##Plot alterations
 If you are plotting one model you probably don't want a legend included. This can be removed using the `plot.legend` argument. This also works when several models are plotted
 
@@ -82,6 +112,7 @@ new.dat$Length <- new.dat$Length/10
 
 Results <- Estimate_Growth(new.dat)
 ```
+
 ##Returning length-at-age estimates
 It is recommended that users create their own plots for publications. Therefore setting `plots = FALSE` will provide these estimates as an additional list object rather than printing a plot.
 
@@ -92,6 +123,7 @@ Length_at_age_estimates <- results$Estimates
 
 head(Length_at_age_estimates)
 ```
+
 # Model averaged results with `Calculate_MMI`
 
 Multi-model inference (MMI) can be useful when no particular candidate model provides a better fit than the others ($\Delta AIC$ < 2). This involves averaging all models accross the growth curve based on their AIC weights ($w$). It will return model averaged values of $L_{\infty}$ and $L_{0}$ with averaged standard errors. No model averaged growth completion parameters ($k$ for VBGF, $g$ for Gompertz or $g$ for Logistic) are returned as these parameters are not comparable accross models.
@@ -108,7 +140,7 @@ Be aware that bootstrapping cannot be applied for MMI so no length-at-age errors
 
 Separating the sexes is common and is achieved by subsetting data and running the function multiple times. They can then be combined and plotted afterwards. This can be done for one model or several. Here is an example using the `ggplot2` package.
 
-```{r, message=FALSE, fig.height = 8, fig.width = 6}
+```{r, warning = FALSE, message=FALSE, fig.height = 8, fig.width = 6}
 # Create data.frames of separate sexes
 Females <- dplyr::filter(growth_data, Sex == "F")
 Males <- dplyr::filter(growth_data, Sex == "M")
@@ -138,9 +170,10 @@ ggplot(combined_data, aes(x = Age, y = AVG, fill = Model, col = Model)) +
   scale_x_continuous(name = "Age (years)", limits = c(0,18), expand = c(0,0))+
   theme_bw()
 ```
+
 # Combining two and three parameter models
 
-It is common practice for fish species to fix $L_{0}$ as this parameter has a direct relation to length-at-birth (often zero for fish). This is done via a single argument `Birth.Len`. If this is unspecified than three parameter models are used. However, if `Birth.Len` is specified then two parameters are used with that value used to fix the $L_{0}$ parameter. 
+It is common practice for fish species to fix $L_{0}$ as this parameter has a direct relation to length-at-birth (often zero for fish). This is done via a single argument `Birth.Len`. If this is unspecified then three parameter models are used. However, if `Birth.Len` is specified then two parameters are used with that value used to fix the $L_{0}$ parameter. 
 
 ```{r, message=FALSE, fig.height = 6, fig.width = 8}
 Estimate_Growth(growth_data, Birth.Len = 600)
@@ -170,18 +203,18 @@ ggplot(combined_data, aes(x = Age, y = AVG, fill = Model, col = Model)) +
   theme_bw() +
   theme(legend.position = c(0.8, 0.2))
 ```
-A two parameter model is demonstrated here for sharks as this is the data used in these examples. However, fixing growth parameters for sharks is less appropriate than techniques such as back-calculation. However, for fish species, length-at-bith is close to zero due to their larval life stage. Therefore, length-at-birth is commonly fixed at zero to represent this. Most applications of growth models for fish, have used a $t_{0}$ rather than $L_{0}$ which represents the time-at-length-zero rather than a length-at-birth (i.e time-zero). However, $t_{0}$ does not have the same definition accross multiple growth models whereas $L_{0}$ always refers to length-at-birth. This parameter is therefore used a multi-model approach. $t_{0}$ can be calculated from the VBGF parameters as:
-$$t_{0}=(1/k)log(L_{\infty}-L_{0})/L_{\infty})$$ 
+
+A two parameter model is demonstrated here for sharks as this is the data used in these examples. However, fixing growth parameters for sharks is less appropriate than techniques such as back-calculation. However, for fish species, length-at-bith is close to zero due to their larval life stage. Therefore, length-at-birth is commonly fixed at zero to represent this.
 
 # Correlation matrices
+
 Each of the growth models fit in these analyses have a multivariate normal distribution. This means that each parameter has a normal distribution but are correlated to one another. Therefore, if you would like to use these parameters in simulation analyses, a correlation matrix is needed to include parameter values in the simulations. This is not an analysis that is included in this package. However, the ability to return the correlation matrix is included in the `Estimate_Growth()` function by using `correlation.matrix = TRUE`.
 
 ```{r}
 Estimate_Growth(growth_data, correlation.matrix = TRUE)
 ```
+
 Full details on these approaches can be found in:
 Smart, J. J., Chin, A. , Tobin, A. J. and Simpfendorfer, C. A. (2016) Multimodel approaches in shark and ray growth studies:
-  strengths, weaknesses and the future. Fish and Fisheries, 17: 955-971. doi:10.1111/faf.12154
-  
-which should be cited if this package is used in a publication.
+  strengths, weaknesses and the future. Fish and Fisheries, 17: 955-971.https://onlinelibrary.wiley.com/doi/abs/10.1111/faf.12154 which should be cited if this package is used in a publication.
 

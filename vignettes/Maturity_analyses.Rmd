@@ -16,6 +16,13 @@ knitr::opts_chunk$set(
 )
 ```
 
+# Citation
+Please cite this package if it is used in any publication. The citation details can be accessed in the command line:
+
+```{r}
+citation("AquaticLifeHistory")
+```
+
 # Introduction
 Maturity estimation is performed by fitting a maturity ogive to binary maturity statuses for either length or age data. Maturity ogives are fitted using a glm with a logit link function and usually with a binomial error structure (but we'll touch on this soon). A glm of this sort is fitted in R using:
 
@@ -30,7 +37,7 @@ All maturity analyses using a logistic ogive are fitted in this manner and this 
 
 The `Estimate_Age_Maturity` and `Estimate_Len_Maturity` functions perform the following:
 
-* Estimate the length or age at 50% and 95% maturity with standard errors. Standard errors are important outputs and should always be reported for parameters.
+* Estimate the length or age at 50% ($L_{50}$ or $A_{50}$ ) and 95% ($L_{95}$ or $A_{95}$) maturity with standard errors. Standard errors are important outputs and should always be reported for parameters.
 * Bootstrap the data with a specified number of iterations to produce 95% confidence intervals about the curve
 * Produce a plot of either:
     + A standard logistic ogive with a binomial error structure. This is fit to binary data.
@@ -38,7 +45,8 @@ The `Estimate_Age_Maturity` and `Estimate_Len_Maturity` functions perform the fo
 * Return the parameter estimates, plots of the maturity ogive or the predicted ogive fits with bootstrapped estimates for the user to produce their own plots (recommended if the outputs are meant for publication).
 
 # Input data
-The input data for both `Estimate_Age_Maturity` and `Estimate_Len_Maturity` functions require an age or length variable as well as a binary maturity variable. These functions accept various column headings for flexibility. For example `Estimate_Len_Maturity` will accept a column named "Length", "Len", "STL", "TL", "LT" or "size"" (plus others) as the input column for the length variable. However, the maturity and age columns must have names that begin with "mat" and "age", respectively. The variable names needed by the functions are **not** case sensitive.
+
+The input data for both `Estimate_Age_Maturity` and `Estimate_Len_Maturity` functions require an age or length variable as well as a binary maturity variable. These functions accept various column headings for flexibility. For example `Estimate_Len_Maturity` will accept a column named "Length", "Len", "STL", "TL", "LT" or "size" (plus others) as the input column for the length variable. However, the maturity and age columns must have names that begin with "mat" and "age", respectively. The variable names needed by the functions are **not** case sensitive.
 
 A data set for female silky sharks (*Carcharhinus falciformis*) from Papua New Guinea is included as example data. This shows the typical format accepted by both functions.
 
@@ -52,7 +60,7 @@ range(maturity_data$Maturity)
 
 ```
 
-# `Estimate_Age_Maturity`
+# Using `Estimate_Age_Maturity`
 
 Both maturity functions produce very similar outputs based on either age or length data. They are built to handle the same data set so there is no need to subset your data for just length or age. Each function will identify the variables it needs and will ignore the others.
 
@@ -113,7 +121,7 @@ Estimate_Age_Maturity(maturity_data, return = "plot", n.bootstraps = 1000, error
 
 With regards to age - both logistic model options return almost identical ogives. Therefore, the decision of which to use is up to the user.
 
-# `Estimate_Len_Maturity`
+# Using `Estimate_Len_Maturity`
 Estimating length-at-maturity is handled the same as age was previously but with its own function. All of the arguments are the same with one exception (which we'll get to shortly).
  
  You can get the parameters:
@@ -142,7 +150,9 @@ Estimate_Len_Maturity(new_data, return = "plot", n.bootstraps = 1000, display.po
 
 ```
 
-However, an additional argument is needed to use a quasibinomial model. Previously, we binned age by year class as there is no other sensible way to go about this. However, for length the bin width needs to be specified and this is very important. This is done using the `bin.width` argument.
+## Quasibinomial (binned) model
+
+An additional argument is needed to use a quasibinomial model. Previously, we binned age by year class as there is no other sensible way to go about this. However, for length the bin width needs to be specified and this is very important. This is done using the `bin.width` argument.
 
 
 ```{r bin width, warning=FALSE,  fig.height = 6, fig.width =8}
@@ -178,7 +188,7 @@ Estimate_Len_Maturity(maturity_data,
 
 ```
 
-In each instance the L50 changed which means that judicious choice of length bin is needed. Therefore, I usually advocate that for length-at-maturity you should used a binomial model with binary data as this avoids introducing potential bias. It should be noted that this is only an issue for length as binning data for age does not require decisions on bin width and therefore avoids biasing the results.
+In each instance the $L_{50}$ changed which means that judicious choice of length bin is needed. Therefore, I usually advocate that for length-at-maturity you should used a binomial model with binary data as this avoids introducing potential bias. It should be noted that this is only an issue for length as binning data for age does not require decisions on bin width and therefore avoids biasing the results.
 
 Therefore, if you plan on binning length data make sure you think things through carefully.
 
