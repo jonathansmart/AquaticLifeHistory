@@ -1,31 +1,41 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-AquaticLifeHistory
-==================
+
+# AquaticLifeHistory
 
 <!-- badges: start -->
-[![Travis build status](https://travis-ci.org/jonathansmart/AquaticLifeHistory.svg?branch=master)](https://travis-ci.org/jonathansmart/AquaticLifeHistory) <!-- badges: end -->
 
-AquaticLifeHistory allows users to undertake fisheries life history analyses using contemporary approaches as simple R functions. These analyses currently include length-at-age modelling using a multi-model approach, estimating age-at-maturity and length-at-maturity. The main package functions are:
+[![Travis build
+status](https://travis-ci.org/jonathansmart/AquaticLifeHistory.svg?branch=master)](https://travis-ci.org/jonathansmart/AquaticLifeHistory)
+[![DOI](https://zenodo.org/badge/223704049.svg)](https://zenodo.org/badge/latestdoi/223704049)
+<!-- badges: end -->
 
--   `Estimate_Growth()` performs length-at-age analyses using a von Bertalanffy growth model, Gompertz model and/or Logistic model.
--   `Estimate_Age_Maturity()` Estimates age-at-maturity using either binomial maturity or proportion mature data and age.
--   `Estimate_Len_Maturity()` Estimates age-at-maturity using either binomial maturity or proportion mature data and length.
+AquaticLifeHistory allows users to undertake fisheries life history
+analyses using contemporary approaches as simple R functions. These
+analyses currently include length-at-age modelling using a multi-model
+approach, estimating age-at-maturity and length-at-maturity. The main
+package functions are:
 
-Installation
-------------
+  - `Estimate_Growth()` performs length-at-age analyses using a von
+    Bertalanffy growth model, Gompertz model and/or Logistic model.
+  - `Estimate_Age_Maturity()` Estimates age-at-maturity using either
+    binomial maturity or proportion mature data and age.
+  - `Estimate_Len_Maturity()` Estimates age-at-maturity using either
+    binomial maturity or proportion mature data and length.
 
-You can install the released version of AquaticLifeHistory from [Github](https://github.com/jonathansmart/AquaticLifeHistory) with:
+## Installation
+
+You can install the released version of AquaticLifeHistory from
+[Github](https://github.com/jonathansmart/AquaticLifeHistory) with:
 
 ``` r
 # install.packages("devtools")
 devtools::install_github("jonathansmart/AquaticLifeHistory")
 ```
 
-Usage
------
+## Usage
 
-### Perform growth analysis
+\#\#\#Perform growth analysis
 
 ``` r
 library(AquaticLifeHistory)
@@ -38,7 +48,7 @@ data("growth_data")
 Estimate_Growth(growth_data)
 ```
 
-![](man/figures/unnamed-chunk-2-1.png)
+![](man/figures/unnamed-chunk-2-1.png)<!-- -->
 
     #> $VonB
     #>         Parameter           SE
@@ -67,7 +77,7 @@ Estimate_Growth(growth_data)
     #> 2   Log 3605.40    70.30      0
     #> 3   Gom 3569.54    34.45      0
 
-### Perform age-at-maturity analysis
+\#\#\#Perform age-at-maturity analysis
 
 ``` r
 # load example dataset
@@ -83,9 +93,10 @@ Estimate_Age_Maturity(maturity_data)
 Estimate_Age_Maturity(maturity_data, return = "plot")
 ```
 
-![](man/figures/unnamed-chunk-3-1.png)
+![](man/figures/unnamed-chunk-3-1.png)<!-- -->
 
-For further examples of these and other functions use the provided vignettes
+For further examples of these and other functions use the provided
+vignettes
 
 ``` r
 browseVignettes("AquaticLifeHistory")
