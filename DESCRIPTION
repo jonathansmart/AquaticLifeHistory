@@ -23,7 +23,7 @@ Imports: plyr,
     dplyr,
     tidyr,
     ggplot2
-RoxygenNote: 6.0.1
+RoxygenNote: 7.0.2
 License: GPL-3
 Suggests: knitr,
     rmarkdown

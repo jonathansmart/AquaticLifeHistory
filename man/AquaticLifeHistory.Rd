@@ -3,7 +3,6 @@
 \docType{package}
 \name{AquaticLifeHistory}
 \alias{AquaticLifeHistory}
-\alias{AquaticLifeHistory-package}
 \title{AquaticLifeHistory}
 \description{
 A package to estimate life histories of aquatic species using robust techniques.

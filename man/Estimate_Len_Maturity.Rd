@@ -4,9 +4,14 @@
 \alias{Estimate_Len_Maturity}
 \title{Estimate length-at-maturity}
 \usage{
-Estimate_Len_Maturity(data, error.structure = "binomial",
-  n.bootstraps = 1000, bin.width = NA, display.points = FALSE,
-  return = "parameters")
+Estimate_Len_Maturity(
+  data,
+  error.structure = "binomial",
+  n.bootstraps = 1000,
+  bin.width = NA,
+  display.points = FALSE,
+  return = "parameters"
+)
 }
 \arguments{
 \item{data}{A dataframe that includes length and a binary maturity status (immature = 0 and mature = 1).

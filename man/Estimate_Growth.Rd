@@ -4,9 +4,15 @@
 \alias{Estimate_Growth}
 \title{Estimate length-at-age parameters and growth curves for Elasmobranchs}
 \usage{
-Estimate_Growth(data, models = c("VB", "Log", "Gom"), Birth.Len = NULL,
-  correlation.matrix = FALSE, n.bootstraps = 1000, plots = T,
-  plot.legend = T)
+Estimate_Growth(
+  data,
+  models = c("VB", "Log", "Gom"),
+  Birth.Len = NULL,
+  correlation.matrix = FALSE,
+  n.bootstraps = 1000,
+  plots = T,
+  plot.legend = T
+)
 }
 \arguments{
 \item{data}{a data frame which includes 'Age' and 'Length - ideally with these names but the function will except some variation to these}
