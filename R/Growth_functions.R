@@ -136,19 +136,19 @@ Estimate_Growth<-function(data, models = c("VB", "Log", "Gom"),  Birth.Len = NUL
       Vb_names <- c("Linf", "k", "L0")
       colnames(correlation.matrices[["VonB"]] ) <- Vb_names[c(1:length(colnames(correlation.matrices[["VonB"]] )))]
       rownames(correlation.matrices[["VonB"]] ) <-  Vb_names[c(1:length(rownames(correlation.matrices[["VonB"]] )))]
-      }
+    }
     if(any(models == "Log")){
       Log_names <- c("Linf", "g", "L0")
       correlation.matrices[["Logistic"]] <- summary(Log, correlation = TRUE)$cor
       colnames(correlation.matrices[["Logistic"]] ) <- Log_names[c(1:length(colnames(correlation.matrices[["Logistic"]] )))]
       rownames(correlation.matrices[["Logistic"]] ) <- Log_names[c(1:length(rownames(correlation.matrices[["Logistic"]] )))]
-      }
+    }
     if(any(models == "Gom")){
       Gom_names <- c("Linf", "g", "L0")
       correlation.matrices[["Gompertz"]] <- summary(gom, correlation = TRUE)$cor
       colnames(correlation.matrices[["Gompertz"]] ) <- Gom_names[c(1:length(colnames(correlation.matrices[["Logistic"]] )))]
       rownames(correlation.matrices[["Gompertz"]] ) <- Gom_names[c(1:length(rownames(correlation.matrices[["Gompertz"]] )))]
-      }
+    }
 
     return(correlation.matrices)
   }
@@ -209,39 +209,69 @@ Estimate_Growth<-function(data, models = c("VB", "Log", "Gom"),  Birth.Len = NUL
     if(is.null(Birth.Len)){
       bootnls <- Data %>% boot_data(n.bootstraps) %>%
         do(tryCatch(suppressWarnings(tidy(minpack.lm::nlsLM(formula = vb3.model,
-                                                data = .,
-                                                start = vb3.start))),
+                                                            data = .,
+                                                            start = vb3.start))),
                     error=function(e){
-                      suppressWarnings(try(tidy(minpack.lm::nlsLM(formula = vb3.model,
-                                                      data = .,
-                                                      start = list(Linf = log(max(.$Length)),
-                                                                   k = vb3.start$k,
-                                                                   L0 = log(min(.$Length)))))))},
+                      suppressWarnings(tryCatch(tidy(minpack.lm::nlsLM(formula = vb3.model,
+                                                                       data = .,
+                                                                       start = list(Linf = log(max(.$Length)),
+                                                                                    k = vb3.start$k,
+                                                                                    L0 = log(min(.$Length))))),
+                                                error=function(e){
+                                                  return(data.frame(term = as.character(c("Linf.(Intercept)","k.Lt","L0.(Intercept)")),
+                                                                    estimate = NA,
+                                                                    std.error= NA,
+                                                                    statistic = NA,
+                                                                    p.value=  NA,stringsAsFactors = FALSE)
+                                                  )
+                                                },
+                                                silent=TRUE
+                      )
+                      )
+
+                    },
                     silent=TRUE)) %>% as.data.frame()
 
 
       bootnls[which(bootnls$term == "Linf.(Intercept)"), "term"] <- "Linf"
       bootnls[which(bootnls$term == "k.Lt"), "term"] <- "k"
       bootnls[which(bootnls$term == "L0.(Intercept)"), "term"] <- "L0"
+      bootnls[1, "estimate"] <- NA
+      bootnls[2, "estimate"] <- NA
+      bootnls[3, "estimate"] <- NA
 
       boot.Linf<- exp(as.numeric(as.matrix(subset(bootnls,term == "Linf")[,3])))
       boot.K<-exp(as.numeric(as.matrix(subset(bootnls,term == "k")[,3])))
       boot.L0<-exp(as.numeric(as.matrix(subset(bootnls,term == "L0")[,3])))
       for (i in 1:length(Age)) {
         pv <- boot.Linf-(boot.Linf-boot.L0)*(exp(-boot.K*Age[i]))
-        VB_Estimates[i,"low"] <- quantile(pv,0.025)
-        VB_Estimates[i,"upp"] <- quantile(pv,0.975)
+        VB_Estimates[i,"low"] <- quantile(pv,0.025,na.rm = TRUE)
+        VB_Estimates[i,"upp"] <- quantile(pv,0.975,na.rm = TRUE)
       }
     } else {
       bootnls <- Data %>% boot_data(n.bootstraps) %>%
         do(tryCatch(suppressWarnings(tidy(minpack.lm::nlsLM(formula = vb3.model,
-                                                data = .,
-                                                start = vb3.start))),
+                                                            data = .,
+                                                            start = vb3.start))),
                     error=function(e){
-                      suppressWarnings(try(tidy(minpack.lm::nlsLM(formula = vb3.model,
-                                                      data = .,
-                                                      start = list(Linf = log(max(Data$Length)),
-                                                                   k = vb3.start$k)))))},
+                      suppressWarnings(tryCatch(tidy(minpack.lm::nlsLM(formula = vb3.model,
+                                                                       data = .,
+                                                                       start = list(Linf = log(max(.$Length)),
+                                                                                    k = vb3.start$k,
+                                                                                    L0 = log(min(.$Length))))),
+                                                error=function(e){
+                                                  return(data.frame(term = as.character(c("Linf.(Intercept)","k.Lt")),
+                                                                    estimate = NA,
+                                                                    std.error= NA,
+                                                                    statistic = NA,
+                                                                    p.value=  NA,stringsAsFactors = FALSE)
+                                                  )
+                                                },
+                                                silent=TRUE
+                      )
+                      )
+
+                      },
                     silent=TRUE)) %>% as.data.frame()
 
 
@@ -252,8 +282,8 @@ Estimate_Growth<-function(data, models = c("VB", "Log", "Gom"),  Birth.Len = NUL
       boot.K<-exp(as.numeric(as.matrix(subset(bootnls,term == "k")[,3])))
       for (i in 1:length(Age)) {
         pv <- boot.Linf-(boot.Linf-Birth.Len)*(exp(-boot.K*Age[i]))
-        VB_Estimates[i,"low"] <- quantile(pv,0.025)
-        VB_Estimates[i,"upp"] <- quantile(pv,0.975)
+        VB_Estimates[i,"low"] <- quantile(pv,0.025,na.rm = TRUE)
+        VB_Estimates[i,"upp"] <- quantile(pv,0.975,na.rm = TRUE)
       }
     }
     Estimates <- suppressWarnings(bind_rows(Estimates, VB_Estimates))
@@ -264,14 +294,30 @@ Estimate_Growth<-function(data, models = c("VB", "Log", "Gom"),  Birth.Len = NUL
     if(is.null(Birth.Len)){
       bootnls <- Data %>% boot_data(n.bootstraps) %>%
         do(tryCatch(suppressWarnings(tidy(minpack.lm::nlsLM(formula = log.model,
-                                                data = .,
-                                                start = log.start))),
+                                                            data = .,
+                                                            start = log.start))),
                     error=function(e){
-                      suppressWarnings(try(tidy(minpack.lm::nlsLM(formula = log.model,
-                                                      data = .,
-                                                      start = list(Linf = log(max(.$Length)),
-                                                                   g = log.start$g,
-                                                                   L0 = log(min(.$Length)))))))},
+                      suppressWarnings(tryCatch(tidy(minpack.lm::nlsLM(formula = log.model,
+                                                                       data = .,
+                                                                       start = list(Linf = log(max(.$Length)),
+                                                                                    g = log.start$g,
+                                                                                    L0 = log(min(.$Length))
+                                                                                    )
+                                                                       )
+                                                     ),
+                                                error=function(e){
+                                                  return(data.frame(term = as.character(c("Linf.(Intercept)","g.Lt","L0.(Intercept)")),
+                                                                    estimate = NA,
+                                                                    std.error= NA,
+                                                                    statistic = NA,
+                                                                    p.value=  NA,stringsAsFactors = FALSE)
+                                                  )
+                                                },
+                                                silent=TRUE
+                      )
+                      )
+
+                      },
                     silent=TRUE)) %>% as.data.frame()
 
 
@@ -284,20 +330,34 @@ Estimate_Growth<-function(data, models = c("VB", "Log", "Gom"),  Birth.Len = NUL
       boot.L0<-exp(as.numeric(as.matrix(subset(bootnls,term == "L0")[,3])))
       for (i in 1:length(Age)) {
         pv <- (boot.Linf*boot.L0*exp(boot.g*Age[i]))/(boot.Linf+boot.L0*(exp(boot.g*Age[i])-1))
-        Log_Estimates[i,"low"] <- quantile(pv,0.025)
-        Log_Estimates[i,"upp"] <- quantile(pv,0.975)
+        Log_Estimates[i,"low"] <- quantile(pv,0.025,na.rm = TRUE)
+        Log_Estimates[i,"upp"] <- quantile(pv,0.975,na.rm = TRUE)
       }
     } else {
       bootnls <- Data %>% boot_data(n.bootstraps) %>%
         do(tryCatch(suppressWarnings(tidy(minpack.lm::nlsLM(formula = log.model,
-                                                data = .,
-                                                start = log.start))),
+                                                            data = .,
+                                                            start = log.start))),
                     error=function(e){
-                      suppressWarnings(try(tidy(minpack.lm::nlsLM(formula = log.model,
-                                                      data = .,
-                                                      start = list(Linf = log(max(.$Length)),
-                                                                   g = log.start$g,
-                                                                   L0 = log(min(.$Length)))))))},
+                      suppressWarnings(tryCatch(tidy(minpack.lm::nlsLM(formula = log.model,
+                                                                       data = .,
+                                                                       start = list(Linf = log(max(.$Length)),
+                                                                                    g = log.start$g
+                                                                       )
+                      )
+                      ),
+                      error=function(e){
+                        return(data.frame(term = as.character(c("Linf.(Intercept)","g.Lt")),
+                                          estimate = NA,
+                                          std.error= NA,
+                                          statistic = NA,
+                                          p.value=  NA,stringsAsFactors = FALSE)
+                        )
+                      },
+                      silent=TRUE
+                      )
+                      )
+                      },
                     silent=TRUE)) %>% as.data.frame()
 
 
@@ -308,8 +368,8 @@ Estimate_Growth<-function(data, models = c("VB", "Log", "Gom"),  Birth.Len = NUL
       boot.g<-exp(as.numeric(as.matrix(subset(bootnls,term == "g")[,3])))
       for (i in 1:length(Age)) {
         pv <- (boot.Linf*Birth.Len*exp(boot.g*Age[i]))/(boot.Linf+Birth.Len*(exp(boot.g*Age[i])-1))
-        Log_Estimates[i,"low"] <- quantile(pv,0.025)
-        Log_Estimates[i,"upp"] <- quantile(pv,0.975)
+        Log_Estimates[i,"low"] <- quantile(pv,0.025,na.rm = TRUE)
+        Log_Estimates[i,"upp"] <- quantile(pv,0.975,na.rm = TRUE)
       }
     }
     Estimates <- suppressWarnings(bind_rows(Estimates, Log_Estimates))
@@ -320,14 +380,37 @@ Estimate_Growth<-function(data, models = c("VB", "Log", "Gom"),  Birth.Len = NUL
     if(is.null(Birth.Len)){
       bootnls <- Data %>% boot_data(n.bootstraps) %>%
         do(tryCatch(suppressWarnings(tidy(minpack.lm::nlsLM(formula = gom.model,
-                                                data = .,
-                                                start = gom.start))),
+                                                            data = .,
+                                                            start = gom.start))),
                     error=function(e){
                       suppressWarnings(try(tidy(minpack.lm::nlsLM(formula = gom.model,
-                                                      data = .,
-                                                      start = list(Linf = log(max(.$Length)),
-                                                                   g = gom.start$g,
-                                                                   L0 = log(min(.$Length)))))))},
+                                                                  data = .,
+                                                                  start = list(Linf = log(max(.$Length)),
+                                                                               g = gom.start$g,
+                                                                               L0 = log(min(.$Length)))))))
+
+                      suppressWarnings(tryCatch(tidy(minpack.lm::nlsLM(formula = gom.model,
+                                                                       data = .,
+                                                                       start = list(Linf = log(max(.$Length)),
+                                                                                    g = gom.start$g,
+                                                                                    L0 = log(min(.$Length))
+                                                                       )
+                      )
+                      ),
+                      error=function(e){
+                        return(data.frame(term = as.character(c("Linf.(Intercept)","g.Lt","L0.(Intercept)")),
+                                          estimate = NA,
+                                          std.error= NA,
+                                          statistic = NA,
+                                          p.value=  NA,stringsAsFactors = FALSE)
+                        )
+                      },
+                      silent=TRUE
+                      )
+                      )
+
+
+                      },
                     silent=TRUE)) %>% as.data.frame()
 
 
@@ -340,20 +423,35 @@ Estimate_Growth<-function(data, models = c("VB", "Log", "Gom"),  Birth.Len = NUL
       boot.L0<-exp(as.numeric(as.matrix(subset(bootnls,term == "L0")[,3])))
       for (i in 1:length(Age)) {
         pv <- boot.L0*exp(log(boot.Linf/boot.L0)*(1-exp(-boot.g*Age[i])))
-        Gom_Estimates[i,"low"] <- quantile(pv,0.025)
-        Gom_Estimates[i,"upp"] <- quantile(pv,0.975)
+        Gom_Estimates[i,"low"] <- quantile(pv,0.025,na.rm = TRUE)
+        Gom_Estimates[i,"upp"] <- quantile(pv,0.975,na.rm = TRUE)
       }
     } else {
       bootnls <- Data %>% boot_data(n.bootstraps) %>%
         do(tryCatch(suppressWarnings(tidy(minpack.lm::nlsLM(formula = gom.model,
-                                                data = .,
-                                                start = gom.start))),
+                                                            data = .,
+                                                            start = gom.start))),
                     error=function(e){
-                      suppressWarnings(try(tidy(minpack.lm::nlsLM(formula = gom.model,
-                                                      data = .,
-                                                      start = list(Linf = log(max(.$Length)),
-                                                                   g = gom.start$g,
-                                                                   L0 = log(min(.$Length)))))))},
+
+                      suppressWarnings(tryCatch(tidy(minpack.lm::nlsLM(formula = gom.model,
+                                                                       data = .,
+                                                                       start = list(Linf = log(max(.$Length)),
+                                                                                    g = gom.start$g
+                                                                       )
+                      )
+                      ),
+                      error=function(e){
+                        return(data.frame(term = as.character(c("Linf.(Intercept)","g.Lt")),
+                                          estimate = NA,
+                                          std.error= NA,
+                                          statistic = NA,
+                                          p.value=  NA,stringsAsFactors = FALSE)
+                        )
+                      },
+                      silent=TRUE
+                      )
+                      )
+                      },
                     silent=TRUE)) %>% as.data.frame()
 
 
@@ -364,8 +462,8 @@ Estimate_Growth<-function(data, models = c("VB", "Log", "Gom"),  Birth.Len = NUL
       boot.g<-exp(as.numeric(as.matrix(subset(bootnls,term == "g")[,3])))
       for (i in 1:length(Age)) {
         pv <- Birth.Len*exp(log(boot.Linf/Birth.Len)*(1-exp(-boot.g*Age[i])))
-        Gom_Estimates[i,"low"] <- quantile(pv,0.025)
-        Gom_Estimates[i,"upp"] <- quantile(pv,0.975)
+        Gom_Estimates[i,"low"] <- quantile(pv,0.025,na.rm = TRUE)
+        Gom_Estimates[i,"upp"] <- quantile(pv,0.975,na.rm = TRUE)
       }
     }
     Estimates <- suppressWarnings(bind_rows(Estimates, Gom_Estimates))
