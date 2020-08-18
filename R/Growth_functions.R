@@ -42,7 +42,8 @@ Estimate_Growth<-function(data, models = c("VB", "Log", "Gom"),  Birth.Len = NUL
   Lt1<-mean.age[2:length(mean.age)]
   Lt<-mean.age[1:length(mean.age)-1]
   model<-lm(Lt1 ~ Lt)
-  k<- abs(-log(model$coef[2]))
+  k <- suppressWarnings(abs(-log(model$coef[2]))) #in case a nan occurs
+  k <- ifelse(is.nan(k),0.1,k) # in case a nan occurs
   g<-k
   Linf<-abs(model$coef[1]/(1-model$coef[2]))
   if(is.null(Birth.Len)){
