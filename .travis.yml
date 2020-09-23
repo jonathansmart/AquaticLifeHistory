@@ -2,5 +2,5 @@
 
 language: R
 cache: packages
-# allows longer load time for building vignettes
-install: travis_wait mvn install
+
+r_check_args: "--no-build-vignettes --ignore-vignettes"
