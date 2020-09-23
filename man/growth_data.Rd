@@ -4,7 +4,9 @@
 \name{growth_data}
 \alias{growth_data}
 \title{Length-at-age data for blacktip sharks}
-\format{A data frame with 294 rows and 3 variables}
+\format{
+A data frame with 294 rows and 3 variables
+}
 \usage{
 data(growth_data)
 }

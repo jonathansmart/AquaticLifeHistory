@@ -4,7 +4,9 @@
 \name{maturity_data}
 \alias{maturity_data}
 \title{Age and length-at-maturity data for silky sharks}
-\format{A data frame with 284 rows and 4 variables}
+\format{
+A data frame with 284 rows and 4 variables
+}
 \usage{
 data(maturity_data)
 }
