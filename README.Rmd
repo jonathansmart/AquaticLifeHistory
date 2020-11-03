@@ -37,7 +37,7 @@ devtools::install_github("jonathansmart/AquaticLifeHistory")
 
 ## Usage
 
-###Perform growth analysis
+### Perform growth analysis
 
 ```{r, message=FALSE}
 library(AquaticLifeHistory)
@@ -50,7 +50,7 @@ data("growth_data")
 Estimate_Growth(growth_data)
 ```
 
-###Perform age-at-maturity analysis
+### Perform age-at-maturity analysis
 
 ```{r, message=FALSE}
 # load example dataset
