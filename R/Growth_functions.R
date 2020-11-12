@@ -7,6 +7,7 @@
 #' @param n.bootstraps The number of bootstraps performed for model 95 confidence intervals
 #' @param plots Should plots be printed to the screen. If FALSE then the model estimates and CI's are returned as an additional output
 #' @param plot.legend Do you want a legend for the different models on the plot
+#' @param Max.age Specify the max age for bootstrapped confidence intervals to be produced over. Defafult is the max age in the data.
 #' @return Returns a list of parameter estimates with errors and AIC results. If plots is TRUE then a plot is printed to the screen. If plots is FALSE then the length-at-age estimates are returned as a list element
 #' @import broom MuMIn rlist minpack.lm dplyr tidyr ggplot2
 #' @importFrom magrittr %>%
@@ -15,6 +16,7 @@
 #' @references Smart et al. (2016) Multimodel approaches in shark and ray growth studies: strengths, weaknesses and the future. Fish and Fisheries. 17: 955-971\url{https://onlinelibrary.wiley.com/doi/abs/10.1111/faf.12154}
 
 Estimate_Growth<-function(data, models = c("VB", "Log", "Gom"),  Birth.Len = NULL, correlation.matrix = FALSE, n.bootstraps = 1000, plots = T,
+                          Max.Age = NULL,
                           plot.legend = T){
 
   if(!any(models %in% c("VB", "Log", "Gom"))) {stop("Models an only be 'VB', 'Log', 'Gom' or a combination of these")}
@@ -170,7 +172,12 @@ Estimate_Growth<-function(data, models = c("VB", "Log", "Gom"),  Birth.Len = NUL
   ####---------------------
   # Length-at-age estimates
   ####---------------------
-  Age<-seq(0,max(Data$Age),0.1)
+
+  if(is.null(Max.Age)){
+    Max.Age <- max(Data$Age)
+  }
+
+  Age<-seq(0,Max.Age,0.1)
   if(is.null(Birth.Len)){
 
     if(any(models %in% "VB")){ VBTL<-VonB[1]-(VonB[1]-VonB[3])*(exp(-VonB[2]*Age))}
@@ -478,7 +485,7 @@ Estimate_Growth<-function(data, models = c("VB", "Log", "Gom"),  Birth.Len = NUL
       geom_ribbon(aes(ymin = low, ymax = upp), alpha = .4)+
       geom_line(size = 1)+
       scale_y_continuous(name = paste("Length",max_len))+
-      scale_x_continuous(name = "Age (years)", breaks = seq(0, max(Data$Age),1), expand = c(0,0), limits = c(0,max(Data$Age)+0.5))+
+      scale_x_continuous(name = "Age (years)", breaks = seq(0, Max.Age,1), expand = c(0,0), limits = c(0,Max.Age+0.5))+
       theme_bw()+
       theme(legend.position = c(0.8,0.2),
             legend.background = element_rect(colour = "black"),

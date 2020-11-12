@@ -11,6 +11,7 @@ Estimate_Growth(
   correlation.matrix = FALSE,
   n.bootstraps = 1000,
   plots = T,
+  Max.Age = NULL,
   plot.legend = T
 )
 }
@@ -28,6 +29,8 @@ Estimate_Growth(
 \item{plots}{Should plots be printed to the screen. If FALSE then the model estimates and CI's are returned as an additional output}
 
 \item{plot.legend}{Do you want a legend for the different models on the plot}
+
+\item{Max.age}{Specify the max age for bootstrapped confidence intervals to be produced over. Defafult is the max age in the data.}
 }
 \value{
 Returns a list of parameter estimates with errors and AIC results. If plots is TRUE then a plot is printed to the screen. If plots is FALSE then the length-at-age estimates are returned as a list element
