@@ -8,6 +8,7 @@
 [![Travis build
 status](https://travis-ci.org/jonathansmart/AquaticLifeHistory.svg?branch=master)](https://travis-ci.org/jonathansmart/AquaticLifeHistory)
 [![DOI](https://zenodo.org/badge/223704049.svg)](https://zenodo.org/badge/latestdoi/223704049)
+[![R-CMD-check](https://github.com/jonathansmart/AquaticLifeHistory/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/jonathansmart/AquaticLifeHistory/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 AquaticLifeHistory allows users to undertake fisheries life history
@@ -16,12 +17,12 @@ analyses currently include length-at-age modelling using a multi-model
 approach, estimating age-at-maturity and length-at-maturity. The main
 package functions are:
 
-  - `Estimate_Growth()` performs length-at-age analyses using a von
-    Bertalanffy growth model, Gompertz model and/or Logistic model.
-  - `Estimate_Age_Maturity()` Estimates age-at-maturity using either
-    binomial maturity or proportion mature data and age.
-  - `Estimate_Len_Maturity()` Estimates age-at-maturity using either
-    binomial maturity or proportion mature data and length.
+- `Estimate_Growth()` performs length-at-age analyses using a von
+  Bertalanffy growth model, Gompertz model and/or Logistic model.
+- `Estimate_Age_Maturity()` Estimates age-at-maturity using either
+  binomial maturity or proportion mature data and age.
+- `Estimate_Len_Maturity()` Estimates age-at-maturity using either
+  binomial maturity or proportion mature data and length.
 
 ## Installation
 
@@ -52,23 +53,23 @@ Estimate_Growth(growth_data)
 
     #> $VonB
     #>         Parameter           SE
-    #> Linf 2439.5652152 50.416333174
+    #> Linf 2439.5652138 50.416331766
     #> k       0.1253499  0.006938586
-    #> L0    659.2971932 14.318722941
+    #> L0    659.2971929 14.318722887
     #> RSE    97.9461196           NA
     #> 
     #> $Logistic
     #>         Parameter          SE
-    #> Linf 2163.8640322 26.46867899
+    #> Linf 2163.8640309 26.46867817
     #> g       0.2894532  0.01039625
-    #> L0    727.0885241 13.58771361
+    #> L0    727.0885234 13.58771346
     #> RSE   110.3850532          NA
     #> 
     #> $Gompertz
     #>        Parameter           SE
-    #> Linf 2250.137001 32.621706468
-    #> g       0.207524  0.008455424
-    #> L0    695.603479 13.779414030
+    #> Linf 2250.136998 32.621706305
+    #> g       0.207524  0.008455423
+    #> L0    695.603478 13.779414070
     #> RSE   103.855273           NA
     #> 
     #> $AIC

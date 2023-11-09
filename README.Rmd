@@ -17,6 +17,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![Travis build status](https://travis-ci.org/jonathansmart/AquaticLifeHistory.svg?branch=master)](https://travis-ci.org/jonathansmart/AquaticLifeHistory)
 [![DOI](https://zenodo.org/badge/223704049.svg)](https://zenodo.org/badge/latestdoi/223704049)
+[![R-CMD-check](https://github.com/jonathansmart/AquaticLifeHistory/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/jonathansmart/AquaticLifeHistory/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 AquaticLifeHistory allows users to undertake fisheries life history analyses using contemporary approaches as simple R functions. These analyses currently include length-at-age modelling using a multi-model approach, estimating age-at-maturity and length-at-maturity. The main package functions are:
