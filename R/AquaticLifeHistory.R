@@ -12,8 +12,8 @@ utils::globalVariables(c("Age", "Pred", "Model", "AVG", "w.AVG", ".", "Estimate"
 
 #' Length-at-age data for blacktip sharks
 #'
-#' A dataset containing the length-at-age data for common blacktip sharks (\emph{Carcharhinus limbatus})
-#'    from Indonesia. This data was published in Smart et al (2015).
+#' A data set containing the length-at-age data for common blacktip sharks (\emph{Carcharhinus limbatus})
+#'    from Indonesia. This data was published in Smart et al. (2015).
 #'
 #' \itemize{
 #'   \item Age. Number of growth bands determined from vertebral analysis
@@ -34,7 +34,7 @@ NULL
 
 #' Age and length-at-maturity data for silky sharks
 #'
-#' A dataset containing the length-at-maturity and age-at-maturity data for female silky sharks
+#' A data set containing the length-at-maturity and age-at-maturity data for female silky sharks
 #'    (\emph{Carcharhinus falciformis}) from Papua New Guinea. This data was published in Grant et al (2018)
 #'
 #' \itemize{

@@ -28,7 +28,7 @@ Estimate_Growth(
 
 \item{plots}{Should plots be printed to the screen. If FALSE then the model estimates and CI's are returned as an additional output}
 
-\item{Max.Age}{Specify the max age for bootstrapped confidence intervals to be produced over. Defafult is the max age in the data.}
+\item{Max.Age}{Specify the max age for bootstrapped confidence intervals to be produced over. Default is the max age in the data.}
 
 \item{plot.legend}{Do you want a legend for the different models on the plot}
 }
@@ -39,5 +39,5 @@ Returns a list of parameter estimates with errors and AIC results. If plots is T
 A multi-model growth estimation approach is applied to length-at-age data. Three models can be applied which include the von Bertalanffy (VB), logistic (Log) and Gompertz (Gom) models. AIC values and weights are calculated. The outputs will return a list of model parameter estimates and will either print a plot to the screen or output the length-at-age estimates as part of the list.Use of this function should cite Smart et al. (2016).
 }
 \references{
-Smart et al. (2016) Multimodel approaches in shark and ray growth studies: strengths, weaknesses and the future. Fish and Fisheries. 17: 955-971\url{https://onlinelibrary.wiley.com/doi/abs/10.1111/faf.12154}
+Smart et al. (2016) Multi-model approaches in shark and ray growth studies: strengths, weaknesses and the future. Fish and Fisheries. 17: 955-971\url{https://onlinelibrary.wiley.com/doi/abs/10.1111/faf.12154}
 }

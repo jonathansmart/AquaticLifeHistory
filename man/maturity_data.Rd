@@ -11,7 +11,7 @@ A data frame with 284 rows and 4 variables
 data(maturity_data)
 }
 \description{
-A dataset containing the length-at-maturity and age-at-maturity data for female silky sharks
+A data set containing the length-at-maturity and age-at-maturity data for female silky sharks
    (\emph{Carcharhinus falciformis}) from Papua New Guinea. This data was published in Grant et al (2018)
 }
 \details{

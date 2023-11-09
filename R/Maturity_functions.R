@@ -1,13 +1,13 @@
 
 #' Estimate age-at-maturity
 #' @description Age-at-maturity is estimated from binary maturity data using a logistic ogive.
-#'Two options are availale depending on error structure. If binary data are used then a binomial
-#'error stucture is required. If the user wishes to bin the data by age class then a quasibinomial error
+#'Two options are available depending on error structure. If binary data are used then a binomial
+#'error structure is required. If the user wishes to bin the data by age class then a quasi binomial error
 #'structure is needed with the data weighted by the sample size of each bin. This is handled automatically by the function.
 #' @param data A dataframe that includes age and a binary maturity status (immature = 0 and mature = 1).
 #' Columns should be named "Age" and "Maturity" but the function is robust enough to accept some reasonable variations to these
 #' @param error.structure The distribution for the glm used to produce the logistic ogive. Must be either "binomial"
-#'  for binary data or "quasibinomial" for binned maturity at age. Proportion mature at each age is automatically calculated within the function
+#'  for binary data or "quasi binomial" for binned maturity at age. Proportion mature at each age is automatically calculated within the function
 #' @param n.bootstraps Number of bootstrap iterations required to produce 95\% confidence intervals about the logistic ogive
 #' @param display.points Should the raw data be plotted for the binomial model?
 #' @param return Either: \describe{
@@ -152,15 +152,15 @@ Estimate_Age_Maturity <- function(data, error.structure = "binomial", n.bootstra
 
 #' Estimate length-at-maturity
 #' @description Length-at-maturity is estimated from binary maturity data using a logistic ogive.
-#'Two options are availale depending on error structure. If binary data are used then a binomial
-#'error stucture is required. If the user wishes to bin the data by length class then a quasibinomial error
+#'Two options are available depending on error structure. If binary data are used then a binomial
+#'error structure is required. If the user wishes to bin the data by length class then a quasi binomial error
 #'structure is needed with the data weighted by the sample size of each bin. This is handled automatically by the function.
 #' @param data A dataframe that includes length and a binary maturity status (immature = 0 and mature = 1).
 #' Columns should be named "Length" and "Maturity" but the function is robust enough to accept some reasonable variations to these
 #' @param error.structure The distribution for the glm used to produce the logistic ogive. Must be either "binomial"
-#'  for binary data or "quasibinomial" for binned maturity at length. Proportion mature at each length bin is automatically calculated within the function
+#'  for binary data or "quasi binomial" for binned maturity at length. Proportion mature at each length bin is automatically calculated within the function
 #' @param n.bootstraps Number of bootstrap iterations required to produce 95\% confidence intervals about the logistic ogive
-#' @param bin.width The width of the length-class bins used for a quasibinomial logistic model. These should on the same unit as the length data.
+#' @param bin.width The width of the length-class bins used for a quasi binomial logistic model. These should on the same unit as the length data.
 #' The y axis on any plots will automatically scale to the correct unit ("cm" or "mm")
 #' @param display.points Should the raw data be plotted for the binomial model?
 #' @param return Either: \describe{

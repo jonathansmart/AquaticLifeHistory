@@ -4,7 +4,7 @@
 #' boot_data
 #'
 #' @param .data Length at Age data
-#' @param n number of boostrap iterations
+#' @param n number of bootstrap iterations
 #'
 #' @return a grouped_df produced by the group_by function in dplyr
 

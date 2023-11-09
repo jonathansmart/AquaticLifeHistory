@@ -17,7 +17,7 @@ Estimate_Age_Maturity(
 Columns should be named "Age" and "Maturity" but the function is robust enough to accept some reasonable variations to these}
 
 \item{error.structure}{The distribution for the glm used to produce the logistic ogive. Must be either "binomial"
-for binary data or "quasibinomial" for binned maturity at age. Proportion mature at each age is automatically calculated within the function}
+for binary data or "quasi binomial" for binned maturity at age. Proportion mature at each age is automatically calculated within the function}
 
 \item{n.bootstraps}{Number of bootstrap iterations required to produce 95\% confidence intervals about the logistic ogive}
 
@@ -38,7 +38,7 @@ Either: \describe{
 }
 \description{
 Age-at-maturity is estimated from binary maturity data using a logistic ogive.
-Two options are availale depending on error structure. If binary data are used then a binomial
-error stucture is required. If the user wishes to bin the data by age class then a quasibinomial error
+Two options are available depending on error structure. If binary data are used then a binomial
+error structure is required. If the user wishes to bin the data by age class then a quasi binomial error
 structure is needed with the data weighted by the sample size of each bin. This is handled automatically by the function.
 }

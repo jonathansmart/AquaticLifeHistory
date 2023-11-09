@@ -7,13 +7,13 @@
 #' @param n.bootstraps The number of bootstraps performed for model 95 confidence intervals
 #' @param plots Should plots be printed to the screen. If FALSE then the model estimates and CI's are returned as an additional output
 #' @param plot.legend Do you want a legend for the different models on the plot
-#' @param Max.Age Specify the max age for bootstrapped confidence intervals to be produced over. Defafult is the max age in the data.
+#' @param Max.Age Specify the max age for bootstrapped confidence intervals to be produced over. Default is the max age in the data.
 #' @return Returns a list of parameter estimates with errors and AIC results. If plots is TRUE then a plot is printed to the screen. If plots is FALSE then the length-at-age estimates are returned as a list element
 #' @import broom MuMIn rlist minpack.lm dplyr tidyr ggplot2
 #' @importFrom magrittr %>%
 #' @importFrom stats glm lm nls nls.control predict quantile na.omit
 #' @export
-#' @references Smart et al. (2016) Multimodel approaches in shark and ray growth studies: strengths, weaknesses and the future. Fish and Fisheries. 17: 955-971\url{https://onlinelibrary.wiley.com/doi/abs/10.1111/faf.12154}
+#' @references Smart et al. (2016) Multi-model approaches in shark and ray growth studies: strengths, weaknesses and the future. Fish and Fisheries. 17: 955-971\url{https://onlinelibrary.wiley.com/doi/abs/10.1111/faf.12154}
 
 Estimate_Growth<-function(data, models = c("VB", "Log", "Gom"),  Birth.Len = NULL, correlation.matrix = FALSE, n.bootstraps = 1000, plots = T,
                           Max.Age = NULL,
@@ -513,7 +513,7 @@ Estimate_Growth<-function(data, models = c("VB", "Log", "Gom"),  Birth.Len = NUL
 #' @importFrom magrittr %>%
 #' @importFrom plyr ldply
 #' @importFrom stats glm lm nls nls.control predict quantile
-#' @references Smart et al. (2016) Multimodel approaches in shark and ray growth studies: strengths, weaknesses and the future. Fish and Fisheries. 17: 955-971\url{https://onlinelibrary.wiley.com/doi/abs/10.1111/faf.12154}
+#' @references Smart et al. (2016) Multi model approaches in shark and ray growth studies: strengths, weaknesses and the future. Fish and Fisheries. 17: 955-971\url{https://onlinelibrary.wiley.com/doi/abs/10.1111/faf.12154}
 
 
 Calculate_MMI <- function(data){

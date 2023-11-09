@@ -9,7 +9,7 @@ boot_data(.data, n = 100)
 \arguments{
 \item{.data}{Length at Age data}
 
-\item{n}{number of boostrap iterations}
+\item{n}{number of bootstrap iterations}
 }
 \value{
 a grouped_df produced by the group_by function in dplyr

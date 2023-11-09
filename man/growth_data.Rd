@@ -11,8 +11,8 @@ A data frame with 294 rows and 3 variables
 data(growth_data)
 }
 \description{
-A dataset containing the length-at-age data for common blacktip sharks (\emph{Carcharhinus limbatus})
-   from Indonesia. This data was published in Smart et al (2015).
+A data set containing the length-at-age data for common blacktip sharks (\emph{Carcharhinus limbatus})
+   from Indonesia. This data was published in Smart et al. (2015).
 }
 \details{
 \itemize{
