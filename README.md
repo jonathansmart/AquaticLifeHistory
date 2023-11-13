@@ -5,8 +5,6 @@
 
 <!-- badges: start -->
 
-[![Travis build
-status](https://travis-ci.org/jonathansmart/AquaticLifeHistory.svg?branch=master)](https://travis-ci.org/jonathansmart/AquaticLifeHistory)
 [![DOI](https://zenodo.org/badge/223704049.svg)](https://zenodo.org/badge/latestdoi/223704049)
 [![R-CMD-check](https://github.com/jonathansmart/AquaticLifeHistory/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/jonathansmart/AquaticLifeHistory/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
@@ -41,10 +39,10 @@ devtools::install_github("jonathansmart/AquaticLifeHistory")
 ``` r
 library(AquaticLifeHistory)
 
-# load example dataset
+# load example data set
 data("growth_data")
 
-# Run fuction with three default model candidates.
+# Run function with three default model candidates.
 # Model parameters, AIC values are returned and a plot with bootstrapped CI's is printed to examine fits.
 Estimate_Growth(growth_data)
 ```
@@ -81,10 +79,10 @@ Estimate_Growth(growth_data)
 ### Perform age-at-maturity analysis
 
 ``` r
-# load example dataset
+# load example data set
 data("maturity_data")
 
-# Run fuction to estimate age-at-maturity parameters
+# Run function to estimate age-at-maturity parameters
 Estimate_Age_Maturity(maturity_data)
 #>     Estimate        SE
 #> A50 13.95113 0.3033328
