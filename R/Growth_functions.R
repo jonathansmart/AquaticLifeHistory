@@ -490,7 +490,7 @@ Estimate_Growth<-function(data, models = c("VB", "Log", "Gom"),  Birth.Len = NUL
       theme(legend.position = c(0.8,0.2),
             legend.background = element_rect(colour = "black"),
             panel.grid.minor = element_blank())
-    if(plot.legend == F){ p <- p + guides(col = F, fill = F)}
+    if(plot.legend == F){ p <- p + guides(col = "none", fill = "none")}
 
     print(p)
 

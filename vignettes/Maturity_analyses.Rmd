@@ -4,9 +4,11 @@ author: "Jonathan Smart"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Maturity estimation}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Maturity estimation for aquatic species through the AquaticLifeHistory package}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include = FALSE}
@@ -74,17 +76,23 @@ The input data is the same for both as the age bins are handled automatically.
 ## Binomial model
 The default call to `Estimate_Age_Maturity` will return your parameters with their standard errors (which you should **ALWAYS** report). The SE's are the asymptotic errors from the logistic ogive
 
-```{r parameters, message=FALSE, warning=FALSE}
+```{r parameters, message=FALSE, warning=FALSE, eval=FALSE}
 
 Estimate_Age_Maturity(maturity_data)
 
 ```
 
+
 However, if you would like to get a little more out of this function, you can have it return a plot with bootstrapped confidence intervals around the curve
 
-```{r bootstrapped, warning=FALSE,  fig.height = 6, fig.width =7}
+```{r bootstrapped, warning=FALSE,  fig.height = 6, fig.width =7, eval=FALSE}
 # selecting return = "plot" returns a ggplot object rather than the parameters.
 Estimate_Age_Maturity(maturity_data, return = "plot", n.bootstraps = 1000)
+
+```
+```{r bootstrapped2, warning=FALSE,  fig.height = 6, fig.width =7, echo=FALSE}
+# selecting return = "plot" returns a ggplot object rather than the parameters.
+Estimate_Age_Maturity(maturity_data, return = "plot", n.bootstraps = 10)
 
 ```
 
@@ -93,9 +101,14 @@ This is a standard logistic ogive with a binomial error structure that has been 
 Additionally, you can display the binary data by setting `display.points = TRUE`
 
 
-```{r with points bootstrapped, warning=FALSE,  fig.height = 6, fig.width =7}
+```{r with points bootstrapped, warning=FALSE,  fig.height = 6, fig.width =7, eval=FALSE}
 # selecting return = "plot" returns a ggplot object rather than the parameters.
 Estimate_Age_Maturity(maturity_data, return = "plot", n.bootstraps = 1000, display.points = TRUE)
+
+```
+```{r with points bootstrapped2, warning=FALSE,  fig.height = 6, fig.width =7, echo = FALSE}
+# selecting return = "plot" returns a ggplot object rather than the parameters.
+Estimate_Age_Maturity(maturity_data, return = "plot", n.bootstraps = 10, display.points = TRUE)
 
 ```
 
@@ -103,7 +116,7 @@ Estimate_Age_Maturity(maturity_data, return = "plot", n.bootstraps = 1000, displ
 
 An alternative approach is to bin the data by age class and determine the proportion mature in each age class. This is performed by selecting `error.structure = "quasibinomial"`. Within the function, the binary data is binned by age and the model is fitted with the quasi binomial structure with each age bin weighted by its sample size. Doing so often returns similar parameter estimates:
 
-```{r comparison, message=FALSE, warning=FALSE}
+```{r comparison, message=FALSE, warning=FALSE, eval = FALSE}
 
 Estimate_Age_Maturity(maturity_data)
 
@@ -111,11 +124,17 @@ Estimate_Age_Maturity(maturity_data, error.structure = "quasibinomial")
 
 ```
 
+
 However, a different plot is returned with stacked bars showing the proportion mature. The sample size of each bin is displayed above it.
 
-```{r quasi age plot, warning=FALSE,  fig.height = 6, fig.width =7}
+```{r quasi age plot, warning=FALSE,  fig.height = 6, fig.width =7, eval = FALSE}
 # selecting return = "plot" returns a ggplot object rather than the parameters.
 Estimate_Age_Maturity(maturity_data, return = "plot", n.bootstraps = 1000, error.structure = "quasibinomial")
+
+```
+```{r quasi age plot2, warning=FALSE,  fig.height = 6, fig.width =7, echo=FALSE}
+# selecting return = "plot" returns a ggplot object rather than the parameters.
+Estimate_Age_Maturity(maturity_data, return = "plot", n.bootstraps = 10, error.structure = "quasibinomial")
 
 ```
 
@@ -126,27 +145,40 @@ Estimating length-at-maturity is handled the same as age was previously but with
  
  You can get the parameters:
 
-```{r length parameters, message=FALSE, warning=FALSE}
+```{r length parameters, message=FALSE, warning=FALSE, eval=FALSE}
 
 Estimate_Len_Maturity(maturity_data)
 
 ```
 
+
 A plot of the binomial model with the the option of displaying the points 
 
-```{r bootstrapped length, warning=FALSE,  fig.height = 6, fig.width =7}
+```{r bootstrapped length, warning=FALSE,  fig.height = 6, fig.width =7, eval = FALSE}
 # selecting return = "plot" returns a ggplot object rather than the parameters.
 Estimate_Len_Maturity(maturity_data, return = "plot", n.bootstraps = 1000, display.points = TRUE)
+
+```
+```{r bootstrapped length2, warning=FALSE,  fig.height = 6, fig.width =7, echo = FALSE}
+# selecting return = "plot" returns a ggplot object rather than the parameters.
+Estimate_Len_Maturity(maturity_data, return = "plot", n.bootstraps = 10, display.points = TRUE)
 
 ```
 
 As the length unit can differ between data sets, the function determines whether cm or mm are being used and will adjust the axis as needed.
 
-```{r length unit changed, warning=FALSE,  fig.height = 6, fig.width =7}
+```{r length unit changed, warning=FALSE,  fig.height = 6, fig.width =7, eval=FALSE}
 new_data <- maturity_data
 new_data$Length <- new_data$Length*10 
 
 Estimate_Len_Maturity(new_data, return = "plot", n.bootstraps = 1000, display.points = TRUE)
+
+```
+```{r length unit changed2, warning=FALSE,  fig.height = 6, fig.width =7,echo=FALSE}
+new_data <- maturity_data
+new_data$Length <- new_data$Length*10 
+
+Estimate_Len_Maturity(new_data, return = "plot", n.bootstraps = 10, display.points = TRUE)
 
 ```
 
@@ -155,7 +187,7 @@ Estimate_Len_Maturity(new_data, return = "plot", n.bootstraps = 1000, display.po
 An additional argument is needed to use a quasi binomial model. Previously, we binned age by year class as there is no other sensible way to go about this. However, for length the bin width needs to be specified and this is very important. This is done using the `bin.width` argument.
 
 
-```{r bin width, warning=FALSE,  fig.height = 6, fig.width =8}
+```{r bin width, warning=FALSE,  fig.height = 6, fig.width =8, eval=FALSE}
 # selecting return = "plot" returns a ggplot object rather than the parameters.
 Estimate_Len_Maturity(maturity_data,
                       return = "plot",
@@ -164,10 +196,19 @@ Estimate_Len_Maturity(maturity_data,
                       bin.width = 25)
 
 ```
+```{r bin width2, warning=FALSE,  fig.height = 6, fig.width =8, echo = FALSE}
+# selecting return = "plot" returns a ggplot object rather than the parameters.
+Estimate_Len_Maturity(maturity_data,
+                      return = "plot",
+                      n.bootstraps = 10,
+                      error.structure = "quasibinomial",
+                      bin.width = 25)
+
+```
 
 Note that because now we have to chose the bin width, this can influence results:
 
-```{r bin width comparison, warning=FALSE}
+```{r bin width comparison, warning=FALSE, eval = FALSE}
 # Binomial model
 Estimate_Len_Maturity(maturity_data)
 
@@ -197,7 +238,7 @@ Therefore, if you plan on binning length data make sure you think things through
 When producing outputs for publication, you should always aspire to create their own outputs. The figures produced by this function are publication quality but are intended to provide guidance and assistance rather than the final figures. To enable one to produce their own plots, the results of the maturity ogive and their 95% confidence intervals can be extracted instead of the plot. This works the same for both functions with either logistic model.
 
 
-```{r estimate, warning=FALSE}
+```{r estimate, warning=FALSE, eval = FALSE}
 # selecting return = "plot" returns a ggplot object rather than the parameters.
 Mat_at_age_estimates <- Estimate_Age_Maturity(maturity_data,
                                               return = "estimates",
@@ -215,6 +256,25 @@ head(Mat_at_age_estimates)
 head(Mat_at_len_estimates)
 
 ```
+```{r estimate2, warning=FALSE, echo=FALSE}
+# selecting return = "plot" returns a ggplot object rather than the parameters.
+Mat_at_age_estimates <- Estimate_Age_Maturity(maturity_data,
+                                              return = "estimates",
+                                              n.bootstraps = 10,
+                                              error.structure = "quasibinomial")
+
+
+Mat_at_len_estimates <- Estimate_Len_Maturity(maturity_data,
+                                              return = "estimates",
+                                              n.bootstraps = 10,
+                                              error.structure = "binomial")
+
+head(Mat_at_age_estimates)
+
+head(Mat_at_len_estimates)
+
+```
+
 
 
 
