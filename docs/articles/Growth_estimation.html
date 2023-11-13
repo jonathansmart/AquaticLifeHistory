@@ -6,19 +6,21 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Growth estimation example using the AquaticLifeHistory package • AquaticLifeHistory</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Growth estimation example using the AquaticLifeHistory package">
-<meta property="og:description" content="">
-<meta name="twitter:card" content="summary">
+<meta property="og:description" content="AquaticLifeHistory">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,23 +33,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">AquaticLifeHistory</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.4</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -61,11 +57,14 @@
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/jonathansmart/AquaticLifeHistory">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/jonathansmart/AquaticLifeHistory/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -82,378 +81,489 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Growth estimation example using the AquaticLifeHistory package</h1>
-                        <h4 class="author">Jonathan Smart</h4>
+      <h1 data-toc-skip>Growth estimation example using the
+AquaticLifeHistory package</h1>
+                        <h4 data-toc-skip class="author">Jonathan
+Smart</h4>
             
-            <h4 class="date">2019-11-27</h4>
+            <h4 data-toc-skip class="date">2023-11-13</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/jonathansmart/AquaticLifeHistory/blob/master/vignettes/Growth_estimation.Rmd"><code>vignettes/Growth_estimation.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/jonathansmart/AquaticLifeHistory/blob/HEAD/vignettes/Growth_estimation.Rmd" class="external-link"><code>vignettes/Growth_estimation.Rmd</code></a></small>
       <div class="hidden name"><code>Growth_estimation.Rmd</code></div>
 
     </div>
 
     
     
-<div id="citation" class="section level1">
-<h1 class="hasAnchor">
-<a href="#citation" class="anchor"></a>Citation</h1>
-<p>Please cite this package if it is used in any publication. The citation details can be accessed in the command line:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"AquaticLifeHistory"</span>)
-<span class="co">#&gt; </span>
-<span class="co">#&gt; To cite AquaticLifeHistory use:</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   Smart J 2019 AquaticLifeHistory: Fisheries life history analysis</span>
-<span class="co">#&gt;   using contemporary methods.</span>
-<span class="co">#&gt;   https://github.com/jonathansmart/AquaticLifeHistory</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   Smart, J. J., Chin, A. , Tobin, A. J. and Simpfendorfer, C. A.</span>
-<span class="co">#&gt;   (2016) Multimodel approaches in shark and ray growth studies:</span>
-<span class="co">#&gt;   strengths, weaknesses and the future. Fish and Fisheries, 17:</span>
-<span class="co">#&gt;   955-971. doi:10.1111/faf.12154</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; To see these entries in BibTeX format, use 'print(&lt;citation&gt;,</span>
-<span class="co">#&gt; bibtex=TRUE)', 'toBibtex(.)', or set</span>
-<span class="co">#&gt; 'options(citation.bibtex.max=999)'.</span></code></pre></div>
+<div class="section level2">
+<h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
+</h2>
+<p>Please cite this package if it is used in any publication. The
+citation details can be accessed in the command line:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"AquaticLifeHistory"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; To cite AquaticLifeHistory use:</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;   Smart J 2023 AquaticLifeHistory: Fisheries life history analysis</span></span>
+<span><span class="co">#&gt;   using contemporary methods.</span></span>
+<span><span class="co">#&gt;   https://github.com/jonathansmart/AquaticLifeHistory</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;   Smart, J. J., Chin, A. , Tobin, A. J. and Simpfendorfer, C. A. (2016)</span></span>
+<span><span class="co">#&gt;   Multimodel approaches in shark and ray growth studies: strengths,</span></span>
+<span><span class="co">#&gt;   weaknesses and the future. Fish and Fisheries, 17: 955-971.</span></span>
+<span><span class="co">#&gt;   doi:10.1111/faf.12154</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; To see these entries in BibTeX format, use 'print(&lt;citation&gt;,</span></span>
+<span><span class="co">#&gt; bibtex=TRUE)', 'toBibtex(.)', or set</span></span>
+<span><span class="co">#&gt; 'options(citation.bibtex.max=999)'.</span></span></code></pre></div>
 </div>
-<div id="introduction" class="section level1">
-<h1 class="hasAnchor">
-<a href="#introduction" class="anchor"></a>Introduction</h1>
-<p>Growth information attained through length-at-age analysis is a key component in many fisheries analyses. This package gives the user the ability to quickly and efficiently estimate growth for an aquatic species (fishes, sharks, molluscs, crustaceans, etc.) using robust and contemporary techniques. This can be achieved using either a single model approach (i.e. application of a von Bertalanffy growth function) or through a multi-model approach where multiple models are applied simultaneously and compared.This package will provide parameter estimates with errors, length-at-age estimates with bootsrapped confidence intervals, plots and model statistics - providing users with everything required for scientific publication.</p>
+<div class="section level2">
+<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
+<p>Growth information attained through length-at-age analysis is a key
+component in many fisheries analyses. This package gives the user the
+ability to quickly and efficiently estimate growth for an aquatic
+species (fishes, sharks, molluscs, crustaceans, etc.) using robust and
+contemporary techniques. This can be achieved using either a single
+model approach (i.e. application of a von Bertalanffy growth function)
+or through a multi-model approach where multiple models are applied
+simultaneously and compared.This package will provide parameter
+estimates with errors, length-at-age estimates with bootstrapped
+confidence intervals, plots and model statistics - providing users with
+everything required for scientific publication.</p>
 </div>
-<div id="multi-model-growth-analysis-with-estimate_growth" class="section level1">
-<h1 class="hasAnchor">
-<a href="#multi-model-growth-analysis-with-estimate_growth" class="anchor"></a>Multi-model growth analysis with <code>Estimate_Growth()</code>
-</h1>
-<p><code><a href="../reference/Estimate_Growth.html">Estimate_Growth()</a></code> is the main function for length-at-age modelling and offers the user a lot of flexibility which we will run through. This function applies the multi-model approach outlined in <a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/faf.12154">Smart et al (2016)</a> and will give the user the option of applying three growth models. These include the von Bertalanffy growth model: <span class="math display">\[L_{a}=L_{0}+(L_{\infty}-L_{0})(1-e^{-ka})\]</span> the Gompertz model: <span class="math display">\[L_{a}=L_{0}e^{log(L_{\infty}/L_{0})(1-e^{-ga})})\]</span> and the Logistic model: <span class="math display">\[L_{a}=(L_{\infty}*L_{0}*e^{ga})/(L_{\infty}+L_{0}*e^{ga-1})\]</span> where <span class="math inline">\(L_{a}\)</span> is length-at-age <span class="math inline">\(a\)</span>, <span class="math inline">\(L_{\infty}\)</span> is the asympotic length and <span class="math inline">\(L_{0}\)</span> is the length-at-birth. Each model has its own growth coefficient (<span class="math inline">\(k\)</span> = von Bertalanfy, <span class="math inline">\(g\)</span> = Gompertz and <span class="math inline">\(g\)</span> = Logistic). These growth coefficients are incomparable between models (though the Gompertz and Logistic models share the same notation) whereas the <span class="math inline">\(L_{\infty}\)</span> and <span class="math inline">\(L_{0}\)</span> have the same interpretation between models.</p>
-<p>Most applications of growth models for fish have used a <span class="math inline">\(t_{0}\)</span> rather than <span class="math inline">\(L_{0}\)</span> which represents the time-at-length-zero rather than a length-at-birth (i.e time-zero). However, <span class="math inline">\(t_{0}\)</span> does not have the same definition accross multiple growth models whereas <span class="math inline">\(L_{0}\)</span> always refers to length-at-birth. This parameter is therefore used a multi-model approach. <span class="math inline">\(t_{0}\)</span> can be calculated from the VBGF parameters as: <span class="math display">\[t_{0}=(1/k)log(L_{\infty}-L_{0})/L_{\infty})\]</span></p>
-<p>Each of these models provide different growth forms and applying them silmultaneously and comparing their fits will increase the chance that an appropriate model is applied to the data. Alternatively, the user can apply a single model or select a combination (see further down).</p>
+<div class="section level2">
+<h2 id="multi-model-growth-analysis-with-estimate_growth">Multi-model growth analysis with <code>Estimate_Growth()</code><a class="anchor" aria-label="anchor" href="#multi-model-growth-analysis-with-estimate_growth"></a>
+</h2>
+<p><code><a href="../reference/Estimate_Growth.html">Estimate_Growth()</a></code> is the main function for length-at-age
+modelling and offers the user a lot of flexibility which we will run
+through. This function applies the multi-model approach outlined in <a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/faf.12154" class="external-link">Smart
+et al (2016)</a> and will give the user the option of applying three
+growth models. These include the von Bertalanffy growth model: <span class="math display">\[L_{a}=L_{0}+(L_{\infty}-L_{0})(1-e^{-ka})\]</span>
+the Gompertz model: <span class="math display">\[L_{a}=L_{0}e^{log(L_{\infty}/L_{0})(1-e^{-ga})})\]</span>
+and the Logistic model: <span class="math display">\[L_{a}=(L_{\infty}*L_{0}*e^{ga})/(L_{\infty}+L_{0}*e^{ga-1})\]</span>
+where <span class="math inline">\(L_{a}\)</span> is length-at-age <span class="math inline">\(a\)</span>, <span class="math inline">\(L_{\infty}\)</span> is the asymptotic length and
+<span class="math inline">\(L_{0}\)</span> is the length-at-birth. Each
+model has its own growth coefficient (<span class="math inline">\(k\)</span> = von Bertalanfy, <span class="math inline">\(g\)</span> = Gompertz and <span class="math inline">\(g\)</span> = Logistic). These growth coefficients
+are incomparable between models (though the Gompertz and Logistic models
+share the same notation) whereas the <span class="math inline">\(L_{\infty}\)</span> and <span class="math inline">\(L_{0}\)</span> have the same interpretation
+between models.</p>
+<p>Most applications of growth models for fish have used a <span class="math inline">\(t_{0}\)</span> rather than <span class="math inline">\(L_{0}\)</span> which represents the
+time-at-length-zero rather than a length-at-birth (i.e time-zero).
+However, <span class="math inline">\(t_{0}\)</span> does not have the
+same definition across multiple growth models whereas <span class="math inline">\(L_{0}\)</span> always refers to length-at-birth.
+This parameter is therefore used a multi-model approach. <span class="math inline">\(t_{0}\)</span> can be calculated from the VBGF
+parameters as: <span class="math display">\[t_{0}=(1/k)log(L_{\infty}-L_{0})/L_{\infty})\]</span></p>
+<p>Each of these models provide different growth forms and applying them
+simultaneously and comparing their fits will increase the chance that an
+appropriate model is applied to the data. Alternatively, the user can
+apply a single model or select a combination (see further down).</p>
 <p>Using <code><a href="../reference/Estimate_Growth.html">Estimate_Growth()</a></code> will perform the following:</p>
 <ul>
-<li>Fit the specified growth models using an <code><a href="https://rdrr.io/r/stats/nls.html">nls()</a></code> function, returning the parameters and summary statistics.</li>
-<li>Calculate Akaike’s information criterion (<span class="math inline">\(AIC\)</span>) values and calculate model weights (<span class="math inline">\(w\)</span>).</li>
-<li>Bootstrap the data and return 95% confidence intervals for a growth curve over the age range of the data.</li>
-<li>Return a plot with the growth curves with confidence intervals (can be disabled to return raw results).</li>
+<li>Fit the specified growth models using an <code><a href="https://rdrr.io/r/stats/nls.html" class="external-link">nls()</a></code>
+function, returning the parameters and summary statistics.</li>
+<li>Calculate Akaike’s information criterion (<span class="math inline">\(AIC\)</span>) values and calculate model weights
+(<span class="math inline">\(w\)</span>).</li>
+<li>Bootstrap the data and return 95% confidence intervals for a growth
+curve over the age range of the data.</li>
+<li>Return a plot with the growth curves with confidence intervals (can
+be disabled to return raw results).</li>
 <li>Return parameter correlation matrices when requested.</li>
 </ul>
-<div id="input-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#input-data" class="anchor"></a>Input data</h2>
-<p>The <code>data</code> argument of <code><a href="../reference/Estimate_Growth.html">Estimate_Growth()</a></code> requires a data.frame of length and age data. However, this function is flexible and does not require the data to be preprocessed. The function will automatically determine the “Age” column and the “Length” column by looking for sensibly named columns. For example, the length column will accept a column named “Length”, “Len”, “STL”, “TL”, “LT” or “size”. If a column can’t be distinguished the user will be prompted to rename the necessary column. This setup means that a dataset that contains additional columns (such as “Sex” or “Date”) can be passed to the function. The only issue the user should be aware of is that multiple length columns can’t be provided (i.e “TL” and “FL”).</p>
+<div class="section level3">
+<h3 id="input-data">Input data<a class="anchor" aria-label="anchor" href="#input-data"></a>
+</h3>
+<p>The <code>data</code> argument of <code><a href="../reference/Estimate_Growth.html">Estimate_Growth()</a></code>
+requires a data.frame of length and age data. However, this function is
+flexible and does not require the data to be preprocessed. The function
+will automatically determine the “Age” column and the “Length” column by
+looking for sensibly named columns. For example, the length column will
+accept a column named “Length”, “Len”, “STL”, “TL”, “LT” or “size”. If a
+column can’t be distinguished the user will be prompted to rename the
+necessary column. This setup means that a data set that contains
+additional columns (such as “Sex” or “Date”) can be passed to the
+function. The only issue the user should be aware of is that multiple
+length columns can’t be provided (i.e “TL” and “FL”).</p>
 </div>
-<div id="example-applications" class="section level2">
-<h2 class="hasAnchor">
-<a href="#example-applications" class="anchor"></a>Example applications</h2>
-<p>Growth functions can be tested using an included dataset which contains length-at-age data for common blacktip sharks (<em>Carcharhinus limbatus</em>) from Indonesia.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(AquaticLifeHistory)
-
-<span class="kw"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"growth_data"</span>)
-
-<span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(growth_data) 
-<span class="co">#&gt;   Age    Length Sex</span>
-<span class="co">#&gt; 1   0  628.7329   F</span>
-<span class="co">#&gt; 2   1  895.8052   F</span>
-<span class="co">#&gt; 3   2 1098.3352   F</span>
-<span class="co">#&gt; 4   3 1287.5114   F</span>
-<span class="co">#&gt; 5   4 1471.1238   F</span>
-<span class="co">#&gt; 6   5 1584.6282   F</span></code></pre></div>
-<p>Length-at-age 95% confidence intervals will be produced for the growth curve through bootstrapping with 1000 iterations being default. The <code>Estimate_growth()</code> will return a list of parameter estimates for three candidate models: the von Bertalanffy growth function (“VB”), Gompertz growth function (“Gom”) and Logistic growth function (“Log”). The <span class="math inline">\(AIC\)</span> results for each model will also be returned as a list element, demonstrating which growth model best fit the data. A plot will be printed with the growth curves for all included models.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/Estimate_Growth.html">Estimate_Growth</a></span>(<span class="dt">data =</span> growth_data)</code></pre></div>
-<p><img src="Growth_estimation_files/figure-html/unnamed-chunk-3-1.png" width="768"></p>
-<pre><code>#&gt; $VonB
-#&gt;         Parameter           SE
-#&gt; Linf 2439.5652152 50.416333174
-#&gt; k       0.1253499  0.006938586
-#&gt; L0    659.2971932 14.318722941
-#&gt; RSE    97.9461196           NA
-#&gt; 
-#&gt; $Logistic
-#&gt;         Parameter          SE
-#&gt; Linf 2163.8640322 26.46867899
-#&gt; g       0.2894532  0.01039625
-#&gt; L0    727.0885241 13.58771361
-#&gt; RSE   110.3850532          NA
-#&gt; 
-#&gt; $Gompertz
-#&gt;        Parameter           SE
-#&gt; Linf 2250.137001 32.621706468
-#&gt; g       0.207524  0.008455424
-#&gt; L0    695.603479 13.779414030
-#&gt; RSE   103.855273           NA
-#&gt; 
-#&gt; $AIC
-#&gt;   Model    AICc AIC diff Weight
-#&gt; 1    VB 3535.10     0.00      1
-#&gt; 2   Log 3605.40    70.30      0
-#&gt; 3   Gom 3569.54    34.45      0</code></pre>
-<p>The <code><a href="../reference/Estimate_Growth.html">Estimate_Growth()</a></code> function produces these outputs in three steps:</p>
+<div class="section level3">
+<h3 id="example-applications">Example applications<a class="anchor" aria-label="anchor" href="#example-applications"></a>
+</h3>
+<p>Growth functions can be tested using an included data set which
+contains length-at-age data for common blacktip sharks (<em>Carcharhinus
+limbatus</em>) from Indonesia.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jonathansmart/AquaticLifeHistory" class="external-link">AquaticLifeHistory</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"growth_data"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">growth_data</span><span class="op">)</span> </span>
+<span><span class="co">#&gt;   Age    Length Sex</span></span>
+<span><span class="co">#&gt; 1   0  628.7329   F</span></span>
+<span><span class="co">#&gt; 2   1  895.8052   F</span></span>
+<span><span class="co">#&gt; 3   2 1098.3352   F</span></span>
+<span><span class="co">#&gt; 4   3 1287.5114   F</span></span>
+<span><span class="co">#&gt; 5   4 1471.1238   F</span></span>
+<span><span class="co">#&gt; 6   5 1584.6282   F</span></span></code></pre></div>
+<p>Length-at-age 95% confidence intervals will be produced for the
+growth curve through bootstrapping with 1000 iterations being default.
+The <code>Estimate_growth()</code> will return a list of parameter
+estimates for three candidate models: the von Bertalanffy growth
+function (“VB”), Gompertz growth function (“Gom”) and Logistic growth
+function (“Log”). The <span class="math inline">\(AIC\)</span> results
+for each model will also be returned as a list element, demonstrating
+which growth model best fit the data. A plot will be printed with the
+growth curves for all included models.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/Estimate_Growth.html">Estimate_Growth</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">growth_data</span><span class="op">)</span></span></code></pre></div>
+<p><img src="Growth_estimation_files/figure-html/unnamed-chunk-4-1.png" width="768"></p>
+<pre><code><span><span class="co">#&gt; $VonB</span></span>
+<span><span class="co">#&gt;         Parameter           SE</span></span>
+<span><span class="co">#&gt; Linf 2439.5652138 50.416331766</span></span>
+<span><span class="co">#&gt; k       0.1253499  0.006938586</span></span>
+<span><span class="co">#&gt; L0    659.2971929 14.318722887</span></span>
+<span><span class="co">#&gt; RSE    97.9461196           NA</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Logistic</span></span>
+<span><span class="co">#&gt;         Parameter          SE</span></span>
+<span><span class="co">#&gt; Linf 2163.8640309 26.46867817</span></span>
+<span><span class="co">#&gt; g       0.2894532  0.01039625</span></span>
+<span><span class="co">#&gt; L0    727.0885234 13.58771346</span></span>
+<span><span class="co">#&gt; RSE   110.3850532          NA</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Gompertz</span></span>
+<span><span class="co">#&gt;        Parameter           SE</span></span>
+<span><span class="co">#&gt; Linf 2250.136998 32.621706305</span></span>
+<span><span class="co">#&gt; g       0.207524  0.008455423</span></span>
+<span><span class="co">#&gt; L0    695.603478 13.779414070</span></span>
+<span><span class="co">#&gt; RSE   103.855273           NA</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $AIC</span></span>
+<span><span class="co">#&gt;   Model    AICc AIC diff Weight</span></span>
+<span><span class="co">#&gt; 1    VB 3535.10     0.00      1</span></span>
+<span><span class="co">#&gt; 2   Log 3605.40    70.30      0</span></span>
+<span><span class="co">#&gt; 3   Gom 3569.54    34.45      0</span></span></code></pre>
+<p>The <code><a href="../reference/Estimate_Growth.html">Estimate_Growth()</a></code> function produces these outputs in
+three steps:</p>
 <ol style="list-style-type: decimal">
-<li>Starting parameters for the models are determined using the Ford-Walford method.</li>
-<li>The models are fit to the data using the <code><a href="https://rdrr.io/r/stats/nls.html">nls()</a></code> function.
+<li>Starting parameters for the models are determined using the
+Ford-Walford method.</li>
+<li>The models are fit to the data using the <code><a href="https://rdrr.io/r/stats/nls.html" class="external-link">nls()</a></code>
+function.
 <ul>
-<li>The <code><a href="https://rdrr.io/r/stats/nls.html">nls()</a></code> function can be very fragile and prone to non-convergence if the data is not well suited to a particular model. Using the <code>models</code> argument to specify different models is a good way to intially exclude problematic growth models if a non-convergence error message occurs.</li>
+<li>The <code><a href="https://rdrr.io/r/stats/nls.html" class="external-link">nls()</a></code> function can be very fragile and prone to
+non-convergence if the data is not well suited to a particular model.
+Using the <code>models</code> argument to specify different models is a
+good way to initially exclude problematic growth models if a
+non-convergence error message occurs.</li>
 </ul>
 </li>
-<li>Bootstrapping is performed to determine 95% confidence intervals along the growth curve. These are included in the plot or returned to the user if <code>plots = FALSE</code> is used.
+<li>Bootstrapping is performed to determine 95% confidence intervals
+along the growth curve. These are included in the plot or returned to
+the user if <code>plots = FALSE</code> is used.
 <ul>
-<li>The bootstrap iterations are specified using the <code>n.bootstraps</code> arugment. The default is 1000.</li>
+<li>The bootstrap iterations are specified using the
+<code>n.bootstraps</code> argument. The default is 1000.</li>
 </ul>
 </li>
 </ol>
 </div>
-<div id="fitting-specific-models" class="section level2">
-<h2 class="hasAnchor">
-<a href="#fitting-specific-models" class="anchor"></a>Fitting specific models</h2>
-<p>One model can also be specified using the <code>models</code> argument:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/Estimate_Growth.html">Estimate_Growth</a></span>(<span class="dt">data =</span> growth_data, <span class="dt">models =</span> <span class="st">"VB"</span>)</code></pre></div>
-<p><img src="Growth_estimation_files/figure-html/unnamed-chunk-4-1.png" width="768"></p>
-<pre><code>#&gt; $VonB
-#&gt;         Parameter           SE
-#&gt; Linf 2439.5652152 50.416333174
-#&gt; k       0.1253499  0.006938586
-#&gt; L0    659.2971932 14.318722941
-#&gt; RSE    97.9461196           NA
-#&gt; 
-#&gt; $AIC
-#&gt;   Model   AICc AIC diff Weight
-#&gt; 1    VB 3535.1        0      1</code></pre>
+<div class="section level3">
+<h3 id="fitting-specific-models">Fitting specific models<a class="anchor" aria-label="anchor" href="#fitting-specific-models"></a>
+</h3>
+<p>One model can also be specified using the <code>models</code>
+argument:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/Estimate_Growth.html">Estimate_Growth</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">growth_data</span>, models <span class="op">=</span> <span class="st">"VB"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="Growth_estimation_files/figure-html/unnamed-chunk-6-1.png" width="768"></p>
+<pre><code><span><span class="co">#&gt; $VonB</span></span>
+<span><span class="co">#&gt;         Parameter           SE</span></span>
+<span><span class="co">#&gt; Linf 2439.5652138 50.416331766</span></span>
+<span><span class="co">#&gt; k       0.1253499  0.006938586</span></span>
+<span><span class="co">#&gt; L0    659.2971929 14.318722887</span></span>
+<span><span class="co">#&gt; RSE    97.9461196           NA</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $AIC</span></span>
+<span><span class="co">#&gt;   Model   AICc AIC diff Weight</span></span>
+<span><span class="co">#&gt; 1    VB 3535.1        0      1</span></span></code></pre>
 <p>Or several can be specified:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/Estimate_Growth.html">Estimate_Growth</a></span>(<span class="dt">data =</span> growth_data, <span class="dt">models =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Log"</span>, <span class="st">"Gom"</span>))</code></pre></div>
-<p><img src="Growth_estimation_files/figure-html/unnamed-chunk-5-1.png" width="768"></p>
-<pre><code>#&gt; $Logistic
-#&gt;         Parameter          SE
-#&gt; Linf 2163.8640322 26.46867899
-#&gt; g       0.2894532  0.01039625
-#&gt; L0    727.0885241 13.58771361
-#&gt; RSE   110.3850532          NA
-#&gt; 
-#&gt; $Gompertz
-#&gt;        Parameter           SE
-#&gt; Linf 2250.137001 32.621706468
-#&gt; g       0.207524  0.008455424
-#&gt; L0    695.603479 13.779414030
-#&gt; RSE   103.855273           NA
-#&gt; 
-#&gt; $AIC
-#&gt;   Model    AICc AIC diff Weight
-#&gt; 1   Log 3605.40    35.85      0
-#&gt; 2   Gom 3569.54     0.00      1</code></pre>
-<p>Note: The three models must be specified as “VB”, “Log” and “Gom”. Otherwise there will be an error</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/Estimate_Growth.html">Estimate_Growth</a></span>(<span class="dt">data =</span> growth_data, <span class="dt">models =</span> <span class="st">"VBGF"</span>)
-<span class="co">#&gt; Error in Estimate_Growth(data = growth_data, models = "VBGF"): Models an only be 'VB', 'Log', 'Gom' or a combination of these</span></code></pre></div>
-</div>
-<div id="plot-alterations" class="section level2">
-<h2 class="hasAnchor">
-<a href="#plot-alterations" class="anchor"></a>Plot alterations</h2>
-<p>If you are plotting one model you probably don’t want a legend included. This can be removed using the <code>plot.legend</code> argument. This also works when several models are plotted</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Results &lt;-<span class="st"> </span><span class="kw"><a href="../reference/Estimate_Growth.html">Estimate_Growth</a></span>(<span class="dt">data =</span> growth_data, <span class="dt">models =</span> <span class="st">"VB"</span>, <span class="dt">plot.legend =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<p><img src="Growth_estimation_files/figure-html/unnamed-chunk-7-1.png" width="768"> Lastly, the y-axis label will automatically scale the unit from mm to cm based on the input data</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new.dat &lt;-<span class="st"> </span>growth_data
-new.dat<span class="op">$</span>Length &lt;-<span class="st"> </span>new.dat<span class="op">$</span>Length<span class="op">/</span><span class="dv">10</span>
-
-Results &lt;-<span class="st"> </span><span class="kw"><a href="../reference/Estimate_Growth.html">Estimate_Growth</a></span>(new.dat)</code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/Estimate_Growth.html">Estimate_Growth</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">growth_data</span>, models <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Log"</span>, <span class="st">"Gom"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Growth_estimation_files/figure-html/unnamed-chunk-8-1.png" width="768"></p>
+<pre><code><span><span class="co">#&gt; $Logistic</span></span>
+<span><span class="co">#&gt;         Parameter          SE</span></span>
+<span><span class="co">#&gt; Linf 2163.8640309 26.46867817</span></span>
+<span><span class="co">#&gt; g       0.2894532  0.01039625</span></span>
+<span><span class="co">#&gt; L0    727.0885234 13.58771346</span></span>
+<span><span class="co">#&gt; RSE   110.3850532          NA</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Gompertz</span></span>
+<span><span class="co">#&gt;        Parameter           SE</span></span>
+<span><span class="co">#&gt; Linf 2250.136998 32.621706305</span></span>
+<span><span class="co">#&gt; g       0.207524  0.008455423</span></span>
+<span><span class="co">#&gt; L0    695.603478 13.779414070</span></span>
+<span><span class="co">#&gt; RSE   103.855273           NA</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $AIC</span></span>
+<span><span class="co">#&gt;   Model    AICc AIC diff Weight</span></span>
+<span><span class="co">#&gt; 1   Log 3605.40    35.85      0</span></span>
+<span><span class="co">#&gt; 2   Gom 3569.54     0.00      1</span></span></code></pre>
+<p>Note: The three models must be specified as “VB”, “Log” and “Gom”.
+Otherwise there will be an error</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/Estimate_Growth.html">Estimate_Growth</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">growth_data</span>, models <span class="op">=</span> <span class="st">"VBGF"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">#&gt; Error in Estimate_Growth(data = growth_data, models = "VBGF", n.bootstraps = 10): Models an only be 'VB', 'Log', 'Gom' or a combination of these</span></span></code></pre>
 </div>
-<div id="returning-length-at-age-estimates" class="section level2">
-<h2 class="hasAnchor">
-<a href="#returning-length-at-age-estimates" class="anchor"></a>Returning length-at-age estimates</h2>
-<p>It is recommended that users create their own plots for publications. Therefore setting <code>plots = FALSE</code> will provide these estimates as an additional list object rather than printing a plot.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">results &lt;-<span class="st"> </span><span class="kw"><a href="../reference/Estimate_Growth.html">Estimate_Growth</a></span>(<span class="dt">data =</span> growth_data, <span class="dt">plots =</span> <span class="ot">FALSE</span>)
-
-Length_at_age_estimates &lt;-<span class="st"> </span>results<span class="op">$</span>Estimates
-
-<span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(Length_at_age_estimates)
-<span class="co">#&gt;             Model Age      AVG      low      upp</span>
-<span class="co">#&gt; 1 Von Bertalanffy 0.0 659.2972 632.1830 688.4676</span>
-<span class="co">#&gt; 2 Von Bertalanffy 0.1 681.4736 655.9496 709.3612</span>
-<span class="co">#&gt; 3 Von Bertalanffy 0.2 703.3737 679.0926 730.1880</span>
-<span class="co">#&gt; 4 Von Bertalanffy 0.3 725.0010 701.8174 750.3125</span>
-<span class="co">#&gt; 5 Von Bertalanffy 0.4 746.3589 724.0777 770.7559</span>
-<span class="co">#&gt; 6 Von Bertalanffy 0.5 767.4507 745.5062 790.8983</span></code></pre></div>
+<div class="section level3">
+<h3 id="plot-alterations">Plot alterations<a class="anchor" aria-label="anchor" href="#plot-alterations"></a>
+</h3>
+<p>If you are plotting one model you probably don’t want a legend
+included. This can be removed using the <code>plot.legend</code>
+argument. This also works when several models are plotted</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Estimate_Growth.html">Estimate_Growth</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">growth_data</span>, models <span class="op">=</span> <span class="st">"VB"</span>, plot.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<p><img src="Growth_estimation_files/figure-html/unnamed-chunk-12-1.png" width="768">
+Lastly, the y-axis label will automatically scale the unit from mm to cm
+based on the input data</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">new.dat</span> <span class="op">&lt;-</span> <span class="va">growth_data</span></span>
+<span><span class="va">new.dat</span><span class="op">$</span><span class="va">Length</span> <span class="op">&lt;-</span> <span class="va">new.dat</span><span class="op">$</span><span class="va">Length</span><span class="op">/</span><span class="fl">10</span></span>
+<span></span>
+<span><span class="va">Results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Estimate_Growth.html">Estimate_Growth</a></span><span class="op">(</span><span class="va">new.dat</span><span class="op">)</span></span></code></pre></div>
+<p><img src="Growth_estimation_files/figure-html/unnamed-chunk-14-1.png" width="768"></p>
+</div>
+<div class="section level3">
+<h3 id="returning-length-at-age-estimates">Returning length-at-age estimates<a class="anchor" aria-label="anchor" href="#returning-length-at-age-estimates"></a>
+</h3>
+<p>It is recommended that users create their own plots for publications.
+Therefore setting <code>plots = FALSE</code> will provide these
+estimates as an additional list object rather than printing a plot.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Estimate_Growth.html">Estimate_Growth</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">growth_data</span>, plots <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">Length_at_age_estimates</span> <span class="op">&lt;-</span> <span class="va">results</span><span class="op">$</span><span class="va">Estimates</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">Length_at_age_estimates</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">#&gt;             Model Age      AVG      low      upp</span></span>
+<span><span class="co">#&gt; 1 Von Bertalanffy 0.0 659.2972 622.9943 689.7049</span></span>
+<span><span class="co">#&gt; 2 Von Bertalanffy 0.1 681.4736 647.1071 710.3804</span></span>
+<span><span class="co">#&gt; 3 Von Bertalanffy 0.2 703.3737 670.8837 730.8162</span></span>
+<span><span class="co">#&gt; 4 Von Bertalanffy 0.3 725.0010 694.3290 751.0150</span></span>
+<span><span class="co">#&gt; 5 Von Bertalanffy 0.4 746.3589 717.4475 770.9797</span></span>
+<span><span class="co">#&gt; 6 Von Bertalanffy 0.5 767.4507 740.2437 790.7128</span></span></code></pre>
 </div>
 </div>
-<div id="model-averaged-results-with-calculate_mmi" class="section level1">
-<h1 class="hasAnchor">
-<a href="#model-averaged-results-with-calculate_mmi" class="anchor"></a>Model averaged results with <code>Calculate_MMI</code>
-</h1>
-<p>Multi-model inference (MMI) can be useful when no particular candidate model provides a better fit than the others (<span class="math inline">\(\Delta AIC\)</span> &lt; 2). This involves averaging all models accross the growth curve based on their AIC weights (<span class="math inline">\(w\)</span>). It will return model averaged values of <span class="math inline">\(L_{\infty}\)</span> and <span class="math inline">\(L_{0}\)</span> with averaged standard errors. No model averaged growth completion parameters (<span class="math inline">\(k\)</span> for VBGF, <span class="math inline">\(g\)</span> for Gompertz or <span class="math inline">\(g\)</span> for Logistic) are returned as these parameters are not comparable accross models.</p>
-<p><code>Calculate_MMI</code> takes the outputs of <code>Estimate_Growth</code> with <code>plots = FALSE</code> (so that length-at-age estimates are available) and will calculate MMI parameters and standard errors as well as model averaged length-at-age estimates.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">results &lt;-<span class="st"> </span><span class="kw"><a href="../reference/Estimate_Growth.html">Estimate_Growth</a></span>(<span class="dt">data =</span> growth_data,  <span class="dt">plots =</span> <span class="ot">FALSE</span>)
-<span class="kw"><a href="../reference/Calculate_MMI.html">Calculate_MMI</a></span>(results)
-<span class="co">#&gt; $`MMI parametrs`</span>
-<span class="co">#&gt;   Parameter       AVG       SE</span>
-<span class="co">#&gt; 1      Linf 2439.5652 50.41633</span>
-<span class="co">#&gt; 2        L0  659.2972 14.31872</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $`MMI estimates`</span>
-<span class="co">#&gt;    Age       AVG</span>
-<span class="co">#&gt; 1    0  659.2972</span>
-<span class="co">#&gt; 2    1  870.0338</span>
-<span class="co">#&gt; 3    2 1056.0610</span>
-<span class="co">#&gt; 4    3 1220.2898</span>
-<span class="co">#&gt; 5    4 1365.2883</span>
-<span class="co">#&gt; 6    5 1493.3221</span>
-<span class="co">#&gt; 7    6 1606.3897</span>
-<span class="co">#&gt; 8    7 1706.2545</span>
-<span class="co">#&gt; 9    8 1794.4719</span>
-<span class="co">#&gt; 10   9 1872.4140</span>
-<span class="co">#&gt; 11  10 1941.2914</span>
-<span class="co">#&gt; 12  11 2002.1721</span>
-<span class="co">#&gt; 13  12 2055.9981</span>
-<span class="co">#&gt; 14  13 2103.6006</span>
-<span class="co">#&gt; 15  14 2145.7128</span>
-<span class="co">#&gt; 16  15 2182.9814</span>
-<span class="co">#&gt; 17  16 2215.9772</span>
-<span class="co">#&gt; 18  17 2245.2035</span></code></pre></div>
-<p>Be aware that bootstrapping cannot be applied for MMI so no length-at-age errors are available. Also multi-model theory dictates that model averaged errors will be larger than the cumulative errors of candidate models. So don’t be alarmed if you get large parameter standard errors.</p>
+<div class="section level2">
+<h2 id="model-averaged-results-with-calculate_mmi">Model averaged results with <code>Calculate_MMI</code><a class="anchor" aria-label="anchor" href="#model-averaged-results-with-calculate_mmi"></a>
+</h2>
+<p>Multi-model inference (MMI) can be useful when no particular
+candidate model provides a better fit than the others (<span class="math inline">\(\Delta AIC\)</span> &lt; 2). This involves
+averaging all models across the growth curve based on their AIC weights
+(<span class="math inline">\(w\)</span>). It will return model averaged
+values of <span class="math inline">\(L_{\infty}\)</span> and <span class="math inline">\(L_{0}\)</span> with averaged standard errors. No
+model averaged growth completion parameters (<span class="math inline">\(k\)</span> for VBGF, <span class="math inline">\(g\)</span> for Gompertz or <span class="math inline">\(g\)</span> for Logistic) are returned as these
+parameters are not comparable across models.</p>
+<p><code>Calculate_MMI</code> takes the outputs of
+<code>Estimate_Growth</code> with <code>plots = FALSE</code> (so that
+length-at-age estimates are available) and will calculate MMI parameters
+and standard errors as well as model averaged length-at-age
+estimates.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Estimate_Growth.html">Estimate_Growth</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">growth_data</span>,  plots <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/Calculate_MMI.html">Calculate_MMI</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">#&gt; $`MMI parametrs`</span></span>
+<span><span class="co">#&gt;   Parameter       AVG       SE</span></span>
+<span><span class="co">#&gt; 1      Linf 2439.5652 50.41633</span></span>
+<span><span class="co">#&gt; 2        L0  659.2972 14.31872</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $`MMI estimates`</span></span>
+<span><span class="co">#&gt;    Age       AVG</span></span>
+<span><span class="co">#&gt; 1    0  659.2972</span></span>
+<span><span class="co">#&gt; 2    1  870.0338</span></span>
+<span><span class="co">#&gt; 3    2 1056.0610</span></span>
+<span><span class="co">#&gt; 4    3 1220.2898</span></span>
+<span><span class="co">#&gt; 5    4 1365.2883</span></span>
+<span><span class="co">#&gt; 6    5 1493.3221</span></span>
+<span><span class="co">#&gt; 7    6 1606.3897</span></span>
+<span><span class="co">#&gt; 8    7 1706.2545</span></span>
+<span><span class="co">#&gt; 9    8 1794.4719</span></span>
+<span><span class="co">#&gt; 10   9 1872.4140</span></span>
+<span><span class="co">#&gt; 11  10 1941.2914</span></span>
+<span><span class="co">#&gt; 12  11 2002.1721</span></span>
+<span><span class="co">#&gt; 13  12 2055.9981</span></span>
+<span><span class="co">#&gt; 14  13 2103.6006</span></span>
+<span><span class="co">#&gt; 15  14 2145.7128</span></span>
+<span><span class="co">#&gt; 16  15 2182.9814</span></span>
+<span><span class="co">#&gt; 17  16 2215.9772</span></span>
+<span><span class="co">#&gt; 18  17 2245.2035</span></span></code></pre>
+<p>Be aware that bootstrapping cannot be applied for MMI so no
+length-at-age errors are available. Also multi-model theory dictates
+that model averaged errors will be larger than the cumulative errors of
+candidate models. So don’t be alarmed if you get large parameter
+standard errors.</p>
 </div>
-<div id="sex-specific-growth-curves" class="section level1">
-<h1 class="hasAnchor">
-<a href="#sex-specific-growth-curves" class="anchor"></a>Sex specific growth curves</h1>
-<p>Separating the sexes is common and is achieved by subsetting data and running the function multiple times. They can then be combined and plotted afterwards. This can be done for one model or several. Here is an example using the <code>ggplot2</code> package.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create data.frames of separate sexes</span>
-Females &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(growth_data, Sex <span class="op">==</span><span class="st"> "F"</span>)
-Males &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(growth_data, Sex <span class="op">==</span><span class="st"> "M"</span>)
-
-<span class="co"># Estimate growth</span>
-Female_ests &lt;-<span class="st"> </span><span class="kw"><a href="../reference/Estimate_Growth.html">Estimate_Growth</a></span>(Females,<span class="dt">n.bootstraps =</span> <span class="dv">1000</span>, <span class="dt">plots =</span> <span class="ot">FALSE</span>)
-Male_ests &lt;-<span class="st"> </span><span class="kw"><a href="../reference/Estimate_Growth.html">Estimate_Growth</a></span>(Males, <span class="dt">n.bootstraps =</span> <span class="dv">1000</span>,<span class="dt">plots =</span> <span class="ot">FALSE</span>)
-
-<span class="co"># Combine data sets with a new variable designating sex</span>
-Female_LAA &lt;-<span class="st"> </span>Female_ests<span class="op">$</span>Estimates
-Female_LAA<span class="op">$</span>Sex &lt;-<span class="st"> "F"</span>
-
-Male_LAA &lt;-<span class="st"> </span>Male_ests<span class="op">$</span>Estimates
-Male_LAA<span class="op">$</span>Sex &lt;-<span class="st"> "M"</span>
-
-combined_data &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(Male_LAA, Female_LAA)
-
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggplot2)
-
-<span class="kw">ggplot</span>(combined_data, <span class="kw">aes</span>(<span class="dt">x =</span> Age, <span class="dt">y =</span> AVG, <span class="dt">fill =</span> Model, <span class="dt">col =</span> Model)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Sex, <span class="dt">ncol =</span> <span class="dv">1</span>, <span class="dt">scales =</span> <span class="st">"free"</span>)<span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> Males, <span class="kw">aes</span>(<span class="dt">x =</span> Age, <span class="dt">y =</span> Length, <span class="dt">fill =</span> <span class="ot">NULL</span>, <span class="dt">col =</span> <span class="ot">NULL</span>), <span class="dt">alpha =</span> .<span class="dv">3</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> Females, <span class="kw">aes</span>(<span class="dt">x =</span> Age, <span class="dt">y =</span> Length, <span class="dt">fill =</span> <span class="ot">NULL</span>, <span class="dt">col =</span> <span class="ot">NULL</span>), <span class="dt">alpha =</span> .<span class="dv">3</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> low, <span class="dt">ymax =</span> upp, <span class="dt">col =</span> <span class="ot">NA</span>), <span class="dt">alpha =</span> <span class="fl">0.2</span>)<span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">size =</span> <span class="dv">1</span>)<span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">name =</span> <span class="st">"Length (mm)"</span>, <span class="dt">limits =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,<span class="dv">2500</span>), <span class="dt">expand =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,<span class="dv">0</span>))<span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">name =</span> <span class="st">"Age (years)"</span>, <span class="dt">limits =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,<span class="dv">18</span>), <span class="dt">expand =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,<span class="dv">0</span>))<span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_bw</span>()</code></pre></div>
-<p><img src="Growth_estimation_files/figure-html/unnamed-chunk-11-1.png" width="576"></p>
+<div class="section level2">
+<h2 id="sex-specific-growth-curves">Sex specific growth curves<a class="anchor" aria-label="anchor" href="#sex-specific-growth-curves"></a>
+</h2>
+<p>Separating the sexes is common and is achieved by sub setting data
+and running the function multiple times. They can then be combined and
+plotted afterwards. This can be done for one model or several. Here is
+an example using the <code>ggplot2</code> package.</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Create data.frames of separate sexes</span></span>
+<span><span class="va">Females</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">growth_data</span>, <span class="va">Sex</span> <span class="op">==</span> <span class="st">"F"</span><span class="op">)</span></span>
+<span><span class="va">Males</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">growth_data</span>, <span class="va">Sex</span> <span class="op">==</span> <span class="st">"M"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Estimate growth</span></span>
+<span><span class="va">Female_ests</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Estimate_Growth.html">Estimate_Growth</a></span><span class="op">(</span><span class="va">Females</span>,n.bootstraps <span class="op">=</span> <span class="fl">1000</span>, plots <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">Male_ests</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Estimate_Growth.html">Estimate_Growth</a></span><span class="op">(</span><span class="va">Males</span>, n.bootstraps <span class="op">=</span> <span class="fl">1000</span>,plots <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Combine data sets with a new variable designating sex</span></span>
+<span><span class="va">Female_LAA</span> <span class="op">&lt;-</span> <span class="va">Female_ests</span><span class="op">$</span><span class="va">Estimates</span></span>
+<span><span class="va">Female_LAA</span><span class="op">$</span><span class="va">Sex</span> <span class="op">&lt;-</span> <span class="st">"F"</span></span>
+<span></span>
+<span><span class="va">Male_LAA</span> <span class="op">&lt;-</span> <span class="va">Male_ests</span><span class="op">$</span><span class="va">Estimates</span></span>
+<span><span class="va">Male_LAA</span><span class="op">$</span><span class="va">Sex</span> <span class="op">&lt;-</span> <span class="st">"M"</span></span>
+<span></span>
+<span><span class="va">combined_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">Male_LAA</span>, <span class="va">Female_LAA</span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">combined_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Age</span>, y <span class="op">=</span> <span class="va">AVG</span>, fill <span class="op">=</span> <span class="va">Model</span>, col <span class="op">=</span> <span class="va">Model</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">Sex</span>, ncol <span class="op">=</span> <span class="fl">1</span>, scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">Males</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Age</span>, y <span class="op">=</span> <span class="va">Length</span>, fill <span class="op">=</span> <span class="cn">NULL</span>, col <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">.3</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">Females</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Age</span>, y <span class="op">=</span> <span class="va">Length</span>, fill <span class="op">=</span> <span class="cn">NULL</span>, col <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">.3</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html" class="external-link">geom_ribbon</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">low</span>, ymax <span class="op">=</span> <span class="va">upp</span>, col <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_continuous</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Length (mm)"</span>, limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">2500</span><span class="op">)</span>, expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_x_continuous</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Age (years)"</span>, limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">18</span><span class="op">)</span>, expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p><img src="Growth_estimation_files/figure-html/unnamed-chunk-20-1.png" width="576"></p>
 </div>
-<div id="combining-two-and-three-parameter-models" class="section level1">
-<h1 class="hasAnchor">
-<a href="#combining-two-and-three-parameter-models" class="anchor"></a>Combining two and three parameter models</h1>
-<p>It is common practice for fish species to fix <span class="math inline">\(L_{0}\)</span> as this parameter has a direct relation to length-at-birth (often zero for fish). This is done via a single argument <code>Birth.Len</code>. If this is unspecified then three parameter models are used. However, if <code>Birth.Len</code> is specified then two parameters are used with that value used to fix the <span class="math inline">\(L_{0}\)</span> parameter.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/Estimate_Growth.html">Estimate_Growth</a></span>(growth_data, <span class="dt">Birth.Len =</span> <span class="dv">600</span>)</code></pre></div>
-<p><img src="Growth_estimation_files/figure-html/unnamed-chunk-12-1.png" width="768"></p>
-<pre><code>#&gt; $VonB
-#&gt;         Parameter           SE
-#&gt; Linf 2350.0363602 37.543989813
-#&gt; k       0.1436146  0.005763834
-#&gt; RSE   100.4842123           NA
-#&gt; 
-#&gt; $Logistic
-#&gt;         Parameter           SE
-#&gt; Linf 2050.9793958 19.509968179
-#&gt; g       0.3807714  0.008422721
-#&gt; RSE   124.9385671           NA
-#&gt; 
-#&gt; $Gompertz
-#&gt;         Parameter           SE
-#&gt; Linf 2148.7053008 23.646000420
-#&gt; g       0.2542661  0.006791104
-#&gt; RSE   111.5420183           NA
-#&gt; 
-#&gt; $AIC
-#&gt;   Model    AICc AIC diff Weight
-#&gt; 1    VB 3549.09     0.00      1
-#&gt; 2   Log 3677.17   128.08      0
-#&gt; 3   Gom 3610.48    61.39      0</code></pre>
-<p>These can be plotted alongside there three parameter versions as well. Here is an example for the VBGF</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fit models</span>
-two_pars &lt;-<span class="st"> </span><span class="kw"><a href="../reference/Estimate_Growth.html">Estimate_Growth</a></span>(growth_data, <span class="dt">models =</span> <span class="st">"VB"</span>, <span class="dt">Birth.Len =</span> <span class="dv">600</span>, <span class="dt">plots =</span> <span class="ot">FALSE</span>)
-three_pars &lt;-<span class="st"> </span><span class="kw"><a href="../reference/Estimate_Growth.html">Estimate_Growth</a></span>(growth_data, <span class="dt">models =</span> <span class="st">"VB"</span>, <span class="dt">plots =</span> <span class="ot">FALSE</span>)
-
-<span class="co"># Change Model name to represent how many parameters they have</span>
-two_pars_Ests &lt;-<span class="st"> </span>two_pars<span class="op">$</span>Estimates
-two_pars_Ests<span class="op">$</span>Model &lt;-<span class="st"> "2 parameter VBGF"</span>
-
-three_pars_Ests &lt;-<span class="st"> </span>three_pars<span class="op">$</span>Estimates
-three_pars_Ests<span class="op">$</span>Model &lt;-<span class="st"> "3 parameter VBGF"</span>
-
-combined_data &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(two_pars_Ests, three_pars_Ests)
-
-<span class="kw">ggplot</span>(combined_data, <span class="kw">aes</span>(<span class="dt">x =</span> Age, <span class="dt">y =</span> AVG, <span class="dt">fill =</span> Model, <span class="dt">col =</span> Model)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> growth_data, <span class="kw">aes</span>(<span class="dt">x =</span> Age, <span class="dt">y =</span> Length, <span class="dt">fill =</span> <span class="ot">NULL</span>, <span class="dt">col =</span> <span class="ot">NULL</span>), <span class="dt">alpha =</span> .<span class="dv">3</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> low, <span class="dt">ymax =</span> upp, <span class="dt">col =</span> <span class="ot">NA</span>), <span class="dt">alpha =</span> <span class="fl">0.2</span>)<span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">size =</span> <span class="dv">1</span>)<span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">name =</span> <span class="st">"Length (mm)"</span>, <span class="dt">limits =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,<span class="dv">2500</span>), <span class="dt">expand =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,<span class="dv">0</span>))<span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">name =</span> <span class="st">"Age (years)"</span>, <span class="dt">limits =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,<span class="dv">18</span>), <span class="dt">expand =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>,<span class="dv">0</span>))<span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.8</span>, <span class="fl">0.2</span>))</code></pre></div>
-<p><img src="Growth_estimation_files/figure-html/unnamed-chunk-13-1.png" width="768"></p>
-<p>A two parameter model is demonstrated here for sharks as this is the data used in these examples. However, fixing growth parameters for sharks is less appropriate than techniques such as back-calculation. However, for fish species, length-at-bith is close to zero due to their larval life stage. Therefore, length-at-birth is commonly fixed at zero to represent this.</p>
+<div class="section level2">
+<h2 id="combining-two-and-three-parameter-models">Combining two and three parameter models<a class="anchor" aria-label="anchor" href="#combining-two-and-three-parameter-models"></a>
+</h2>
+<p>It is common practice for fish species to fix <span class="math inline">\(L_{0}\)</span> as this parameter has a direct
+relation to length-at-birth (often zero for fish). This is done via a
+single argument <code>Birth.Len</code>. If this is unspecified then
+three parameter models are used. However, if <code>Birth.Len</code> is
+specified then two parameters are used with that value used to fix the
+<span class="math inline">\(L_{0}\)</span> parameter.</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/Estimate_Growth.html">Estimate_Growth</a></span><span class="op">(</span><span class="va">growth_data</span>, Birth.Len <span class="op">=</span> <span class="fl">600</span><span class="op">)</span></span></code></pre></div>
+<p><img src="Growth_estimation_files/figure-html/unnamed-chunk-22-1.png" width="768"></p>
+<pre><code><span><span class="co">#&gt; $VonB</span></span>
+<span><span class="co">#&gt;         Parameter           SE</span></span>
+<span><span class="co">#&gt; Linf 2350.0363610 37.543989680</span></span>
+<span><span class="co">#&gt; k       0.1436146  0.005763834</span></span>
+<span><span class="co">#&gt; RSE   100.4842123           NA</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Logistic</span></span>
+<span><span class="co">#&gt;         Parameter           SE</span></span>
+<span><span class="co">#&gt; Linf 2050.9793943 19.509967669</span></span>
+<span><span class="co">#&gt; g       0.3807714  0.008422721</span></span>
+<span><span class="co">#&gt; RSE   124.9385671           NA</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Gompertz</span></span>
+<span><span class="co">#&gt;         Parameter           SE</span></span>
+<span><span class="co">#&gt; Linf 2148.7052984 23.646000895</span></span>
+<span><span class="co">#&gt; g       0.2542661  0.006791104</span></span>
+<span><span class="co">#&gt; RSE   111.5420183           NA</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $AIC</span></span>
+<span><span class="co">#&gt;   Model    AICc AIC diff Weight</span></span>
+<span><span class="co">#&gt; 1    VB 3549.09     0.00      1</span></span>
+<span><span class="co">#&gt; 2   Log 3677.17   128.08      0</span></span>
+<span><span class="co">#&gt; 3   Gom 3610.48    61.39      0</span></span></code></pre>
+<p>These can be plotted alongside there three parameter versions as
+well. Here is an example for the VBGF</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Fit models</span></span>
+<span><span class="va">two_pars</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Estimate_Growth.html">Estimate_Growth</a></span><span class="op">(</span><span class="va">growth_data</span>, models <span class="op">=</span> <span class="st">"VB"</span>, Birth.Len <span class="op">=</span> <span class="fl">600</span>, plots <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">three_pars</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Estimate_Growth.html">Estimate_Growth</a></span><span class="op">(</span><span class="va">growth_data</span>, models <span class="op">=</span> <span class="st">"VB"</span>, plots <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Change Model name to represent how many parameters they have</span></span>
+<span><span class="va">two_pars_Ests</span> <span class="op">&lt;-</span> <span class="va">two_pars</span><span class="op">$</span><span class="va">Estimates</span></span>
+<span><span class="va">two_pars_Ests</span><span class="op">$</span><span class="va">Model</span> <span class="op">&lt;-</span> <span class="st">"2 parameter VBGF"</span></span>
+<span></span>
+<span><span class="va">three_pars_Ests</span> <span class="op">&lt;-</span> <span class="va">three_pars</span><span class="op">$</span><span class="va">Estimates</span></span>
+<span><span class="va">three_pars_Ests</span><span class="op">$</span><span class="va">Model</span> <span class="op">&lt;-</span> <span class="st">"3 parameter VBGF"</span></span>
+<span></span>
+<span><span class="va">combined_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">two_pars_Ests</span>, <span class="va">three_pars_Ests</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">combined_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Age</span>, y <span class="op">=</span> <span class="va">AVG</span>, fill <span class="op">=</span> <span class="va">Model</span>, col <span class="op">=</span> <span class="va">Model</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">growth_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Age</span>, y <span class="op">=</span> <span class="va">Length</span>, fill <span class="op">=</span> <span class="cn">NULL</span>, col <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">.3</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html" class="external-link">geom_ribbon</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">low</span>, ymax <span class="op">=</span> <span class="va">upp</span>, col <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_continuous</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Length (mm)"</span>, limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">2500</span><span class="op">)</span>, expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_x_continuous</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"Age (years)"</span>, limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">18</span><span class="op">)</span>, expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.8</span>, <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="Growth_estimation_files/figure-html/unnamed-chunk-24-1.png" width="768"></p>
+<p>A two parameter model is demonstrated here for sharks as this is the
+data used in these examples. However, fixing growth parameters for
+sharks is less appropriate than techniques such as back-calculation.
+However, for fish species, length-at-birth is close to zero due to their
+larval life stage. Therefore, length-at-birth is commonly fixed at zero
+to represent this.</p>
 </div>
-<div id="correlation-matrices" class="section level1">
-<h1 class="hasAnchor">
-<a href="#correlation-matrices" class="anchor"></a>Correlation matrices</h1>
-<p>Each of the growth models fit in these analyses have a multivariate normal distribution. This means that each parameter has a normal distribution but are correlated to one another. Therefore, if you would like to use these parameters in simulation analyses, a correlation matrix is needed to include parameter values in the simulations. This is not an analysis that is included in this package. However, the ability to return the correlation matrix is included in the <code><a href="../reference/Estimate_Growth.html">Estimate_Growth()</a></code> function by using <code>correlation.matrix = TRUE</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/Estimate_Growth.html">Estimate_Growth</a></span>(growth_data, <span class="dt">correlation.matrix =</span> <span class="ot">TRUE</span>)
-<span class="co">#&gt; $VonB</span>
-<span class="co">#&gt;            Linf          k         L0</span>
-<span class="co">#&gt; Linf  1.0000000 -0.9617305  0.4476484</span>
-<span class="co">#&gt; k    -0.9617305  1.0000000 -0.5986417</span>
-<span class="co">#&gt; L0    0.4476484 -0.5986417  1.0000000</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $Logistic</span>
-<span class="co">#&gt;            Linf          g         L0</span>
-<span class="co">#&gt; Linf  1.0000000 -0.8190773  0.4284394</span>
-<span class="co">#&gt; g    -0.8190773  1.0000000 -0.7632670</span>
-<span class="co">#&gt; L0    0.4284394 -0.7632670  1.0000000</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $Gompertz</span>
-<span class="co">#&gt;            Linf          g         L0</span>
-<span class="co">#&gt; Linf  1.0000000 -0.8981026  0.4488018</span>
-<span class="co">#&gt; g    -0.8981026  1.0000000 -0.6991582</span>
-<span class="co">#&gt; L0    0.4488018 -0.6991582  1.0000000</span></code></pre></div>
-<p>Full details on these approaches can be found in: Smart, J. J., Chin, A. , Tobin, A. J. and Simpfendorfer, C. A. (2016) Multimodel approaches in shark and ray growth studies: strengths, weaknesses and the future. Fish and Fisheries, 17: 955-971.<a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/faf.12154" class="uri">https://onlinelibrary.wiley.com/doi/abs/10.1111/faf.12154</a> which should be cited if this package is used in a publication.</p>
+<div class="section level2">
+<h2 id="correlation-matrices">Correlation matrices<a class="anchor" aria-label="anchor" href="#correlation-matrices"></a>
+</h2>
+<p>Each of the growth models fit in these analyses have a multivariate
+normal distribution. This means that each parameter has a normal
+distribution but are correlated to one another. Therefore, if you would
+like to use these parameters in simulation analyses, a correlation
+matrix is needed to include parameter values in the simulations. This is
+not an analysis that is included in this package. However, the ability
+to return the correlation matrix is included in the
+<code><a href="../reference/Estimate_Growth.html">Estimate_Growth()</a></code> function by using
+<code>correlation.matrix = TRUE</code>.</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/Estimate_Growth.html">Estimate_Growth</a></span><span class="op">(</span><span class="va">growth_data</span>, correlation.matrix <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">#&gt; $VonB</span></span>
+<span><span class="co">#&gt;            Linf          k         L0</span></span>
+<span><span class="co">#&gt; Linf  1.0000000 -0.9617305  0.4476484</span></span>
+<span><span class="co">#&gt; k    -0.9617305  1.0000000 -0.5986417</span></span>
+<span><span class="co">#&gt; L0    0.4476484 -0.5986417  1.0000000</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Logistic</span></span>
+<span><span class="co">#&gt;            Linf          g         L0</span></span>
+<span><span class="co">#&gt; Linf  1.0000000 -0.8190773  0.4284394</span></span>
+<span><span class="co">#&gt; g    -0.8190773  1.0000000 -0.7632669</span></span>
+<span><span class="co">#&gt; L0    0.4284394 -0.7632669  1.0000000</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Gompertz</span></span>
+<span><span class="co">#&gt;            Linf          g         L0</span></span>
+<span><span class="co">#&gt; Linf  1.0000000 -0.8981026  0.4488018</span></span>
+<span><span class="co">#&gt; g    -0.8981026  1.0000000 -0.6991582</span></span>
+<span><span class="co">#&gt; L0    0.4488018 -0.6991582  1.0000000</span></span></code></pre>
+<p>Full details on these approaches can be found in: Smart, J. J., Chin,
+A. , Tobin, A. J. and Simpfendorfer, C. A. (2016) Multimodel approaches
+in shark and ray growth studies: strengths, weaknesses and the future.
+Fish and Fisheries, 17:
+955-971.https://onlinelibrary.wiley.com/doi/abs/10.1111/faf.12154 which
+should be cited if this package is used in a publication.</p>
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-        <div id="tocnav">
-      <h2 class="hasAnchor">
-<a href="#tocnav" class="anchor"></a>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-<li><a href="#citation">Citation</a></li>
-      <li><a href="#introduction">Introduction</a></li>
-      <li>
-<a href="#multi-model-growth-analysis-with-estimate_growth">Multi-model growth analysis with <code>Estimate_Growth()</code></a><ul class="nav nav-pills nav-stacked">
-<li><a href="#input-data">Input data</a></li>
-      <li><a href="#example-applications">Example applications</a></li>
-      <li><a href="#fitting-specific-models">Fitting specific models</a></li>
-      <li><a href="#plot-alterations">Plot alterations</a></li>
-      <li><a href="#returning-length-at-age-estimates">Returning length-at-age estimates</a></li>
-      </ul>
-</li>
-      <li><a href="#model-averaged-results-with-calculate_mmi">Model averaged results with <code>Calculate_MMI</code></a></li>
-      <li><a href="#sex-specific-growth-curves">Sex specific growth curves</a></li>
-      <li><a href="#combining-two-and-three-parameter-models">Combining two and three parameter models</a></li>
-      <li><a href="#correlation-matrices">Correlation matrices</a></li>
-      </ul>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
 </div>
-      </div>
 
 </div>
 
 
 
       <footer><div class="copyright">
-  <p>Developed by Jonathan Smart.</p>
+  <p></p>
+<p>Developed by Jonathan Smart.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
@@ -461,6 +571,8 @@ combined_data &lt;-<span class="st"> </span><span class="kw"><a href="https://rd
 
   
 
+
+  
 
   </body>
 </html>
