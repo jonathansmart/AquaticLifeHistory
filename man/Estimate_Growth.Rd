@@ -42,7 +42,8 @@ A multi-model growth estimation approach is applied to length-at-age data. Three
 # load example data set
 data("growth_data")
 # Run function with three default model candidates.
-# Model parameters, AIC values are returned and a plot with bootstrapped CI's is printed to examine fits.
+# Model parameters, AIC values are returned and a plot with bootstrapped
+# CI's is printed to examine fits.
 Estimate_Growth(growth_data)
 }
 \references{

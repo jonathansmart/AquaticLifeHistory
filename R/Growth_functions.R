@@ -17,7 +17,8 @@
 #' # load example data set
 #' data("growth_data")
 #' # Run function with three default model candidates.
-#' # Model parameters, AIC values are returned and a plot with bootstrapped CI's is printed to examine fits.
+#' # Model parameters, AIC values are returned and a plot with bootstrapped
+#' # CI's is printed to examine fits.
 #' Estimate_Growth(growth_data)
 #' @references Smart et al. (2016) Multi-model approaches in shark and ray growth studies: strengths, weaknesses and the future. Fish and Fisheries. 17: 955-971\url{https://onlinelibrary.wiley.com/doi/abs/10.1111/faf.12154}
 
@@ -522,7 +523,8 @@ Estimate_Growth<-function(data, models = c("VB", "Log", "Gom"),  Birth.Len = NUL
 #' @examples
 #' # load example data set
 #' data("growth_data")
-#' # Run function with three default model candidates and return resuts without plots.
+#' # Run function with three default model candidates and return results
+#' # without plots.
 #' models <- Estimate_Growth(growth_data, plots = FALSE)
 #' Calculate_MMI(models)
 #' @references Smart et al. (2016) Multi model approaches in shark and ray growth studies: strengths, weaknesses and the future. Fish and Fisheries. 17: 955-971\url{https://onlinelibrary.wiley.com/doi/abs/10.1111/faf.12154}

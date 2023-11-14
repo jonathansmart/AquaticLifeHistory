@@ -18,7 +18,8 @@ A list with model averaged parameters and a dataframe of model averaged length-a
 \examples{
 # load example data set
 data("growth_data")
-# Run function with three default model candidates and return resuts without plots.
+# Run function with three default model candidates and return results
+# without plots.
 models <- Estimate_Growth(growth_data, plots = FALSE)
 Calculate_MMI(models)
 }
