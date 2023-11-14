@@ -1,7 +1,7 @@
 Package: AquaticLifeHistory
 Type: Package
 Title: Life History Analysis Tools
-Version: 1.0.4
+Version: 1.0.5
 Date: 2023-11-09
 Authors@R: person("Jonathan", "Smart", 
     email = "jonsmartphd@gmail.com", 
