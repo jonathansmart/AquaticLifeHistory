@@ -39,12 +39,14 @@ Returns a list of parameter estimates with errors and AIC results. If plots is T
 A multi-model growth estimation approach is applied to length-at-age data. Three models can be applied which include the von Bertalanffy (VB), logistic (Log) and Gompertz (Gom) models. AIC values and weights are calculated. The outputs will return a list of model parameter estimates and will either print a plot to the screen or output the length-at-age estimates as part of the list.Use of this function should cite Smart et al. (2016).
 }
 \examples{
+\dontrun{
 # load example data set
 data("growth_data")
 # Run function with three default model candidates.
 # Model parameters, AIC values are returned and a plot with bootstrapped
 # CI's is printed to examine fits.
 Estimate_Growth(growth_data)
+}
 }
 \references{
 Smart et al. (2016) Multi-model approaches in shark and ray growth studies: strengths, weaknesses and the future. Fish and Fisheries. 17: 955-971\url{https://onlinelibrary.wiley.com/doi/abs/10.1111/faf.12154}
