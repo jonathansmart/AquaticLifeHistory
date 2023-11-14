@@ -25,6 +25,13 @@
 #' @importFrom magrittr %>%
 #' @importFrom MASS dose.p
 #' @importFrom stats glm lm nls nls.control predict quantile
+#' @examples
+#' # load example data set
+#' data("maturity_data")
+#' # Run function to estimate age-at-maturity parameters
+#' Estimate_Age_Maturity(maturity_data)
+#' # A plot can also be returned with bootstrapped CI's.
+#' Estimate_Age_Maturity(maturity_data, return = "plot")
 #' @export
 #'
 Estimate_Age_Maturity <- function(data, error.structure = "binomial", n.bootstraps = 1000, display.points = FALSE,  return = "parameters"){
@@ -74,8 +81,8 @@ Estimate_Age_Maturity <- function(data, error.structure = "binomial", n.bootstra
                              predict(data.frame(Age=new$Age),type="response") %>% cbind(Age = new$Age, Pred =.) %>% as.data.frame(),
              warning=function(w){data.frame(Age = new$Age, Pred = NA)}))
 
-    boot_ests <- boot_maturity %>% dplyr::group_by(Age) %>% dplyr::summarize(high=quantile(Pred, 0.025, na.rm = T),
-                                                               low=quantile(Pred, 0.975, na.rm = T))
+    boot_ests <- boot_maturity %>% dplyr::group_by(Age) %>% dplyr::summarize(high=quantile(Pred, 0.025, na.rm = TRUE),
+                                                               low=quantile(Pred, 0.975, na.rm = TRUE))
 
     results <- cbind(boot_ests, Estimate = preddat$fit) %>%  dplyr::select(Age, Estimate, high,low)
 
@@ -86,7 +93,7 @@ Estimate_Age_Maturity <- function(data, error.structure = "binomial", n.bootstra
       scale_y_continuous(name = "Proportion mature",  limits = c(0,1), breaks = seq(0,1,.2), expand = c(0,0)) +
       scale_x_continuous(name = "Age (years)", expand = c(0,0),breaks = seq(0,ceiling(max(processed_data$Age)),1))+
       theme_bw()
-    if(display.points == T){
+    if(display.points == TRUE){
       p <- suppressMessages(p + geom_point(data = processed_data, aes(Age, Maturity), alpha = .3, size = 2)+
                               scale_y_continuous(name = "Proportion mature",  limits = c(0,1), breaks = seq(0,1,.2)))
 
@@ -120,8 +127,8 @@ Estimate_Age_Maturity <- function(data, error.structure = "binomial", n.bootstra
                              predict(data.frame(Age=new$Age),type="response") %>% cbind(Age = new$Age, Pred =.) %>% as.data.frame(),
                            warning=function(w){data.frame(Age = new$Age, Pred = NA)}))
 
-    boot_ests <- boot_maturity %>% dplyr::group_by(Age) %>% dplyr::summarize(high=quantile(Pred, 0.025, na.rm = T),
-                                                                             low=quantile(Pred, 0.975, na.rm = T))
+    boot_ests <- boot_maturity %>% dplyr::group_by(Age) %>% dplyr::summarize(high=quantile(Pred, 0.025, na.rm = TRUE),
+                                                                             low=quantile(Pred, 0.975, na.rm = TRUE))
 
     results <- cbind(boot_ests, Estimate = preddat$fit) %>% dplyr::select(Age, Estimate, high,low)
 
@@ -132,9 +139,9 @@ Estimate_Age_Maturity <- function(data, error.structure = "binomial", n.bootstra
                aes(Age + 0.5, prop, fill = Maturity.group), col = "black", stat="identity", width = 1) +
       geom_ribbon(aes(ymin = low, ymax = high), col = "royalblue", fill = "lightblue", alpha = .6)+
       geom_line(size = 2, col = "royalblue") +
-      geom_text(data = weighted_data , inherit.aes = F ,aes(Age + 0.5, y = 1.05, label = N))+
+      geom_text(data = weighted_data , inherit.aes = FALSE ,aes(Age + 0.5, y = 1.05, label = N))+
       geom_point(aes(A50[1], 0.5), col = 'black', size = 4)+
-      scale_fill_manual(values=c("light grey", "grey"), guide = F)+
+      scale_fill_manual(values=c("light grey", "grey"), guide = "none")+
 
       scale_y_continuous(name = "Proportion mature",  limits = c(0,1.1), expand = c(0,0), breaks = seq(0,1,.2)) +
       scale_x_continuous(name = "Age (years)", expand = c(0,0), breaks = seq(0,ceiling(max(processed_data$Age)),1))+
@@ -178,6 +185,13 @@ Estimate_Age_Maturity <- function(data, error.structure = "binomial", n.bootstra
 #' @importFrom magrittr %>%
 #' @importFrom MASS dose.p
 #' @importFrom stats glm lm nls nls.control predict quantile
+#' @examples
+#' # load example data set
+#' data("maturity_data")
+#' # Run function to estimate length-at-maturity parameters
+#' Estimate_Len_Maturity(maturity_data)
+#' # A plot can also be returned with bootstrapped CI's.
+#' Estimate_Len_Maturity(maturity_data, return = "plot")
 #' @export
 
 
@@ -241,8 +255,8 @@ Estimate_Len_Maturity <- function(data, error.structure = "binomial", n.bootstra
         )
 
 
-    boot_ests <- boot_maturity %>% dplyr::group_by(Length) %>% dplyr::summarize(high=quantile(Pred, 0.025, na.rm = T),
-                                                                  low=quantile(Pred, 0.975, na.rm = T))
+    boot_ests <- boot_maturity %>% dplyr::group_by(Length) %>% dplyr::summarize(high=quantile(Pred, 0.025, na.rm = TRUE),
+                                                                  low=quantile(Pred, 0.975, na.rm = TRUE))
 
     results <- cbind(boot_ests, Estimate = preddat$fit) %>% dplyr::select(Length, Estimate, high,low)
 
@@ -253,7 +267,7 @@ Estimate_Len_Maturity <- function(data, error.structure = "binomial", n.bootstra
       scale_y_continuous(name = "Proportion mature",  limits = c(0,1), breaks = seq(0,1,.2), expand = c(0,0)) +
       scale_x_continuous(name = "Length (cm)",limits =c(min(processed_data$Length)*.8,max(processed_data$Length)*1.1), expand = c(0,0))+
       theme_bw()
-    if(display.points == T){
+    if(display.points == TRUE){
       p <- suppressMessages(p + geom_point(data = processed_data, aes(Length, Maturity), alpha = .3, size = 2)+
                               scale_y_continuous(name = "Proportion mature",  limits = c(0,1), breaks = seq(0,1,.2)))
     }
@@ -267,7 +281,7 @@ Estimate_Len_Maturity <- function(data, error.structure = "binomial", n.bootstra
   if(error.structure == "quasibinomial"){
     if(max(processed_data$Length) < 500){
     weighted_data <- processed_data %>% dplyr::mutate(Len.bin = cut(Length, breaks = seq(0, max(Length)+bin.width, bin.width))) %>%
-      tidyr::separate(Len.bin, into = c("Len.start","Len.fin"), sep = ",", remove = F) %>%
+      tidyr::separate(Len.bin, into = c("Len.start","Len.fin"), sep = ",", remove = FALSE) %>%
       dplyr::mutate(Length = as.numeric(readr::parse_number(Len.start)),
              Len.bin = paste(readr::parse_number(Len.start), readr::parse_number(Len.fin), sep = "-")) %>%
       dplyr::group_by(Length, Len.bin) %>%
@@ -275,7 +289,7 @@ Estimate_Len_Maturity <- function(data, error.structure = "binomial", n.bootstra
     }else{
       weighted_data <- processed_data %>% dplyr::mutate( Length = Length/10,
                                                   Len.bin = cut(Length, breaks = seq(0, max(Length)+bin.width, bin.width/10))) %>%
-        tidyr::separate(Len.bin, into = c("Len.start","Len.fin"), sep = ",", remove = F) %>%
+        tidyr::separate(Len.bin, into = c("Len.start","Len.fin"), sep = ",", remove = FALSE) %>%
         dplyr::mutate(Length = as.numeric(readr::parse_number(Len.start))*10,
                Len.bin = paste(readr::parse_number(Len.start)*10, readr::parse_number(Len.fin)*10, sep = "-")) %>%
         dplyr::group_by(Length, Len.bin) %>%
@@ -306,7 +320,7 @@ Estimate_Len_Maturity <- function(data, error.structure = "binomial", n.bootstra
 
       boot_maturity <-  processed_data %>% boot_data(n.bootstraps) %>%
         dplyr::do( tryCatch(dplyr::mutate(.,Len.bin = cut(Length, breaks = seq(0, max(Length)+bin.width, bin.width))) %>%
-                              tidyr::separate(Len.bin, into = c("Len.start","Len.fin"), sep = ",", remove = F) %>%
+                              tidyr::separate(Len.bin, into = c("Len.start","Len.fin"), sep = ",", remove = FALSE) %>%
                               dplyr::mutate(Length = as.numeric(readr::parse_number(Len.start)),
                                             Len.bin = paste(readr::parse_number(Len.start), readr::parse_number(Len.fin), sep = "-")) %>%
                               dplyr::group_by(Length, Len.bin) %>%
@@ -321,7 +335,7 @@ Estimate_Len_Maturity <- function(data, error.structure = "binomial", n.bootstra
         dplyr::do(tryCatch(dplyr::mutate(.,
                                          Length = Length/10,
                                          Len.bin = cut(Length, breaks = seq(0, max(Length)+bin.width, bin.width/10))) %>%
-                             tidyr::separate(Len.bin, into = c("Len.start","Len.fin"), sep = ",", remove = F) %>%
+                             tidyr::separate(Len.bin, into = c("Len.start","Len.fin"), sep = ",", remove = FALSE) %>%
                              dplyr::mutate(Length = as.numeric(readr::parse_number(Len.start))*10,
                                            Len.bin = paste(readr::parse_number(Len.start)*10, readr::parse_number(Len.fin)*10, sep = "-")) %>%
                              dplyr::group_by(Length, Len.bin) %>%
@@ -335,8 +349,8 @@ Estimate_Len_Maturity <- function(data, error.structure = "binomial", n.bootstra
 
     }
 
-    boot_ests <- boot_maturity %>% dplyr::group_by(Length) %>% dplyr::summarize(high=quantile(Pred, 0.025, na.rm = T),
-                                                                                low=quantile(Pred, 0.975, na.rm = T))
+    boot_ests <- boot_maturity %>% dplyr::group_by(Length) %>% dplyr::summarize(high=quantile(Pred, 0.025, na.rm = TRUE),
+                                                                                low=quantile(Pred, 0.975, na.rm = TRUE))
     results <- cbind(boot_ests, Estimate = preddat$fit) %>% dplyr::select(Length, Estimate, high,low)
 
     p <- ggplot(results, aes(x = Length, y = Estimate)) +
@@ -345,10 +359,10 @@ Estimate_Len_Maturity <- function(data, error.structure = "binomial", n.bootstra
                aes(Length, prop, fill = Maturity.group), col = "black", stat="identity", width = bin.width) +
       geom_ribbon(aes(ymin = low, ymax = high), col = "royalblue", fill = "lightblue", alpha = .6)+
       geom_line(size = 2, col = "royalblue") +
-      geom_text(data = weighted_data , inherit.aes = F ,aes(Length, y = 1.1, label = N))+
-      geom_text(data = weighted_data , inherit.aes = F ,aes(Length, y = 1.05, label = Len.bin))+
+      geom_text(data = weighted_data , inherit.aes = FALSE ,aes(Length, y = 1.1, label = N))+
+      geom_text(data = weighted_data , inherit.aes = FALSE ,aes(Length, y = 1.05, label = Len.bin))+
       geom_point(aes(L50[1], 0.5), col = 'black', size = 4)+
-      scale_fill_manual(values=c("light grey", "grey"), guide = F)+
+      scale_fill_manual(values=c("light grey", "grey"), guide = "none")+
       scale_y_continuous(name = "Proportion mature",  limits = c(0,1.15), expand = c(0,0), breaks = c(seq(0,1,.2),1.05,1.1),
                          labels = c(seq(0,1,.2), "Length bin", "n")) +
       scale_x_continuous(name = "Length (cm)",

@@ -13,11 +13,17 @@
 #' @importFrom magrittr %>%
 #' @importFrom stats glm lm nls nls.control predict quantile na.omit
 #' @export
+#' @examples
+#' # load example data set
+#' data("growth_data")
+#' # Run function with three default model candidates.
+#' # Model parameters, AIC values are returned and a plot with bootstrapped CI's is printed to examine fits.
+#' Estimate_Growth(growth_data)
 #' @references Smart et al. (2016) Multi-model approaches in shark and ray growth studies: strengths, weaknesses and the future. Fish and Fisheries. 17: 955-971\url{https://onlinelibrary.wiley.com/doi/abs/10.1111/faf.12154}
 
-Estimate_Growth<-function(data, models = c("VB", "Log", "Gom"),  Birth.Len = NULL, correlation.matrix = FALSE, n.bootstraps = 1000, plots = T,
+Estimate_Growth<-function(data, models = c("VB", "Log", "Gom"),  Birth.Len = NULL, correlation.matrix = FALSE, n.bootstraps = 1000, plots = TRUE,
                           Max.Age = NULL,
-                          plot.legend = T){
+                          plot.legend = TRUE){
 
   if(!any(models %in% c("VB", "Log", "Gom"))) {stop("Models an only be 'VB', 'Log', 'Gom' or a combination of these")}
 
@@ -40,7 +46,7 @@ Estimate_Growth<-function(data, models = c("VB", "Log", "Gom"),  Birth.Len = NUL
 
   Data <- stats::na.omit(Data)# remove NA's
 
-  mean.age<-tapply(Data$Length, round(Data$Age), mean,na.rm = T)
+  mean.age<-tapply(Data$Length, round(Data$Age), mean,na.rm = TRUE)
   Lt1<-mean.age[2:length(mean.age)]
   Lt<-mean.age[1:length(mean.age)-1]
   model<-lm(Lt1 ~ Lt)
@@ -477,7 +483,7 @@ Estimate_Growth<-function(data, models = c("VB", "Log", "Gom"),  Birth.Len = NUL
     Estimates <- suppressWarnings(bind_rows(Estimates, Gom_Estimates))
   }
 
-  if(plots == T){
+  if(plots == TRUE){
 
     max_len <- ifelse(max(Data$Length) > 500, "(mm)", "(cm)")
     p <- ggplot(Estimates, aes(Age, AVG, col = Model, fill = Model))+
@@ -490,7 +496,7 @@ Estimate_Growth<-function(data, models = c("VB", "Log", "Gom"),  Birth.Len = NUL
       theme(legend.position = c(0.8,0.2),
             legend.background = element_rect(colour = "black"),
             panel.grid.minor = element_blank())
-    if(plot.legend == F){ p <- p + guides(col = "none", fill = "none")}
+    if(plot.legend == FALSE){ p <- p + guides(col = "none", fill = "none")}
 
     print(p)
 
@@ -513,6 +519,12 @@ Estimate_Growth<-function(data, models = c("VB", "Log", "Gom"),  Birth.Len = NUL
 #' @importFrom magrittr %>%
 #' @importFrom plyr ldply
 #' @importFrom stats glm lm nls nls.control predict quantile
+#' @examples
+#' # load example data set
+#' data("growth_data")
+#' # Run function with three default model candidates and return resuts without plots.
+#' models <- Estimate_Growth(growth_data, plots = FALSE)
+#' Calculate_MMI(models)
 #' @references Smart et al. (2016) Multi model approaches in shark and ray growth studies: strengths, weaknesses and the future. Fish and Fisheries. 17: 955-971\url{https://onlinelibrary.wiley.com/doi/abs/10.1111/faf.12154}
 
 

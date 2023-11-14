@@ -46,3 +46,11 @@ Two options are available depending on error structure. If binary data are used 
 error structure is required. If the user wishes to bin the data by length class then a quasi binomial error
 structure is needed with the data weighted by the sample size of each bin. This is handled automatically by the function.
 }
+\examples{
+# load example data set
+data("maturity_data")
+# Run function to estimate length-at-maturity parameters
+Estimate_Len_Maturity(maturity_data)
+# A plot can also be returned with bootstrapped CI's.
+Estimate_Len_Maturity(maturity_data, return = "plot")
+}

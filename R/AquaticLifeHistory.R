@@ -1,9 +1,19 @@
-#' AquaticLifeHistory
+#' Introduction to AquaticLifeHistory
 #'
 #' @name AquaticLifeHistory
 #' @author Jonathan Smart
-#' @description A package to estimate life histories of aquatic species using robust techniques.
+#' @description Estimate aquatic species life history using robust techniques.
+#' This package supports users undertaking two types of analysis: 1) Growth from
+#' length-at-age data, and 2) maturity analyses for length and/or age data.
+#'
+#' Maturity analyses are performed using generalised linear model approaches incorporating
+#' either a binomial or quasibinomial distribution.
+#'
+#' Growth modelling is performed using the multimodel approach presented by
+#' Smart et al. (2016) "Multimodel approaches in shark and ray growth studies:
+#' strengths, weaknesses and the future" <doi:10.1111/faf.12154>.
 #' @docType package
+#' @references To cite the AquaticLifeHistory package in publications, type citation('AquaticLifeHistory').
 NULL
 
 utils::globalVariables(c("Age", "Pred", "Model", "AVG", "w.AVG", ".", "Estimate", 'high', "low",

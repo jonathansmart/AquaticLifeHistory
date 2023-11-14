@@ -42,3 +42,11 @@ Two options are available depending on error structure. If binary data are used 
 error structure is required. If the user wishes to bin the data by age class then a quasi binomial error
 structure is needed with the data weighted by the sample size of each bin. This is handled automatically by the function.
 }
+\examples{
+# load example data set
+data("maturity_data")
+# Run function to estimate age-at-maturity parameters
+Estimate_Age_Maturity(maturity_data)
+# A plot can also be returned with bootstrapped CI's.
+Estimate_Age_Maturity(maturity_data, return = "plot")
+}
