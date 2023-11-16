@@ -26,14 +26,13 @@
 #' @importFrom MASS dose.p
 #' @importFrom stats glm lm nls nls.control predict quantile
 #' @examples
-#' \dontrun{
 #' # load example data set
 #' data("maturity_data")
 #' # Run function to estimate age-at-maturity parameters
 #' Estimate_Age_Maturity(maturity_data)
-#' # A plot can also be returned with bootstrapped CI's.
-#' Estimate_Age_Maturity(maturity_data, return = "plot")
-#' }
+#' # A plot can also be returned with bootstrapped CI's.  Use 100 bootstraps for
+#' # testing and then increase to at least 1000 for actual model runs.
+#' Estimate_Age_Maturity(maturity_data, return = "plot",n.bootstraps = 100)
 #' @export
 #'
 Estimate_Age_Maturity <- function(data, error.structure = "binomial", n.bootstraps = 1000, display.points = FALSE,  return = "parameters"){
@@ -188,13 +187,14 @@ Estimate_Age_Maturity <- function(data, error.structure = "binomial", n.bootstra
 #' @importFrom MASS dose.p
 #' @importFrom stats glm lm nls nls.control predict quantile
 #' @examples
-#' \dontrun{
 #' # load example data set
+#' \donttest{
 #' data("maturity_data")
 #' # Run function to estimate length-at-maturity parameters
 #' Estimate_Len_Maturity(maturity_data)
-#' # A plot can also be returned with bootstrapped CI's.
-#' Estimate_Len_Maturity(maturity_data, return = "plot")
+#' # A plot can also be returned with bootstrapped CI's. Use 100 bootstraps for
+#' # testing and then increase to at least 1000 for actual model runs.
+#' Estimate_Len_Maturity(maturity_data, return = "plot",n.bootstraps = 100)
 #' }
 #' @export
 

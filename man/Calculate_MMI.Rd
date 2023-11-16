@@ -16,14 +16,14 @@ A list with model averaged parameters and a dataframe of model averaged length-a
 `Calculate_MMI` takes the outputs from an `Estimate_Growth` function with plots = FALSE and returns the calculated model averaged parameters, SE and estimates based on AIC scores. It should be used if no candidate model has an AIC weight higher than 0.9. Use of this function should cite Smart et al (2016)
 }
 \examples{
-\dontrun{
 # load example data set
 data("growth_data")
 # Run function with three default model candidates and return results
-# without plots.
-models <- Estimate_Growth(growth_data, plots = FALSE)
+# without plots. Use 100 bootstraps for testing and then increase to at
+# least 1000 for actual model runs.
+models <- Estimate_Growth(growth_data, plots = FALSE,  n.bootstraps = 100)
+# Calculate the model average of the resulting growth estimates
 Calculate_MMI(models)
-}
 }
 \references{
 Smart et al. (2016) Multi model approaches in shark and ray growth studies: strengths, weaknesses and the future. Fish and Fisheries. 17: 955-971\url{https://onlinelibrary.wiley.com/doi/abs/10.1111/faf.12154}

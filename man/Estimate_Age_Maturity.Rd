@@ -43,12 +43,11 @@ error structure is required. If the user wishes to bin the data by age class the
 structure is needed with the data weighted by the sample size of each bin. This is handled automatically by the function.
 }
 \examples{
-\dontrun{
 # load example data set
 data("maturity_data")
 # Run function to estimate age-at-maturity parameters
 Estimate_Age_Maturity(maturity_data)
-# A plot can also be returned with bootstrapped CI's.
-Estimate_Age_Maturity(maturity_data, return = "plot")
-}
+# A plot can also be returned with bootstrapped CI's.  Use 100 bootstraps for
+# testing and then increase to at least 1000 for actual model runs.
+Estimate_Age_Maturity(maturity_data, return = "plot",n.bootstraps = 100)
 }

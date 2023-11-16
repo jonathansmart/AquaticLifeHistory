@@ -47,12 +47,13 @@ error structure is required. If the user wishes to bin the data by length class 
 structure is needed with the data weighted by the sample size of each bin. This is handled automatically by the function.
 }
 \examples{
-\dontrun{
 # load example data set
+\donttest{
 data("maturity_data")
 # Run function to estimate length-at-maturity parameters
 Estimate_Len_Maturity(maturity_data)
-# A plot can also be returned with bootstrapped CI's.
-Estimate_Len_Maturity(maturity_data, return = "plot")
+# A plot can also be returned with bootstrapped CI's. Use 100 bootstraps for
+# testing and then increase to at least 1000 for actual model runs.
+Estimate_Len_Maturity(maturity_data, return = "plot",n.bootstraps = 100)
 }
 }

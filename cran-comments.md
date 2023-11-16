@@ -1,15 +1,12 @@
 ## Resubmission
 This is a resubmission. In this version I have:
 
-* Set examples to \dontrun to avoid elapsed time greater than what is allowed
+* Removed \dontrun from most function examples and reduced their runtime through
+fewer bootstraps. 
 
-* Checked potentially misspelt words and links in the DESCRIPTION file. All are correct.
+* The Estimate_Len_Maturity() function has been wrapped with \donttest{} as this 
+function cannot be run in < 5 sec with the example data.
 
-* Added details to the description section of the DESCRIPTION file, including references.
-
-* Used TRUE and FALSE  instead of T and F in package functions
-
-* Added examples  to each function.
   
 ## R CMD check results
 
