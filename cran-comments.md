@@ -7,6 +7,12 @@ fewer bootstraps.
 * The Estimate_Len_Maturity() function has been wrapped with \donttest{} as this 
 function cannot be run in < 5 sec with the example data.
 
+* Checked potentially misspelt words and links in the DESCRIPTION file. All are 
+correct.
+
+* (possibly) invalid URLs detected by rhub::check_for_cran are valid and can be 
+accessed.
+
   
 ## R CMD check results
 
