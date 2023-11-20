@@ -17,6 +17,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![DOI](https://zenodo.org/badge/223704049.svg)](https://zenodo.org/badge/latestdoi/223704049)
 [![R-CMD-check](https://github.com/jonathansmart/AquaticLifeHistory/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/jonathansmart/AquaticLifeHistory/actions/workflows/R-CMD-check.yaml)
+[![CRAN status](https://www.r-pkg.org/badges/version/AquaticLifeHistory)](https://CRAN.R-project.org/package=AquaticLifeHistory)
 <!-- badges: end -->
 
 AquaticLifeHistory allows users to undertake fisheries life history analyses using contemporary approaches as simple R functions. These analyses currently include length-at-age modelling using a multi-model approach, estimating age-at-maturity and length-at-maturity. The main package functions are:
@@ -27,13 +28,18 @@ AquaticLifeHistory allows users to undertake fisheries life history analyses usi
 
 ## Installation
 
-You can install the released version of AquaticLifeHistory from [Github](https://github.com/jonathansmart/AquaticLifeHistory) with:
+You can install the latest released version from CRAN with:
+```{r Cran-installation, eval = FALSE}
+install.packages("AquaticLifeHistory")
+```
 
+You can install the development version of AquaticLifeHistory from [Github](https://github.com/jonathansmart/AquaticLifeHistory) with:
 
 ```{r gh-installation, eval = FALSE}
 # install.packages("devtools")
 devtools::install_github("jonathansmart/AquaticLifeHistory")
 ```
+
 
 ## Usage
 

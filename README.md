@@ -7,6 +7,8 @@
 
 [![DOI](https://zenodo.org/badge/223704049.svg)](https://zenodo.org/badge/latestdoi/223704049)
 [![R-CMD-check](https://github.com/jonathansmart/AquaticLifeHistory/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/jonathansmart/AquaticLifeHistory/actions/workflows/R-CMD-check.yaml)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/AquaticLifeHistory)](https://CRAN.R-project.org/package=AquaticLifeHistory)
 <!-- badges: end -->
 
 AquaticLifeHistory allows users to undertake fisheries life history
@@ -24,7 +26,13 @@ package functions are:
 
 ## Installation
 
-You can install the released version of AquaticLifeHistory from
+You can install the latest released version from CRAN with:
+
+``` r
+install.packages("AquaticLifeHistory")
+```
+
+You can install the development version of AquaticLifeHistory from
 [Github](https://github.com/jonathansmart/AquaticLifeHistory) with:
 
 ``` r
