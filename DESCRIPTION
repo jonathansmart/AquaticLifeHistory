@@ -35,5 +35,5 @@ License: GPL-3
 Suggests: knitr,
     rmarkdown
 VignetteBuilder: knitr
-URL: https://github.com/jonathansmart/AquaticLifeHistory
+URL: https://github.com/jonathansmart/AquaticLifeHistory, https://jonathansmart.github.io/AquaticLifeHistory/
 BugReports: https://github.com/jonathansmart/AquaticLifeHistory/issues
