@@ -18,7 +18,7 @@ NULL
 
 utils::globalVariables(c("Age", "Pred", "Model", "AVG", "w.AVG", ".", "Estimate", 'high', "low",
                          'Maturity', 'N', 'Maturity.prop','Maturity.group', 'prop', 'na.omit',
-                         'term', 'Length', 'upp', 'Len.bin', 'Len.start', 'Len.fin', 'Maturity.group'))
+                         'term', 'Length', 'upp', 'Len.bin', 'Len.start', 'Len.fin', 'Maturity.group', 'id'))
 
 #' Length-at-age data for blacktip sharks
 #'
