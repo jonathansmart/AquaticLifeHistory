@@ -1,8 +1,10 @@
 ## Resubmission
 This is a resubmission. In this version I have:
 
-* Fixed compatibility with dplyr 1.2.0 by removing dependency on defunct 
-  dplyr::id() function (or by declaring "id" as global variable)
+* Updated the Date field in DESCRIPTION to reflect the current submission date
+
+This is a maintenance release to ensure compatibility with the upcoming 
+dplyr 1.2.0 release (scheduled for January 31, 2026).
 
   
 ## R CMD check results
